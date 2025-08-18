@@ -2,7 +2,6 @@ export type KanaCharacter = {
   id: string
   character: string
   romanji: string
-  pronunciation: string
   type: "hiragana" | "katakana"
   category: string
 }

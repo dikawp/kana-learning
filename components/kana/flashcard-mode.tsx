@@ -47,7 +47,6 @@ export function FlashcardMode({ filteredKana, onMarkAsLearned }: FlashcardModePr
           {showAnswer && (
             <div className="space-y-2">
               <div className="text-2xl font-semibold text-foreground">{currentKana?.romanji}</div>
-              <div className="text-lg text-muted-foreground">{currentKana?.pronunciation}</div>
               <Badge variant="outline">
                 {currentKana?.type} - {currentKana?.category}
               </Badge>

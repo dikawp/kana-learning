@@ -1,39 +1,37 @@
 export const kanaData = [
   // Hiragana - Basic Vowels
-  { id: "h-a", character: "あ", romanji: "a", pronunciation: "ah", type: "hiragana" as const, category: "vowels" },
-  { id: "h-i", character: "い", romanji: "i", pronunciation: "ee", type: "hiragana" as const, category: "vowels" },
-  { id: "h-u", character: "う", romanji: "u", pronunciation: "oo", type: "hiragana" as const, category: "vowels" },
-  { id: "h-e", character: "え", romanji: "e", pronunciation: "eh", type: "hiragana" as const, category: "vowels" },
-  { id: "h-o", character: "お", romanji: "o", pronunciation: "oh", type: "hiragana" as const, category: "vowels" },
+  { id: "h-a", character: "あ", romanji: "a", type: "hiragana" as const, category: "vowels" },
+  { id: "h-i", character: "い", romanji: "i", type: "hiragana" as const, category: "vowels" },
+  { id: "h-u", character: "う", romanji: "u", type: "hiragana" as const, category: "vowels" },
+  { id: "h-e", character: "え", romanji: "e", type: "hiragana" as const, category: "vowels" },
+  { id: "h-o", character: "お", romanji: "o", type: "hiragana" as const, category: "vowels" },
 
   // Hiragana - K sounds
-  { id: "h-ka", character: "か", romanji: "ka", pronunciation: "kah", type: "hiragana" as const, category: "k-sounds" },
-  { id: "h-ki", character: "き", romanji: "ki", pronunciation: "kee", type: "hiragana" as const, category: "k-sounds" },
-  { id: "h-ku", character: "く", romanji: "ku", pronunciation: "koo", type: "hiragana" as const, category: "k-sounds" },
-  { id: "h-ke", character: "け", romanji: "ke", pronunciation: "keh", type: "hiragana" as const, category: "k-sounds" },
-  { id: "h-ko", character: "こ", romanji: "ko", pronunciation: "koh", type: "hiragana" as const, category: "k-sounds" },
+  { id: "h-ka", character: "か", romanji: "ka", type: "hiragana" as const, category: "k-sounds" },
+  { id: "h-ki", character: "き", romanji: "ki", type: "hiragana" as const, category: "k-sounds" },
+  { id: "h-ku", character: "く", romanji: "ku", type: "hiragana" as const, category: "k-sounds" },
+  { id: "h-ke", character: "け", romanji: "ke", type: "hiragana" as const, category: "k-sounds" },
+  { id: "h-ko", character: "こ", romanji: "ko", type: "hiragana" as const, category: "k-sounds" },
 
   // Hiragana - S sounds
-  { id: "h-sa", character: "さ", romanji: "sa", pronunciation: "sah", type: "hiragana" as const, category: "s-sounds" },
+  { id: "h-sa", character: "さ", romanji: "sa", type: "hiragana" as const, category: "s-sounds" },
   {
     id: "h-shi",
     character: "し",
     romanji: "shi",
-    pronunciation: "shee",
     type: "hiragana" as const,
     category: "s-sounds",
   },
-  { id: "h-su", character: "す", romanji: "su", pronunciation: "soo", type: "hiragana" as const, category: "s-sounds" },
-  { id: "h-se", character: "せ", romanji: "se", pronunciation: "seh", type: "hiragana" as const, category: "s-sounds" },
-  { id: "h-so", character: "そ", romanji: "so", pronunciation: "soh", type: "hiragana" as const, category: "s-sounds" },
+  { id: "h-su", character: "す", romanji: "su", type: "hiragana" as const, category: "s-sounds" },
+  { id: "h-se", character: "せ", romanji: "se", type: "hiragana" as const, category: "s-sounds" },
+  { id: "h-so", character: "そ", romanji: "so", type: "hiragana" as const, category: "s-sounds" },
 
   // Hiragana - T sounds
-  { id: "h-ta", character: "た", romanji: "ta", pronunciation: "tah", type: "hiragana" as const, category: "t-sounds" },
+  { id: "h-ta", character: "た", romanji: "ta", type: "hiragana" as const, category: "t-sounds" },
   {
     id: "h-chi",
     character: "ち",
     romanji: "chi",
-    pronunciation: "chee",
     type: "hiragana" as const,
     category: "t-sounds",
   },
@@ -41,57 +39,57 @@ export const kanaData = [
     id: "h-tsu",
     character: "つ",
     romanji: "tsu",
-    pronunciation: "tsoo",
     type: "hiragana" as const,
     category: "t-sounds",
   },
-  { id: "h-te", character: "て", romanji: "te", pronunciation: "teh", type: "hiragana" as const, category: "t-sounds" },
-  { id: "h-to", character: "と", romanji: "to", pronunciation: "toh", type: "hiragana" as const, category: "t-sounds" },
+  { id: "h-te", character: "て", romanji: "te", type: "hiragana" as const, category: "t-sounds" },
+  { id: "h-to", character: "と", romanji: "to", type: "hiragana" as const, category: "t-sounds" },
 
   // Hiragana - N sounds
-  { id: "h-na", character: "な", romanji: "na", pronunciation: "nah", type: "hiragana" as const, category: "n-sounds" },
-  { id: "h-ni", character: "に", romanji: "ni", pronunciation: "nee", type: "hiragana" as const, category: "n-sounds" },
-  { id: "h-nu", character: "ぬ", romanji: "nu", pronunciation: "noo", type: "hiragana" as const, category: "n-sounds" },
-  { id: "h-ne", character: "ね", romanji: "ne", pronunciation: "neh", type: "hiragana" as const, category: "n-sounds" },
-  { id: "h-no", character: "の", romanji: "no", pronunciation: "noh", type: "hiragana" as const, category: "n-sounds" },
+  { id: "h-na", character: "な", romanji: "na", type: "hiragana" as const, category: "n-sounds" },
+  { id: "h-ni", character: "に", romanji: "ni", type: "hiragana" as const, category: "n-sounds" },
+  { id: "h-nu", character: "ぬ", romanji: "nu", type: "hiragana" as const, category: "n-sounds" },
+  { id: "h-ne", character: "ね", romanji: "ne", type: "hiragana" as const, category: "n-sounds" },
+  { id: "h-no", character: "の", romanji: "no", type: "hiragana" as const, category: "n-sounds" },
 
   // Hiragana - H sounds
-  { id: "h-ha", character: "は", romanji: "ha", pronunciation: "hah", type: "hiragana" as const, category: "h-sounds" },
-  { id: "h-hi", character: "ひ", romanji: "hi", pronunciation: "hee", type: "hiragana" as const, category: "h-sounds" },
-  { id: "h-fu", character: "ふ", romanji: "fu", pronunciation: "foo", type: "hiragana" as const, category: "h-sounds" },
-  { id: "h-he", character: "へ", romanji: "he", pronunciation: "heh", type: "hiragana" as const, category: "h-sounds" },
-  { id: "h-ho", character: "ほ", romanji: "ho", pronunciation: "hoh", type: "hiragana" as const, category: "h-sounds" },
+  { id: "h-ha", character: "は", romanji: "ha", type: "hiragana" as const, category: "h-sounds" },
+  { id: "h-hi", character: "ひ", romanji: "hi", type: "hiragana" as const, category: "h-sounds" },
+  { id: "h-fu", character: "ふ", romanji: "fu", type: "hiragana" as const, category: "h-sounds" },
+  { id: "h-he", character: "へ", romanji: "he", type: "hiragana" as const, category: "h-sounds" },
+  { id: "h-ho", character: "ほ", romanji: "ho", type: "hiragana" as const, category: "h-sounds" },
 
   // Hiragana - M sounds
-  { id: "h-ma", character: "ま", romanji: "ma", pronunciation: "mah", type: "hiragana" as const, category: "m-sounds" },
-  { id: "h-mi", character: "み", romanji: "mi", pronunciation: "mee", type: "hiragana" as const, category: "m-sounds" },
-  { id: "h-mu", character: "む", romanji: "mu", pronunciation: "moo", type: "hiragana" as const, category: "m-sounds" },
-  { id: "h-me", character: "め", romanji: "me", pronunciation: "meh", type: "hiragana" as const, category: "m-sounds" },
-  { id: "h-mo", character: "も", romanji: "mo", pronunciation: "moh", type: "hiragana" as const, category: "m-sounds" },
+  { id: "h-ma", character: "ま", romanji: "ma", type: "hiragana" as const, category: "m-sounds" },
+  { id: "h-mi", character: "み", romanji: "mi", type: "hiragana" as const, category: "m-sounds" },
+  { id: "h-mu", character: "む", romanji: "mu", type: "hiragana" as const, category: "m-sounds" },
+  { id: "h-me", character: "め", romanji: "me", type: "hiragana" as const, category: "m-sounds" },
+  { id: "h-mo", character: "も", romanji: "mo", type: "hiragana" as const, category: "m-sounds" },
 
   // Hiragana - Y sounds
-  { id: "h-ya", character: "や", romanji: "ya", pronunciation: "yah", type: "hiragana" as const, category: "y-sounds" },
-  { id: "h-yu", character: "ゆ", romanji: "yu", pronunciation: "yoo", type: "hiragana" as const, category: "y-sounds" },
-  { id: "h-yo", character: "よ", romanji: "yo", pronunciation: "yoh", type: "hiragana" as const, category: "y-sounds" },
+  { id: "h-ya", character: "や", romanji: "ya", type: "hiragana" as const, category: "y-sounds" },
+  { id: "h-yu", character: "ゆ", romanji: "yu", type: "hiragana" as const, category: "y-sounds" },
+  { id: "h-yo", character: "よ", romanji: "yo", type: "hiragana" as const, category: "y-sounds" },
 
   // Hiragana - R sounds
-  { id: "h-ra", character: "ら", romanji: "ra", pronunciation: "rah", type: "hiragana" as const, category: "r-sounds" },
-  { id: "h-ri", character: "り", romanji: "ri", pronunciation: "ree", type: "hiragana" as const, category: "r-sounds" },
-  { id: "h-ru", character: "る", romanji: "ru", pronunciation: "roo", type: "hiragana" as const, category: "r-sounds" },
-  { id: "h-re", character: "れ", romanji: "re", pronunciation: "reh", type: "hiragana" as const, category: "r-sounds" },
-  { id: "h-ro", character: "ろ", romanji: "ro", pronunciation: "roh", type: "hiragana" as const, category: "r-sounds" },
+  { id: "h-ra", character: "ら", romanji: "ra", type: "hiragana" as const, category: "r-sounds" },
+  { id: "h-ri", character: "り", romanji: "ri", type: "hiragana" as const, category: "r-sounds" },
+  { id: "h-ru", character: "る", romanji: "ru", type: "hiragana" as const, category: "r-sounds" },
+  { id: "h-re", character: "れ", romanji: "re", type: "hiragana" as const, category: "r-sounds" },
+  { id: "h-ro", character: "ろ", romanji: "ro", type: "hiragana" as const, category: "r-sounds" },
 
-  // Hiragana - W sounds and N
-  { id: "h-wa", character: "わ", romanji: "wa", pronunciation: "wah", type: "hiragana" as const, category: "w-sounds" },
-  { id: "h-wo", character: "を", romanji: "wo", pronunciation: "woh", type: "hiragana" as const, category: "w-sounds" },
-  { id: "h-n", character: "ん", romanji: "n", pronunciation: "n", type: "hiragana" as const, category: "n-sound" },
+  // Hiragana - W sounds
+  { id: "h-wa", character: "わ", romanji: "wa", type: "hiragana" as const, category: "w-sounds" },
+  { id: "h-wo", character: "を", romanji: "wo", type: "hiragana" as const, category: "w-sounds" },
 
-  // Hiragana - Dakuten (G sounds)
+  // Hiragana - N sound
+  { id: "h-n", character: "ん", romanji: "n", type: "hiragana" as const, category: "n-sound" },
+
+  // Hiragana - Dakuten G sounds
   {
     id: "h-ga",
     character: "が",
     romanji: "ga",
-    pronunciation: "gah",
     type: "hiragana" as const,
     category: "dakuten-g",
   },
@@ -99,7 +97,6 @@ export const kanaData = [
     id: "h-gi",
     character: "ぎ",
     romanji: "gi",
-    pronunciation: "gee",
     type: "hiragana" as const,
     category: "dakuten-g",
   },
@@ -107,7 +104,6 @@ export const kanaData = [
     id: "h-gu",
     character: "ぐ",
     romanji: "gu",
-    pronunciation: "goo",
     type: "hiragana" as const,
     category: "dakuten-g",
   },
@@ -115,7 +111,6 @@ export const kanaData = [
     id: "h-ge",
     character: "げ",
     romanji: "ge",
-    pronunciation: "geh",
     type: "hiragana" as const,
     category: "dakuten-g",
   },
@@ -123,17 +118,15 @@ export const kanaData = [
     id: "h-go",
     character: "ご",
     romanji: "go",
-    pronunciation: "goh",
     type: "hiragana" as const,
     category: "dakuten-g",
   },
 
-  // Hiragana - Dakuten (Z sounds)
+  // Hiragana - Dakuten Z sounds
   {
     id: "h-za",
     character: "ざ",
     romanji: "za",
-    pronunciation: "zah",
     type: "hiragana" as const,
     category: "dakuten-z",
   },
@@ -141,7 +134,6 @@ export const kanaData = [
     id: "h-ji",
     character: "じ",
     romanji: "ji",
-    pronunciation: "jee",
     type: "hiragana" as const,
     category: "dakuten-z",
   },
@@ -149,7 +141,6 @@ export const kanaData = [
     id: "h-zu",
     character: "ず",
     romanji: "zu",
-    pronunciation: "zoo",
     type: "hiragana" as const,
     category: "dakuten-z",
   },
@@ -157,7 +148,6 @@ export const kanaData = [
     id: "h-ze",
     character: "ぜ",
     romanji: "ze",
-    pronunciation: "zeh",
     type: "hiragana" as const,
     category: "dakuten-z",
   },
@@ -165,33 +155,29 @@ export const kanaData = [
     id: "h-zo",
     character: "ぞ",
     romanji: "zo",
-    pronunciation: "zoh",
     type: "hiragana" as const,
     category: "dakuten-z",
   },
 
-  // Hiragana - Dakuten (D sounds)
+  // Hiragana - Dakuten D sounds
   {
     id: "h-da",
     character: "だ",
     romanji: "da",
-    pronunciation: "dah",
     type: "hiragana" as const,
     category: "dakuten-d",
   },
   {
-    id: "h-di",
+    id: "h-dji",
     character: "ぢ",
-    romanji: "di",
-    pronunciation: "dee",
+    romanji: "dji",
     type: "hiragana" as const,
     category: "dakuten-d",
   },
   {
-    id: "h-du",
+    id: "h-dzu",
     character: "づ",
-    romanji: "du",
-    pronunciation: "doo",
+    romanji: "dzu",
     type: "hiragana" as const,
     category: "dakuten-d",
   },
@@ -199,7 +185,6 @@ export const kanaData = [
     id: "h-de",
     character: "で",
     romanji: "de",
-    pronunciation: "deh",
     type: "hiragana" as const,
     category: "dakuten-d",
   },
@@ -207,17 +192,15 @@ export const kanaData = [
     id: "h-do",
     character: "ど",
     romanji: "do",
-    pronunciation: "doh",
     type: "hiragana" as const,
     category: "dakuten-d",
   },
 
-  // Hiragana - Dakuten (B sounds)
+  // Hiragana - Dakuten B sounds
   {
     id: "h-ba",
     character: "ば",
     romanji: "ba",
-    pronunciation: "bah",
     type: "hiragana" as const,
     category: "dakuten-b",
   },
@@ -225,7 +208,6 @@ export const kanaData = [
     id: "h-bi",
     character: "び",
     romanji: "bi",
-    pronunciation: "bee",
     type: "hiragana" as const,
     category: "dakuten-b",
   },
@@ -233,7 +215,6 @@ export const kanaData = [
     id: "h-bu",
     character: "ぶ",
     romanji: "bu",
-    pronunciation: "boo",
     type: "hiragana" as const,
     category: "dakuten-b",
   },
@@ -241,7 +222,6 @@ export const kanaData = [
     id: "h-be",
     character: "べ",
     romanji: "be",
-    pronunciation: "beh",
     type: "hiragana" as const,
     category: "dakuten-b",
   },
@@ -249,17 +229,15 @@ export const kanaData = [
     id: "h-bo",
     character: "ぼ",
     romanji: "bo",
-    pronunciation: "boh",
     type: "hiragana" as const,
     category: "dakuten-b",
   },
 
-  // Hiragana - Handakuten (P sounds)
+  // Hiragana - Handakuten P sounds
   {
     id: "h-pa",
     character: "ぱ",
     romanji: "pa",
-    pronunciation: "pah",
     type: "hiragana" as const,
     category: "handakuten-p",
   },
@@ -267,7 +245,6 @@ export const kanaData = [
     id: "h-pi",
     character: "ぴ",
     romanji: "pi",
-    pronunciation: "pee",
     type: "hiragana" as const,
     category: "handakuten-p",
   },
@@ -275,7 +252,6 @@ export const kanaData = [
     id: "h-pu",
     character: "ぷ",
     romanji: "pu",
-    pronunciation: "poo",
     type: "hiragana" as const,
     category: "handakuten-p",
   },
@@ -283,7 +259,6 @@ export const kanaData = [
     id: "h-pe",
     character: "ぺ",
     romanji: "pe",
-    pronunciation: "peh",
     type: "hiragana" as const,
     category: "handakuten-p",
   },
@@ -291,18 +266,15 @@ export const kanaData = [
     id: "h-po",
     character: "ぽ",
     romanji: "po",
-    pronunciation: "poh",
     type: "hiragana" as const,
     category: "handakuten-p",
   },
 
-  // Hiragana combination kana (yōon)
-  // Hiragana - K + Y combinations
+  // Hiragana - K combinations
   {
     id: "h-kya",
     character: "きゃ",
     romanji: "kya",
-    pronunciation: "kyah",
     type: "hiragana" as const,
     category: "k-combinations",
   },
@@ -310,7 +282,6 @@ export const kanaData = [
     id: "h-kyu",
     character: "きゅ",
     romanji: "kyu",
-    pronunciation: "kyoo",
     type: "hiragana" as const,
     category: "k-combinations",
   },
@@ -318,17 +289,15 @@ export const kanaData = [
     id: "h-kyo",
     character: "きょ",
     romanji: "kyo",
-    pronunciation: "kyoh",
     type: "hiragana" as const,
     category: "k-combinations",
   },
 
-  // Hiragana - S + Y combinations
+  // Hiragana - S combinations
   {
     id: "h-sha",
     character: "しゃ",
     romanji: "sha",
-    pronunciation: "shah",
     type: "hiragana" as const,
     category: "s-combinations",
   },
@@ -336,7 +305,6 @@ export const kanaData = [
     id: "h-shu",
     character: "しゅ",
     romanji: "shu",
-    pronunciation: "shoo",
     type: "hiragana" as const,
     category: "s-combinations",
   },
@@ -344,17 +312,15 @@ export const kanaData = [
     id: "h-sho",
     character: "しょ",
     romanji: "sho",
-    pronunciation: "shoh",
     type: "hiragana" as const,
     category: "s-combinations",
   },
 
-  // Hiragana - T + Y combinations
+  // Hiragana - T combinations
   {
     id: "h-cha",
     character: "ちゃ",
     romanji: "cha",
-    pronunciation: "chah",
     type: "hiragana" as const,
     category: "t-combinations",
   },
@@ -362,7 +328,6 @@ export const kanaData = [
     id: "h-chu",
     character: "ちゅ",
     romanji: "chu",
-    pronunciation: "choo",
     type: "hiragana" as const,
     category: "t-combinations",
   },
@@ -370,17 +335,15 @@ export const kanaData = [
     id: "h-cho",
     character: "ちょ",
     romanji: "cho",
-    pronunciation: "choh",
     type: "hiragana" as const,
     category: "t-combinations",
   },
 
-  // Hiragana - N + Y combinations
+  // Hiragana - N combinations
   {
     id: "h-nya",
     character: "にゃ",
     romanji: "nya",
-    pronunciation: "nyah",
     type: "hiragana" as const,
     category: "n-combinations",
   },
@@ -388,7 +351,6 @@ export const kanaData = [
     id: "h-nyu",
     character: "にゅ",
     romanji: "nyu",
-    pronunciation: "nyoo",
     type: "hiragana" as const,
     category: "n-combinations",
   },
@@ -396,17 +358,15 @@ export const kanaData = [
     id: "h-nyo",
     character: "にょ",
     romanji: "nyo",
-    pronunciation: "nyoh",
     type: "hiragana" as const,
     category: "n-combinations",
   },
 
-  // Hiragana - H + Y combinations
+  // Hiragana - H combinations
   {
     id: "h-hya",
     character: "ひゃ",
     romanji: "hya",
-    pronunciation: "hyah",
     type: "hiragana" as const,
     category: "h-combinations",
   },
@@ -414,7 +374,6 @@ export const kanaData = [
     id: "h-hyu",
     character: "ひゅ",
     romanji: "hyu",
-    pronunciation: "hyoo",
     type: "hiragana" as const,
     category: "h-combinations",
   },
@@ -422,17 +381,15 @@ export const kanaData = [
     id: "h-hyo",
     character: "ひょ",
     romanji: "hyo",
-    pronunciation: "hyoh",
     type: "hiragana" as const,
     category: "h-combinations",
   },
 
-  // Hiragana - M + Y combinations
+  // Hiragana - M combinations
   {
     id: "h-mya",
     character: "みゃ",
     romanji: "mya",
-    pronunciation: "myah",
     type: "hiragana" as const,
     category: "m-combinations",
   },
@@ -440,7 +397,6 @@ export const kanaData = [
     id: "h-myu",
     character: "みゅ",
     romanji: "myu",
-    pronunciation: "myoo",
     type: "hiragana" as const,
     category: "m-combinations",
   },
@@ -448,17 +404,15 @@ export const kanaData = [
     id: "h-myo",
     character: "みょ",
     romanji: "myo",
-    pronunciation: "myoh",
     type: "hiragana" as const,
     category: "m-combinations",
   },
 
-  // Hiragana - R + Y combinations
+  // Hiragana - R combinations
   {
     id: "h-rya",
     character: "りゃ",
     romanji: "rya",
-    pronunciation: "ryah",
     type: "hiragana" as const,
     category: "r-combinations",
   },
@@ -466,7 +420,6 @@ export const kanaData = [
     id: "h-ryu",
     character: "りゅ",
     romanji: "ryu",
-    pronunciation: "ryoo",
     type: "hiragana" as const,
     category: "r-combinations",
   },
@@ -474,17 +427,15 @@ export const kanaData = [
     id: "h-ryo",
     character: "りょ",
     romanji: "ryo",
-    pronunciation: "ryoh",
     type: "hiragana" as const,
     category: "r-combinations",
   },
 
-  // Hiragana - G + Y combinations (dakuten)
+  // Hiragana - G combinations
   {
     id: "h-gya",
     character: "ぎゃ",
     romanji: "gya",
-    pronunciation: "gyah",
     type: "hiragana" as const,
     category: "g-combinations",
   },
@@ -492,7 +443,6 @@ export const kanaData = [
     id: "h-gyu",
     character: "ぎゅ",
     romanji: "gyu",
-    pronunciation: "gyoo",
     type: "hiragana" as const,
     category: "g-combinations",
   },
@@ -500,17 +450,15 @@ export const kanaData = [
     id: "h-gyo",
     character: "ぎょ",
     romanji: "gyo",
-    pronunciation: "gyoh",
     type: "hiragana" as const,
     category: "g-combinations",
   },
 
-  // Hiragana - J + Y combinations (dakuten)
+  // Hiragana - J combinations
   {
     id: "h-ja",
     character: "じゃ",
     romanji: "ja",
-    pronunciation: "jah",
     type: "hiragana" as const,
     category: "j-combinations",
   },
@@ -518,7 +466,6 @@ export const kanaData = [
     id: "h-ju",
     character: "じゅ",
     romanji: "ju",
-    pronunciation: "joo",
     type: "hiragana" as const,
     category: "j-combinations",
   },
@@ -526,17 +473,15 @@ export const kanaData = [
     id: "h-jo",
     character: "じょ",
     romanji: "jo",
-    pronunciation: "joh",
     type: "hiragana" as const,
     category: "j-combinations",
   },
 
-  // Hiragana - B + Y combinations (dakuten)
+  // Hiragana - B combinations
   {
     id: "h-bya",
     character: "びゃ",
     romanji: "bya",
-    pronunciation: "byah",
     type: "hiragana" as const,
     category: "b-combinations",
   },
@@ -544,7 +489,6 @@ export const kanaData = [
     id: "h-byu",
     character: "びゅ",
     romanji: "byu",
-    pronunciation: "byoo",
     type: "hiragana" as const,
     category: "b-combinations",
   },
@@ -552,17 +496,15 @@ export const kanaData = [
     id: "h-byo",
     character: "びょ",
     romanji: "byo",
-    pronunciation: "byoh",
     type: "hiragana" as const,
     category: "b-combinations",
   },
 
-  // Hiragana - P + Y combinations (handakuten)
+  // Hiragana - P combinations
   {
     id: "h-pya",
     character: "ぴゃ",
     romanji: "pya",
-    pronunciation: "pyah",
     type: "hiragana" as const,
     category: "p-combinations",
   },
@@ -570,7 +512,6 @@ export const kanaData = [
     id: "h-pyu",
     character: "ぴゅ",
     romanji: "pyu",
-    pronunciation: "pyoo",
     type: "hiragana" as const,
     category: "p-combinations",
   },
@@ -578,46 +519,43 @@ export const kanaData = [
     id: "h-pyo",
     character: "ぴょ",
     romanji: "pyo",
-    pronunciation: "pyoh",
     type: "hiragana" as const,
     category: "p-combinations",
   },
 
   // Katakana - Basic Vowels
-  { id: "k-a", character: "ア", romanji: "a", pronunciation: "ah", type: "katakana" as const, category: "vowels" },
-  { id: "k-i", character: "イ", romanji: "i", pronunciation: "ee", type: "katakana" as const, category: "vowels" },
-  { id: "k-u", character: "ウ", romanji: "u", pronunciation: "oo", type: "katakana" as const, category: "vowels" },
-  { id: "k-e", character: "エ", romanji: "e", pronunciation: "eh", type: "katakana" as const, category: "vowels" },
-  { id: "k-o", character: "オ", romanji: "o", pronunciation: "oh", type: "katakana" as const, category: "vowels" },
+  { id: "k-a", character: "ア", romanji: "a", type: "katakana" as const, category: "vowels" },
+  { id: "k-i", character: "イ", romanji: "i", type: "katakana" as const, category: "vowels" },
+  { id: "k-u", character: "ウ", romanji: "u", type: "katakana" as const, category: "vowels" },
+  { id: "k-e", character: "エ", romanji: "e", type: "katakana" as const, category: "vowels" },
+  { id: "k-o", character: "オ", romanji: "o", type: "katakana" as const, category: "vowels" },
 
   // Katakana - K sounds
-  { id: "k-ka", character: "カ", romanji: "ka", pronunciation: "kah", type: "katakana" as const, category: "k-sounds" },
-  { id: "k-ki", character: "キ", romanji: "ki", pronunciation: "kee", type: "katakana" as const, category: "k-sounds" },
-  { id: "k-ku", character: "ク", romanji: "ku", pronunciation: "koo", type: "katakana" as const, category: "k-sounds" },
-  { id: "k-ke", character: "ケ", romanji: "ke", pronunciation: "keh", type: "katakana" as const, category: "k-sounds" },
-  { id: "k-ko", character: "コ", romanji: "ko", pronunciation: "koh", type: "katakana" as const, category: "k-sounds" },
+  { id: "k-ka", character: "カ", romanji: "ka", type: "katakana" as const, category: "k-sounds" },
+  { id: "k-ki", character: "キ", romanji: "ki", type: "katakana" as const, category: "k-sounds" },
+  { id: "k-ku", character: "ク", romanji: "ku", type: "katakana" as const, category: "k-sounds" },
+  { id: "k-ke", character: "ケ", romanji: "ke", type: "katakana" as const, category: "k-sounds" },
+  { id: "k-ko", character: "コ", romanji: "ko", type: "katakana" as const, category: "k-sounds" },
 
   // Katakana - S sounds
-  { id: "k-sa", character: "サ", romanji: "sa", pronunciation: "sah", type: "katakana" as const, category: "s-sounds" },
+  { id: "k-sa", character: "サ", romanji: "sa", type: "katakana" as const, category: "s-sounds" },
   {
     id: "k-shi",
     character: "シ",
     romanji: "shi",
-    pronunciation: "shee",
     type: "katakana" as const,
     category: "s-sounds",
   },
-  { id: "k-su", character: "ス", romanji: "su", pronunciation: "soo", type: "katakana" as const, category: "s-sounds" },
-  { id: "k-se", character: "セ", romanji: "se", pronunciation: "seh", type: "katakana" as const, category: "s-sounds" },
-  { id: "k-so", character: "ソ", romanji: "so", pronunciation: "soh", type: "katakana" as const, category: "s-sounds" },
+  { id: "k-su", character: "ス", romanji: "su", type: "katakana" as const, category: "s-sounds" },
+  { id: "k-se", character: "セ", romanji: "se", type: "katakana" as const, category: "s-sounds" },
+  { id: "k-so", character: "ソ", romanji: "so", type: "katakana" as const, category: "s-sounds" },
 
   // Katakana - T sounds
-  { id: "k-ta", character: "タ", romanji: "ta", pronunciation: "tah", type: "katakana" as const, category: "t-sounds" },
+  { id: "k-ta", character: "タ", romanji: "ta", type: "katakana" as const, category: "t-sounds" },
   {
     id: "k-chi",
     character: "チ",
     romanji: "chi",
-    pronunciation: "chee",
     type: "katakana" as const,
     category: "t-sounds",
   },
@@ -625,57 +563,57 @@ export const kanaData = [
     id: "k-tsu",
     character: "ツ",
     romanji: "tsu",
-    pronunciation: "tsoo",
     type: "katakana" as const,
     category: "t-sounds",
   },
-  { id: "k-te", character: "テ", romanji: "te", pronunciation: "teh", type: "katakana" as const, category: "t-sounds" },
-  { id: "k-to", character: "ト", romanji: "to", pronunciation: "toh", type: "katakana" as const, category: "t-sounds" },
+  { id: "k-te", character: "テ", romanji: "te", type: "katakana" as const, category: "t-sounds" },
+  { id: "k-to", character: "ト", romanji: "to", type: "katakana" as const, category: "t-sounds" },
 
   // Katakana - N sounds
-  { id: "k-na", character: "ナ", romanji: "na", pronunciation: "nah", type: "katakana" as const, category: "n-sounds" },
-  { id: "k-ni", character: "ニ", romanji: "ni", pronunciation: "nee", type: "katakana" as const, category: "n-sounds" },
-  { id: "k-nu", character: "ヌ", romanji: "nu", pronunciation: "noo", type: "katakana" as const, category: "n-sounds" },
-  { id: "k-ne", character: "ネ", romanji: "ne", pronunciation: "neh", type: "katakana" as const, category: "n-sounds" },
-  { id: "k-no", character: "ノ", romanji: "no", pronunciation: "noh", type: "katakana" as const, category: "n-sounds" },
+  { id: "k-na", character: "ナ", romanji: "na", type: "katakana" as const, category: "n-sounds" },
+  { id: "k-ni", character: "ニ", romanji: "ni", type: "katakana" as const, category: "n-sounds" },
+  { id: "k-nu", character: "ヌ", romanji: "nu", type: "katakana" as const, category: "n-sounds" },
+  { id: "k-ne", character: "ネ", romanji: "ne", type: "katakana" as const, category: "n-sounds" },
+  { id: "k-no", character: "ノ", romanji: "no", type: "katakana" as const, category: "n-sounds" },
 
   // Katakana - H sounds
-  { id: "k-ha", character: "ハ", romanji: "ha", pronunciation: "hah", type: "katakana" as const, category: "h-sounds" },
-  { id: "k-hi", character: "ヒ", romanji: "hi", pronunciation: "hee", type: "katakana" as const, category: "h-sounds" },
-  { id: "k-fu", character: "フ", romanji: "fu", pronunciation: "foo", type: "katakana" as const, category: "h-sounds" },
-  { id: "k-he", character: "ヘ", romanji: "he", pronunciation: "heh", type: "katakana" as const, category: "h-sounds" },
-  { id: "k-ho", character: "ホ", romanji: "ho", pronunciation: "hoh", type: "katakana" as const, category: "h-sounds" },
+  { id: "k-ha", character: "ハ", romanji: "ha", type: "katakana" as const, category: "h-sounds" },
+  { id: "k-hi", character: "ヒ", romanji: "hi", type: "katakana" as const, category: "h-sounds" },
+  { id: "k-fu", character: "フ", romanji: "fu", type: "katakana" as const, category: "h-sounds" },
+  { id: "k-he", character: "ヘ", romanji: "he", type: "katakana" as const, category: "h-sounds" },
+  { id: "k-ho", character: "ホ", romanji: "ho", type: "katakana" as const, category: "h-sounds" },
 
   // Katakana - M sounds
-  { id: "k-ma", character: "マ", romanji: "ma", pronunciation: "mah", type: "katakana" as const, category: "m-sounds" },
-  { id: "k-mi", character: "ミ", romanji: "mi", pronunciation: "mee", type: "katakana" as const, category: "m-sounds" },
-  { id: "k-mu", character: "ム", romanji: "mu", pronunciation: "moo", type: "katakana" as const, category: "m-sounds" },
-  { id: "k-me", character: "メ", romanji: "me", pronunciation: "meh", type: "katakana" as const, category: "m-sounds" },
-  { id: "k-mo", character: "モ", romanji: "mo", pronunciation: "moh", type: "katakana" as const, category: "m-sounds" },
+  { id: "k-ma", character: "マ", romanji: "ma", type: "katakana" as const, category: "m-sounds" },
+  { id: "k-mi", character: "ミ", romanji: "mi", type: "katakana" as const, category: "m-sounds" },
+  { id: "k-mu", character: "ム", romanji: "mu", type: "katakana" as const, category: "m-sounds" },
+  { id: "k-me", character: "メ", romanji: "me", type: "katakana" as const, category: "m-sounds" },
+  { id: "k-mo", character: "モ", romanji: "mo", type: "katakana" as const, category: "m-sounds" },
 
   // Katakana - Y sounds
-  { id: "k-ya", character: "ヤ", romanji: "ya", pronunciation: "yah", type: "katakana" as const, category: "y-sounds" },
-  { id: "k-yu", character: "ユ", romanji: "yu", pronunciation: "yoo", type: "katakana" as const, category: "y-sounds" },
-  { id: "k-yo", character: "ヨ", romanji: "yo", pronunciation: "yoh", type: "katakana" as const, category: "y-sounds" },
+  { id: "k-ya", character: "ヤ", romanji: "ya", type: "katakana" as const, category: "y-sounds" },
+  { id: "k-yu", character: "ユ", romanji: "yu", type: "katakana" as const, category: "y-sounds" },
+  { id: "k-yo", character: "ヨ", romanji: "yo", type: "katakana" as const, category: "y-sounds" },
 
   // Katakana - R sounds
-  { id: "k-ra", character: "ラ", romanji: "ra", pronunciation: "rah", type: "katakana" as const, category: "r-sounds" },
-  { id: "k-ri", character: "リ", romanji: "ri", pronunciation: "ree", type: "katakana" as const, category: "r-sounds" },
-  { id: "k-ru", character: "ル", romanji: "ru", pronunciation: "roo", type: "katakana" as const, category: "r-sounds" },
-  { id: "k-re", character: "レ", romanji: "re", pronunciation: "reh", type: "katakana" as const, category: "r-sounds" },
-  { id: "k-ro", character: "ロ", romanji: "ro", pronunciation: "roh", type: "katakana" as const, category: "r-sounds" },
+  { id: "k-ra", character: "ラ", romanji: "ra", type: "katakana" as const, category: "r-sounds" },
+  { id: "k-ri", character: "リ", romanji: "ri", type: "katakana" as const, category: "r-sounds" },
+  { id: "k-ru", character: "ル", romanji: "ru", type: "katakana" as const, category: "r-sounds" },
+  { id: "k-re", character: "レ", romanji: "re", type: "katakana" as const, category: "r-sounds" },
+  { id: "k-ro", character: "ロ", romanji: "ro", type: "katakana" as const, category: "r-sounds" },
 
-  // Katakana - W sounds and N
-  { id: "k-wa", character: "ワ", romanji: "wa", pronunciation: "wah", type: "katakana" as const, category: "w-sounds" },
-  { id: "k-wo", character: "ヲ", romanji: "wo", pronunciation: "woh", type: "katakana" as const, category: "w-sounds" },
-  { id: "k-n", character: "ン", romanji: "n", pronunciation: "n", type: "katakana" as const, category: "n-sound" },
+  // Katakana - W sounds
+  { id: "k-wa", character: "ワ", romanji: "wa", type: "katakana" as const, category: "w-sounds" },
+  { id: "k-wo", character: "ヲ", romanji: "wo", type: "katakana" as const, category: "w-sounds" },
 
-  // Katakana - Dakuten (G sounds)
+  // Katakana - N sound
+  { id: "k-n", character: "ン", romanji: "n", type: "katakana" as const, category: "n-sound" },
+
+  // Katakana - Dakuten G sounds
   {
     id: "k-ga",
     character: "ガ",
     romanji: "ga",
-    pronunciation: "gah",
     type: "katakana" as const,
     category: "dakuten-g",
   },
@@ -683,7 +621,6 @@ export const kanaData = [
     id: "k-gi",
     character: "ギ",
     romanji: "gi",
-    pronunciation: "gee",
     type: "katakana" as const,
     category: "dakuten-g",
   },
@@ -691,7 +628,6 @@ export const kanaData = [
     id: "k-gu",
     character: "グ",
     romanji: "gu",
-    pronunciation: "goo",
     type: "katakana" as const,
     category: "dakuten-g",
   },
@@ -699,7 +635,6 @@ export const kanaData = [
     id: "k-ge",
     character: "ゲ",
     romanji: "ge",
-    pronunciation: "geh",
     type: "katakana" as const,
     category: "dakuten-g",
   },
@@ -707,17 +642,15 @@ export const kanaData = [
     id: "k-go",
     character: "ゴ",
     romanji: "go",
-    pronunciation: "goh",
     type: "katakana" as const,
     category: "dakuten-g",
   },
 
-  // Katakana - Dakuten (Z sounds)
+  // Katakana - Dakuten Z sounds
   {
     id: "k-za",
     character: "ザ",
     romanji: "za",
-    pronunciation: "zah",
     type: "katakana" as const,
     category: "dakuten-z",
   },
@@ -725,7 +658,6 @@ export const kanaData = [
     id: "k-ji",
     character: "ジ",
     romanji: "ji",
-    pronunciation: "jee",
     type: "katakana" as const,
     category: "dakuten-z",
   },
@@ -733,7 +665,6 @@ export const kanaData = [
     id: "k-zu",
     character: "ズ",
     romanji: "zu",
-    pronunciation: "zoo",
     type: "katakana" as const,
     category: "dakuten-z",
   },
@@ -741,7 +672,6 @@ export const kanaData = [
     id: "k-ze",
     character: "ゼ",
     romanji: "ze",
-    pronunciation: "zeh",
     type: "katakana" as const,
     category: "dakuten-z",
   },
@@ -749,33 +679,29 @@ export const kanaData = [
     id: "k-zo",
     character: "ゾ",
     romanji: "zo",
-    pronunciation: "zoh",
     type: "katakana" as const,
     category: "dakuten-z",
   },
 
-  // Katakana - Dakuten (D sounds)
+  // Katakana - Dakuten D sounds
   {
     id: "k-da",
     character: "ダ",
     romanji: "da",
-    pronunciation: "dah",
     type: "katakana" as const,
     category: "dakuten-d",
   },
   {
-    id: "k-di",
+    id: "k-dji",
     character: "ヂ",
-    romanji: "di",
-    pronunciation: "dee",
+    romanji: "dji",
     type: "katakana" as const,
     category: "dakuten-d",
   },
   {
-    id: "k-du",
+    id: "k-dzu",
     character: "ヅ",
-    romanji: "du",
-    pronunciation: "doo",
+    romanji: "dzu",
     type: "katakana" as const,
     category: "dakuten-d",
   },
@@ -783,7 +709,6 @@ export const kanaData = [
     id: "k-de",
     character: "デ",
     romanji: "de",
-    pronunciation: "deh",
     type: "katakana" as const,
     category: "dakuten-d",
   },
@@ -791,17 +716,15 @@ export const kanaData = [
     id: "k-do",
     character: "ド",
     romanji: "do",
-    pronunciation: "doh",
     type: "katakana" as const,
     category: "dakuten-d",
   },
 
-  // Katakana - Dakuten (B sounds)
+  // Katakana - Dakuten B sounds
   {
     id: "k-ba",
     character: "バ",
     romanji: "ba",
-    pronunciation: "bah",
     type: "katakana" as const,
     category: "dakuten-b",
   },
@@ -809,7 +732,6 @@ export const kanaData = [
     id: "k-bi",
     character: "ビ",
     romanji: "bi",
-    pronunciation: "bee",
     type: "katakana" as const,
     category: "dakuten-b",
   },
@@ -817,7 +739,6 @@ export const kanaData = [
     id: "k-bu",
     character: "ブ",
     romanji: "bu",
-    pronunciation: "boo",
     type: "katakana" as const,
     category: "dakuten-b",
   },
@@ -825,7 +746,6 @@ export const kanaData = [
     id: "k-be",
     character: "ベ",
     romanji: "be",
-    pronunciation: "beh",
     type: "katakana" as const,
     category: "dakuten-b",
   },
@@ -833,17 +753,15 @@ export const kanaData = [
     id: "k-bo",
     character: "ボ",
     romanji: "bo",
-    pronunciation: "boh",
     type: "katakana" as const,
     category: "dakuten-b",
   },
 
-  // Katakana - Handakuten (P sounds)
+  // Katakana - Handakuten P sounds
   {
     id: "k-pa",
     character: "パ",
     romanji: "pa",
-    pronunciation: "pah",
     type: "katakana" as const,
     category: "handakuten-p",
   },
@@ -851,7 +769,6 @@ export const kanaData = [
     id: "k-pi",
     character: "ピ",
     romanji: "pi",
-    pronunciation: "pee",
     type: "katakana" as const,
     category: "handakuten-p",
   },
@@ -859,7 +776,6 @@ export const kanaData = [
     id: "k-pu",
     character: "プ",
     romanji: "pu",
-    pronunciation: "poo",
     type: "katakana" as const,
     category: "handakuten-p",
   },
@@ -867,7 +783,6 @@ export const kanaData = [
     id: "k-pe",
     character: "ペ",
     romanji: "pe",
-    pronunciation: "peh",
     type: "katakana" as const,
     category: "handakuten-p",
   },
@@ -875,18 +790,15 @@ export const kanaData = [
     id: "k-po",
     character: "ポ",
     romanji: "po",
-    pronunciation: "poh",
     type: "katakana" as const,
     category: "handakuten-p",
   },
 
-  // Katakana combination kana (yōon)
-  // Katakana - K + Y combinations
+  // Katakana - K combinations
   {
     id: "k-kya",
     character: "キャ",
     romanji: "kya",
-    pronunciation: "kyah",
     type: "katakana" as const,
     category: "k-combinations",
   },
@@ -894,7 +806,6 @@ export const kanaData = [
     id: "k-kyu",
     character: "キュ",
     romanji: "kyu",
-    pronunciation: "kyoo",
     type: "katakana" as const,
     category: "k-combinations",
   },
@@ -902,17 +813,15 @@ export const kanaData = [
     id: "k-kyo",
     character: "キョ",
     romanji: "kyo",
-    pronunciation: "kyoh",
     type: "katakana" as const,
     category: "k-combinations",
   },
 
-  // Katakana - S + Y combinations
+  // Katakana - S combinations
   {
     id: "k-sha",
     character: "シャ",
     romanji: "sha",
-    pronunciation: "shah",
     type: "katakana" as const,
     category: "s-combinations",
   },
@@ -920,7 +829,6 @@ export const kanaData = [
     id: "k-shu",
     character: "シュ",
     romanji: "shu",
-    pronunciation: "shoo",
     type: "katakana" as const,
     category: "s-combinations",
   },
@@ -928,17 +836,15 @@ export const kanaData = [
     id: "k-sho",
     character: "ショ",
     romanji: "sho",
-    pronunciation: "shoh",
     type: "katakana" as const,
     category: "s-combinations",
   },
 
-  // Katakana - T + Y combinations
+  // Katakana - T combinations
   {
     id: "k-cha",
     character: "チャ",
     romanji: "cha",
-    pronunciation: "chah",
     type: "katakana" as const,
     category: "t-combinations",
   },
@@ -946,7 +852,6 @@ export const kanaData = [
     id: "k-chu",
     character: "チュ",
     romanji: "chu",
-    pronunciation: "choo",
     type: "katakana" as const,
     category: "t-combinations",
   },
@@ -954,17 +859,15 @@ export const kanaData = [
     id: "k-cho",
     character: "チョ",
     romanji: "cho",
-    pronunciation: "choh",
     type: "katakana" as const,
     category: "t-combinations",
   },
 
-  // Katakana - N + Y combinations
+  // Katakana - N combinations
   {
     id: "k-nya",
     character: "ニャ",
     romanji: "nya",
-    pronunciation: "nyah",
     type: "katakana" as const,
     category: "n-combinations",
   },
@@ -972,7 +875,6 @@ export const kanaData = [
     id: "k-nyu",
     character: "ニュ",
     romanji: "nyu",
-    pronunciation: "nyoo",
     type: "katakana" as const,
     category: "n-combinations",
   },
@@ -980,17 +882,15 @@ export const kanaData = [
     id: "k-nyo",
     character: "ニョ",
     romanji: "nyo",
-    pronunciation: "nyoh",
     type: "katakana" as const,
     category: "n-combinations",
   },
 
-  // Katakana - H + Y combinations
+  // Katakana - H combinations
   {
     id: "k-hya",
     character: "ヒャ",
     romanji: "hya",
-    pronunciation: "hyah",
     type: "katakana" as const,
     category: "h-combinations",
   },
@@ -998,7 +898,6 @@ export const kanaData = [
     id: "k-hyu",
     character: "ヒュ",
     romanji: "hyu",
-    pronunciation: "hyoo",
     type: "katakana" as const,
     category: "h-combinations",
   },
@@ -1006,17 +905,15 @@ export const kanaData = [
     id: "k-hyo",
     character: "ヒョ",
     romanji: "hyo",
-    pronunciation: "hyoh",
     type: "katakana" as const,
     category: "h-combinations",
   },
 
-  // Katakana - M + Y combinations
+  // Katakana - M combinations
   {
     id: "k-mya",
     character: "ミャ",
     romanji: "mya",
-    pronunciation: "myah",
     type: "katakana" as const,
     category: "m-combinations",
   },
@@ -1024,7 +921,6 @@ export const kanaData = [
     id: "k-myu",
     character: "ミュ",
     romanji: "myu",
-    pronunciation: "myoo",
     type: "katakana" as const,
     category: "m-combinations",
   },
@@ -1032,17 +928,15 @@ export const kanaData = [
     id: "k-myo",
     character: "ミョ",
     romanji: "myo",
-    pronunciation: "myoh",
     type: "katakana" as const,
     category: "m-combinations",
   },
 
-  // Katakana - R + Y combinations
+  // Katakana - R combinations
   {
     id: "k-rya",
     character: "リャ",
     romanji: "rya",
-    pronunciation: "ryah",
     type: "katakana" as const,
     category: "r-combinations",
   },
@@ -1050,7 +944,6 @@ export const kanaData = [
     id: "k-ryu",
     character: "リュ",
     romanji: "ryu",
-    pronunciation: "ryoo",
     type: "katakana" as const,
     category: "r-combinations",
   },
@@ -1058,17 +951,15 @@ export const kanaData = [
     id: "k-ryo",
     character: "リョ",
     romanji: "ryo",
-    pronunciation: "ryoh",
     type: "katakana" as const,
     category: "r-combinations",
   },
 
-  // Katakana - G + Y combinations (dakuten)
+  // Katakana - G combinations
   {
     id: "k-gya",
     character: "ギャ",
     romanji: "gya",
-    pronunciation: "gyah",
     type: "katakana" as const,
     category: "g-combinations",
   },
@@ -1076,7 +967,6 @@ export const kanaData = [
     id: "k-gyu",
     character: "ギュ",
     romanji: "gyu",
-    pronunciation: "gyoo",
     type: "katakana" as const,
     category: "g-combinations",
   },
@@ -1084,17 +974,15 @@ export const kanaData = [
     id: "k-gyo",
     character: "ギョ",
     romanji: "gyo",
-    pronunciation: "gyoh",
     type: "katakana" as const,
     category: "g-combinations",
   },
 
-  // Katakana - J + Y combinations (dakuten)
+  // Katakana - J combinations
   {
     id: "k-ja",
     character: "ジャ",
     romanji: "ja",
-    pronunciation: "jah",
     type: "katakana" as const,
     category: "j-combinations",
   },
@@ -1102,7 +990,6 @@ export const kanaData = [
     id: "k-ju",
     character: "ジュ",
     romanji: "ju",
-    pronunciation: "joo",
     type: "katakana" as const,
     category: "j-combinations",
   },
@@ -1110,17 +997,15 @@ export const kanaData = [
     id: "k-jo",
     character: "ジョ",
     romanji: "jo",
-    pronunciation: "joh",
     type: "katakana" as const,
     category: "j-combinations",
   },
 
-  // Katakana - B + Y combinations (dakuten)
+  // Katakana - B combinations
   {
     id: "k-bya",
     character: "ビャ",
     romanji: "bya",
-    pronunciation: "byah",
     type: "katakana" as const,
     category: "b-combinations",
   },
@@ -1128,7 +1013,6 @@ export const kanaData = [
     id: "k-byu",
     character: "ビュ",
     romanji: "byu",
-    pronunciation: "byoo",
     type: "katakana" as const,
     category: "b-combinations",
   },
@@ -1136,17 +1020,15 @@ export const kanaData = [
     id: "k-byo",
     character: "ビョ",
     romanji: "byo",
-    pronunciation: "byoh",
     type: "katakana" as const,
     category: "b-combinations",
   },
 
-  // Katakana - P + Y combinations (handakuten)
+  // Katakana - P combinations
   {
     id: "k-pya",
     character: "ピャ",
     romanji: "pya",
-    pronunciation: "pyah",
     type: "katakana" as const,
     category: "p-combinations",
   },
@@ -1154,7 +1036,6 @@ export const kanaData = [
     id: "k-pyu",
     character: "ピュ",
     romanji: "pyu",
-    pronunciation: "pyoo",
     type: "katakana" as const,
     category: "p-combinations",
   },
@@ -1162,7 +1043,6 @@ export const kanaData = [
     id: "k-pyo",
     character: "ピョ",
     romanji: "pyo",
-    pronunciation: "pyoh",
     type: "katakana" as const,
     category: "p-combinations",
   },

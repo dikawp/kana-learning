@@ -8,12 +8,27 @@ import { Search } from "lucide-react"
 interface FiltersCardProps {
   searchTerm: string
   onSearchChange: (value: string) => void
-  selectedType: string
-  onTypeChange: (value: string) => void
+  selectedType: "hiragana" | "katakana" | "all"
+  onTypeChange: (value: "hiragana" | "katakana" | "all") => void
   selectedCategory: string
   onCategoryChange: (value: string) => void
   categories: string[]
   filteredCount: number
+}
+
+const getCategoryDisplayName = (category: string): string => {
+  switch (category) {
+    case "basic":
+      return "Basic (vowels, n sound)"
+    case "dakuten":
+      return "Dakuten (g, z, d, b sounds)"
+    case "handakuten":
+      return "Handakuten (p sounds)"
+    case "combination":
+      return "Combination (kya, gya, etc.)"
+    default:
+      return category
+  }
 }
 
 export function FiltersCard({
@@ -27,7 +42,7 @@ export function FiltersCard({
   filteredCount,
 }: FiltersCardProps) {
   return (
-    <Card>
+    <Card className="mt-3">
       <CardContent className="pt-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="relative">
@@ -57,7 +72,7 @@ export function FiltersCard({
               <SelectItem value="all">All Categories</SelectItem>
               {categories.map((category) => (
                 <SelectItem key={category} value={category}>
-                  {category}
+                  {getCategoryDisplayName(category)}
                 </SelectItem>
               ))}
             </SelectContent>

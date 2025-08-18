@@ -150,14 +150,14 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               <p className="text-muted-foreground">Configure your quiz preferences</p>
             </div>
 
-            <div className="max-w-md mx-auto space-y-4">
+            <div className="max-w-md mx-auto grid gap-4 md:grid-cols-2">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Quiz Type</label>
                 <Select
                   value={quizSetup.type}
                   onValueChange={(value: any) => setQuizSetup((prev) => ({ ...prev, type: value }))}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -169,14 +169,14 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Number of Questions</label>
+                <label className="text-sm font-medium">Questions</label>
                 <Select
                   value={quizSetup.questionCount.toString()}
                   onValueChange={(value) =>
                     setQuizSetup((prev) => ({ ...prev, questionCount: Number.parseInt(value) }))
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -254,7 +254,6 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
                 </div>
                 <div className="text-sm text-muted-foreground">
                   <div>Romanji: {quizQuestions[currentQuestionIndex].character.romanji}</div>
-                  <div>Pronunciation: {quizQuestions[currentQuestionIndex].character.pronunciation}</div>
                 </div>
               </div>
             )}
@@ -294,7 +293,6 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
                       <span className="text-2xl">{q.character.character}</span>
                       <div className="text-left">
                         <div className="font-medium">{q.character.romanji}</div>
-                        <div className="text-sm text-muted-foreground">{q.character.pronunciation}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">

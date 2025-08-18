@@ -8,7 +8,6 @@ import "./globals.css"
 export const metadata: Metadata = {
   title: "Kana Learning - Master Hiragana & Katakana",
   description: "Learn Japanese Hiragana and Katakana with interactive flashcards and quizzes",
-  generator: "v0.app",
 }
 
 export default function RootLayout({

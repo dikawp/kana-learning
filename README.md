@@ -36,34 +36,34 @@ A comprehensive web application for learning Japanese Hiragana and Katakana char
 1. **Clone or download the project files**
 
 2. **Install dependencies**
-   \`\`\`bash
-   npm install
-   \`\`\`
-
-3. **Run development server**
-   \`\`\`bash
-   npm run dev
-   \`\`\`
-
-4. **Open your browser**
+   ```sh
+    npm install
+    ```
+   
+4. **Run development server**
+   ```sh
+    npm run dev
+    ```
+   
+6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ### Option 2: Using pnpm (original setup)
 
 1. **Install pnpm globally** (if not already installed)
-   \`\`\`bash
+   ```sh
    npm install -g pnpm
-   \`\`\`
+   ```
 
 2. **Install dependencies**
-   \`\`\`bash
+   ```sh
    pnpm install
-   \`\`\`
+   ```
 
 3. **Run development server**
-   \`\`\`bash
+   ```sh
    pnpm dev
-   \`\`\`
+   ```
 
 ## Available Scripts
 

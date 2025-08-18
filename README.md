@@ -31,7 +31,7 @@ A comprehensive web application for learning Japanese Hiragana and Katakana char
 
 ## Local Setup
 
-### Option 1: Using npm (recommended for you)
+### Option 1: Using npm 
 
 1. **Clone or download the project files**
 
@@ -72,23 +72,6 @@ A comprehensive web application for learning Japanese Hiragana and Katakana char
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
 
-## Project Structure
-
-\`\`\`
-├── app/
-│   ├── page.tsx          # Main application component
-│   ├── layout.tsx        # Root layout with theme provider
-│   ├── globals.css       # Global styles
-│   └── loading.tsx       # Loading component
-├── components/
-│   ├── ui/              # shadcn/ui components
-│   └── theme-provider.tsx # Theme context provider
-├── lib/
-│   ├── kana-data.ts     # Complete Kana dataset
-│   └── utils.ts         # Utility functions
-└── README.md            # This file
-\`\`\`
-
 ## Data
 
 The app includes a comprehensive dataset of 214 Japanese characters:
@@ -122,20 +105,6 @@ The app includes a comprehensive dataset of 214 Japanese characters:
 - Persistent across sessions
 - Visual indicators for learned characters
 - Progress statistics in each mode
-
-## Customization
-
-The app uses Tailwind CSS for styling and can be easily customized:
-- Colors: Modify the color scheme in `globals.css`
-- Layout: Adjust spacing and sizing with Tailwind classes
-- Data: Add more characters or modify existing ones in `lib/kana-data.ts`
-
-## Browser Support
-
-- Chrome/Edge 88+
-- Firefox 85+
-- Safari 14+
-- Mobile browsers (iOS Safari, Chrome Mobile)
 
 ## Contributing
 

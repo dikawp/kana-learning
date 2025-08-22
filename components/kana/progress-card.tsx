@@ -42,9 +42,10 @@ export function ProgressCard({
   return (
     <Card>
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
           <CardTitle className="text-lg">Learning Progress</CardTitle>
-          <div className="flex gap-2">
+
+          <div className="flex flex-wrap gap-2">
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" size="sm">
@@ -98,8 +99,8 @@ export function ProgressCard({
                 <AlertDialogHeader>
                   <AlertDialogTitle>Reset All Progress?</AlertDialogTitle>
                   <AlertDialogDescription>
-                    This will reset all your learning progress including both Hiragana and Katakana. This action cannot
-                    be undone.
+                    This will reset all your learning progress including both Hiragana and Katakana.
+                    This action cannot be undone.
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
@@ -111,6 +112,7 @@ export function ProgressCard({
           </div>
         </div>
       </CardHeader>
+
       <CardContent>
         <div className="space-y-4">
           <div>

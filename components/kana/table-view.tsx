@@ -41,7 +41,7 @@ export function TableView({ filteredKana }: TableViewProps) {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {categories.map((category) => (
             <Card key={`${type}-${category}`} className="h-full flex flex-col">
-              <CardHeader className="pb-3">
+              <CardHeader>
                 <CardTitle className="text-lg text-primary capitalize">
                   {category} ({categorizedKana[category].length})
                 </CardTitle>
@@ -50,7 +50,7 @@ export function TableView({ filteredKana }: TableViewProps) {
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse">
                     <thead>
-                      <tr className="border-b">
+                      <tr className="border-b hidden md:block">
                         <th className="text-left p-2 text-sm font-medium text-muted-foreground">Character</th>
                         <th className="text-left p-2 text-sm font-medium text-muted-foreground">Romanji</th>
                       </tr>

@@ -13,7 +13,7 @@ export function Header() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-bold text-foreground">Kana Learning</h1>
-            <p className="text-sm text-muted-foreground">Ver 0.1.0</p>
+            <p className="text-sm text-muted-foreground">Ver 0.1.1</p>
           </div>
           <Button variant="outline" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}

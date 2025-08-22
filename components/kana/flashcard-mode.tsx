@@ -10,9 +10,10 @@ import type { KanaCharacter } from "@/types/kana"
 interface FlashcardModeProps {
   filteredKana: KanaCharacter[]
   onMarkAsLearned: (kanaId: string) => void
+  isLearned: (kanaId: string) => boolean
 }
 
-export function FlashcardMode({ filteredKana, onMarkAsLearned }: FlashcardModeProps) {
+export function FlashcardMode({ filteredKana, onMarkAsLearned, isLearned }: FlashcardModeProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showAnswer, setShowAnswer] = useState(false)
 
@@ -39,7 +40,7 @@ export function FlashcardMode({ filteredKana, onMarkAsLearned }: FlashcardModePr
   const currentKana = filteredKana[currentIndex]
 
   return (
-    <Card className="mb-8 md:mb-0">
+    <Card>
       <CardContent className="pt-6">
         <div className="text-center space-y-6">
           <div className="text-6xl font-bold text-primary mb-4">{currentKana?.character}</div>
@@ -50,6 +51,11 @@ export function FlashcardMode({ filteredKana, onMarkAsLearned }: FlashcardModePr
               <Badge variant="outline">
                 {currentKana?.type} - {currentKana?.category}
               </Badge>
+              {isLearned(currentKana.id) && (
+                <Badge variant="secondary" className="bg-green-100 text-green-800">
+                  ✓ Learned
+                </Badge>
+              )}
             </div>
           )}
 
@@ -61,7 +67,9 @@ export function FlashcardMode({ filteredKana, onMarkAsLearned }: FlashcardModePr
                 <Button
                   variant="outline"
                   onClick={() => {
-                    onMarkAsLearned(currentKana.id)
+                    if (!isLearned(currentKana.id)) {
+                      onMarkAsLearned(currentKana.id)
+                    }
                     nextCard()
                   }}
                 >

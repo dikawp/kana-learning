@@ -14,9 +14,10 @@ interface QuizModeProps {
   onMarkAsLearned: (kanaId: string) => void
   onUpdateScore: (correct: number, total: number) => void
   onSwitchToFlashcard: () => void
+  isLearned: (kanaId: string) => boolean
 }
 
-export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToFlashcard }: QuizModeProps) {
+export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToFlashcard, isLearned }: QuizModeProps) {
   const [quizState, setQuizState] = useState<"setup" | "playing" | "results">("setup")
   const [quizSetup, setQuizSetup] = useState<QuizSetup>({ type: "all", questionCount: 10 })
   const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([])
@@ -86,7 +87,7 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
     newAnswers[currentQuestionIndex] = answer
     setQuizAnswers(newAnswers)
 
-    if (isCorrect) {
+    if (isCorrect && !isLearned(currentQuestion.character.id)) {
       onMarkAsLearned(currentQuestion.character.id)
     }
 
@@ -140,7 +141,7 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
   }
 
   return (
-    <Card className="mb-8 md:mb-0">
+    <Card>
       <CardContent className="pt-6">
         {quizState === "setup" && (
           <div className="text-center space-y-6">
@@ -150,14 +151,14 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               <p className="text-muted-foreground">Configure your quiz preferences</p>
             </div>
 
-            <div className="max-w-md mx-auto grid gap-4 md:grid-cols-2">
+            <div className="max-w-md mx-auto space-y-4 md:flex justify-between">
               <div className="space-y-2">
                 <label className="text-sm font-medium">Quiz Type</label>
                 <Select
                   value={quizSetup.type}
                   onValueChange={(value: any) => setQuizSetup((prev) => ({ ...prev, type: value }))}
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -169,14 +170,14 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Questions</label>
+                <label className="text-sm font-medium">Number of Questions</label>
                 <Select
                   value={quizSetup.questionCount.toString()}
                   onValueChange={(value) =>
                     setQuizSetup((prev) => ({ ...prev, questionCount: Number.parseInt(value) }))
                   }
                 >
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -202,11 +203,18 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               <Badge variant="outline">
                 Question {currentQuestionIndex + 1} of {quizQuestions.length}
               </Badge>
-              <Badge variant="secondary">
-                {quizSetup.type === "all"
-                  ? "All Types"
-                  : quizSetup.type.charAt(0).toUpperCase() + quizSetup.type.slice(1)}
-              </Badge>
+              <div className="flex gap-2">
+                <Badge variant="secondary">
+                  {quizSetup.type === "all"
+                    ? "All Types"
+                    : quizSetup.type.charAt(0).toUpperCase() + quizSetup.type.slice(1)}
+                </Badge>
+                {isLearned(quizQuestions[currentQuestionIndex].character.id) && (
+                  <Badge variant="secondary" className="bg-green-100 text-green-800">
+                    ✓ Learned
+                  </Badge>
+                )}
+              </div>
             </div>
 
             <div className="text-6xl font-bold text-primary mb-4">
@@ -254,6 +262,7 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
                 </div>
                 <div className="text-sm text-muted-foreground">
                   <div>Romanji: {quizQuestions[currentQuestionIndex].character.romanji}</div>
+
                 </div>
               </div>
             )}

@@ -16,7 +16,17 @@ export default function KanaLearningApp() {
   const [mounted, setMounted] = useState(false)
   const [currentMode, setCurrentMode] = useState<"flashcard" | "quiz" | "table">("flashcard")
 
-  const { progress, score, markAsLearned, resetProgress, updateScore } = useKanaProgress()
+  const {
+    progress,
+    score,
+    markAsLearned,
+    resetProgress,
+    resetHiraganaProgress,
+    resetKatakanaProgress,
+    updateScore,
+    isLearned,
+  } = useKanaProgress()
+
   const {
     selectedType,
     setSelectedType,
@@ -32,11 +42,6 @@ export default function KanaLearningApp() {
     setMounted(true)
   }, [])
 
-  const progressPercentage =
-    Object.keys(progress).length > 0
-      ? Math.round((Object.values(progress).filter(Boolean).length / filteredKana.length) * 100)
-      : 0
-
   if (!mounted) {
     return null
   }
@@ -46,7 +51,13 @@ export default function KanaLearningApp() {
       <Header />
 
       <div className="container mx-auto px-4 py-6 max-w-6xl">
-        <ProgressCard progressPercentage={progressPercentage} score={score} onResetProgress={resetProgress} />
+        <ProgressCard
+          progress={progress}
+          score={score}
+          onResetProgress={resetProgress}
+          onResetHiraganaProgress={resetHiraganaProgress}
+          onResetKatakanaProgress={resetKatakanaProgress}
+        />
 
         <FiltersCard
           searchTerm={searchTerm}
@@ -60,14 +71,14 @@ export default function KanaLearningApp() {
         />
 
         <Tabs value={currentMode} onValueChange={(value: any) => setCurrentMode(value)}>
-          <TabsList className="grid w-full grid-cols-3 my-3">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="flashcard">Flashcard Mode</TabsTrigger>
             <TabsTrigger value="quiz">Quiz Mode</TabsTrigger>
             <TabsTrigger value="table">Table View</TabsTrigger>
           </TabsList>
 
           <TabsContent value="flashcard" className="space-y-4">
-            <FlashcardMode filteredKana={filteredKana} onMarkAsLearned={markAsLearned} />
+            <FlashcardMode filteredKana={filteredKana} onMarkAsLearned={markAsLearned} isLearned={isLearned} />
           </TabsContent>
 
           <TabsContent value="quiz" className="space-y-4">
@@ -76,6 +87,7 @@ export default function KanaLearningApp() {
               onMarkAsLearned={markAsLearned}
               onUpdateScore={updateScore}
               onSwitchToFlashcard={() => setCurrentMode("flashcard")}
+              isLearned={isLearned}
             />
           </TabsContent>
 
@@ -87,6 +99,17 @@ export default function KanaLearningApp() {
 
       <footer className="border-t bg-card py-4 text-center text-sm text-muted-foreground">
         &copy; {new Date().getFullYear()} Dika-sama App. All rights reserved.
+        <p>
+          Found a bug or have a suggestion? Contact me on{" "}
+          <a
+            href="https://instagram.com/dikawp_16"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary hover:underline"
+          >
+            @dikawp_16
+          </a>
+        </p>
       </footer>
     </div>
   )

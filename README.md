@@ -17,7 +17,7 @@ A comprehensive web application for learning Japanese Hiragana and Katakana char
 
 ## Tech Stack
 
-- **Next.js 14** - React framework with App Router
+- **Next.js 16** - React framework with App Router
 - **TypeScript** - Type safety
 - **Tailwind CSS** - Styling framework
 - **shadcn/ui** - UI component library
@@ -26,18 +26,16 @@ A comprehensive web application for learning Japanese Hiragana and Katakana char
 
 ## Prerequisites
 
-- Node.js 18+ 
-- npm or pnpm package manager
+- Node.js 22.13+ within the Node 22 release line (verified with 22.22.0)
+- npm (the repository uses `package-lock.json`)
 
 ## Local Setup
-
-### Option 1: Using npm 
 
 1. **Clone or download the project files**
 
 2. **Install dependencies**
    ```sh
-    npm install
+    npm ci
     ```
    
 4. **Run development server**
@@ -48,29 +46,16 @@ A comprehensive web application for learning Japanese Hiragana and Katakana char
 6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
-### Option 2: Using pnpm (original setup)
-
-1. **Install pnpm globally** (if not already installed)
-   ```sh
-   npm install -g pnpm
-   ```
-
-2. **Install dependencies**
-   ```sh
-   pnpm install
-   ```
-
-3. **Run development server**
-   ```sh
-   pnpm dev
-   ```
-
 ## Available Scripts
 
 - `npm run dev` - Start development server
 - `npm run build` - Build for production
 - `npm run start` - Start production server
 - `npm run lint` - Run ESLint
+- `npm run typecheck` - Run TypeScript checks without bypassing diagnostics
+- `npm test` - Run the kana baseline and read-only recovery contract tests
+
+Use the committed npm lockfile for reproducible installs. Review security updates with `npm audit`; do not apply `npm audit fix --force` without checking compatibility. The implementation progress log records known application diagnostics separately from dependency audit results.
 
 ## Data
 

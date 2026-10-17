@@ -1,0 +1,1048 @@
+{
+  "schemaVersion": 1,
+  "baselineCommit": "9bf0c966d039cf0716935693e10394f287a2a0a9",
+  "sourcePath": "lib/kana-data.ts",
+  "sourceBlob": "20a43825628f7dab969b93cc321ad3380b38f10e",
+  "entries": [
+    {
+      "id": "h-a",
+      "character": "あ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-i",
+      "character": "い",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-u",
+      "character": "う",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-e",
+      "character": "え",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-o",
+      "character": "お",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ka",
+      "character": "か",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ki",
+      "character": "き",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ku",
+      "character": "く",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ke",
+      "character": "け",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ko",
+      "character": "こ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-sa",
+      "character": "さ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-shi",
+      "character": "し",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-su",
+      "character": "す",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-se",
+      "character": "せ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-so",
+      "character": "そ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ta",
+      "character": "た",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-chi",
+      "character": "ち",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-tsu",
+      "character": "つ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-te",
+      "character": "て",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-to",
+      "character": "と",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-na",
+      "character": "な",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ni",
+      "character": "に",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-nu",
+      "character": "ぬ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ne",
+      "character": "ね",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-no",
+      "character": "の",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ha",
+      "character": "は",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-hi",
+      "character": "ひ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-fu",
+      "character": "ふ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-he",
+      "character": "へ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ho",
+      "character": "ほ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ma",
+      "character": "ま",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-mi",
+      "character": "み",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-mu",
+      "character": "む",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-me",
+      "character": "め",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-mo",
+      "character": "も",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ya",
+      "character": "や",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-yu",
+      "character": "ゆ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-yo",
+      "character": "よ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ra",
+      "character": "ら",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ri",
+      "character": "り",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ru",
+      "character": "る",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-re",
+      "character": "れ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ro",
+      "character": "ろ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-wa",
+      "character": "わ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-wo",
+      "character": "を",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-n",
+      "character": "ん",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ga",
+      "character": "が",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-gi",
+      "character": "ぎ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-gu",
+      "character": "ぐ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ge",
+      "character": "げ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-go",
+      "character": "ご",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-za",
+      "character": "ざ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ji",
+      "character": "じ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-zu",
+      "character": "ず",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ze",
+      "character": "ぜ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-zo",
+      "character": "ぞ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-da",
+      "character": "だ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-dji",
+      "character": "ぢ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-dzu",
+      "character": "づ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-de",
+      "character": "で",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-do",
+      "character": "ど",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ba",
+      "character": "ば",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-bi",
+      "character": "び",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-bu",
+      "character": "ぶ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-be",
+      "character": "べ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-bo",
+      "character": "ぼ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-pa",
+      "character": "ぱ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-pi",
+      "character": "ぴ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-pu",
+      "character": "ぷ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-pe",
+      "character": "ぺ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-po",
+      "character": "ぽ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-kya",
+      "character": "きゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-kyu",
+      "character": "きゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-kyo",
+      "character": "きょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-sha",
+      "character": "しゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-shu",
+      "character": "しゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-sho",
+      "character": "しょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-cha",
+      "character": "ちゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-chu",
+      "character": "ちゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-cho",
+      "character": "ちょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-nya",
+      "character": "にゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-nyu",
+      "character": "にゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-nyo",
+      "character": "にょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-hya",
+      "character": "ひゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-hyu",
+      "character": "ひゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-hyo",
+      "character": "ひょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-mya",
+      "character": "みゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-myu",
+      "character": "みゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-myo",
+      "character": "みょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-rya",
+      "character": "りゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ryu",
+      "character": "りゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ryo",
+      "character": "りょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-gya",
+      "character": "ぎゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-gyu",
+      "character": "ぎゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-gyo",
+      "character": "ぎょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ja",
+      "character": "じゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-ju",
+      "character": "じゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-jo",
+      "character": "じょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-bya",
+      "character": "びゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-byu",
+      "character": "びゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-byo",
+      "character": "びょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-pya",
+      "character": "ぴゃ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-pyu",
+      "character": "ぴゅ",
+      "type": "hiragana"
+    },
+    {
+      "id": "h-pyo",
+      "character": "ぴょ",
+      "type": "hiragana"
+    },
+    {
+      "id": "k-a",
+      "character": "ア",
+      "type": "katakana"
+    },
+    {
+      "id": "k-i",
+      "character": "イ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-u",
+      "character": "ウ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-e",
+      "character": "エ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-o",
+      "character": "オ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ka",
+      "character": "カ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ki",
+      "character": "キ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ku",
+      "character": "ク",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ke",
+      "character": "ケ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ko",
+      "character": "コ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-sa",
+      "character": "サ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-shi",
+      "character": "シ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-su",
+      "character": "ス",
+      "type": "katakana"
+    },
+    {
+      "id": "k-se",
+      "character": "セ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-so",
+      "character": "ソ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ta",
+      "character": "タ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-chi",
+      "character": "チ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-tsu",
+      "character": "ツ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-te",
+      "character": "テ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-to",
+      "character": "ト",
+      "type": "katakana"
+    },
+    {
+      "id": "k-na",
+      "character": "ナ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ni",
+      "character": "ニ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-nu",
+      "character": "ヌ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ne",
+      "character": "ネ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-no",
+      "character": "ノ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ha",
+      "character": "ハ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-hi",
+      "character": "ヒ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-fu",
+      "character": "フ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-he",
+      "character": "ヘ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ho",
+      "character": "ホ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ma",
+      "character": "マ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-mi",
+      "character": "ミ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-mu",
+      "character": "ム",
+      "type": "katakana"
+    },
+    {
+      "id": "k-me",
+      "character": "メ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-mo",
+      "character": "モ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ya",
+      "character": "ヤ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-yu",
+      "character": "ユ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-yo",
+      "character": "ヨ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ra",
+      "character": "ラ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ri",
+      "character": "リ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ru",
+      "character": "ル",
+      "type": "katakana"
+    },
+    {
+      "id": "k-re",
+      "character": "レ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ro",
+      "character": "ロ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-wa",
+      "character": "ワ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-wo",
+      "character": "ヲ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-n",
+      "character": "ン",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ga",
+      "character": "ガ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-gi",
+      "character": "ギ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-gu",
+      "character": "グ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ge",
+      "character": "ゲ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-go",
+      "character": "ゴ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-za",
+      "character": "ザ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ji",
+      "character": "ジ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-zu",
+      "character": "ズ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ze",
+      "character": "ゼ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-zo",
+      "character": "ゾ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-da",
+      "character": "ダ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-dji",
+      "character": "ヂ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-dzu",
+      "character": "ヅ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-de",
+      "character": "デ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-do",
+      "character": "ド",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ba",
+      "character": "バ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-bi",
+      "character": "ビ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-bu",
+      "character": "ブ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-be",
+      "character": "ベ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-bo",
+      "character": "ボ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-pa",
+      "character": "パ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-pi",
+      "character": "ピ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-pu",
+      "character": "プ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-pe",
+      "character": "ペ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-po",
+      "character": "ポ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-kya",
+      "character": "キャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-kyu",
+      "character": "キュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-kyo",
+      "character": "キョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-sha",
+      "character": "シャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-shu",
+      "character": "シュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-sho",
+      "character": "ショ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-cha",
+      "character": "チャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-chu",
+      "character": "チュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-cho",
+      "character": "チョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-nya",
+      "character": "ニャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-nyu",
+      "character": "ニュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-nyo",
+      "character": "ニョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-hya",
+      "character": "ヒャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-hyu",
+      "character": "ヒュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-hyo",
+      "character": "ヒョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-mya",
+      "character": "ミャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-myu",
+      "character": "ミュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-myo",
+      "character": "ミョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-rya",
+      "character": "リャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ryu",
+      "character": "リュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ryo",
+      "character": "リョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-gya",
+      "character": "ギャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-gyu",
+      "character": "ギュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-gyo",
+      "character": "ギョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ja",
+      "character": "ジャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-ju",
+      "character": "ジュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-jo",
+      "character": "ジョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-bya",
+      "character": "ビャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-byu",
+      "character": "ビュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-byo",
+      "character": "ビョ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-pya",
+      "character": "ピャ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-pyu",
+      "character": "ピュ",
+      "type": "katakana"
+    },
+    {
+      "id": "k-pyo",
+      "character": "ピョ",
+      "type": "katakana"
+    }
+  ]
+}

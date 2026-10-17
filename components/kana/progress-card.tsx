@@ -46,6 +46,9 @@ export function ProgressCard({
           <CardTitle className="text-lg">Learning Progress</CardTitle>
 
           <div className="flex flex-wrap gap-2">
+            <Button variant="outline" size="sm" asChild>
+              <a href="/guest-progress-backup.html">Export guest progress</a>
+            </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" size="sm">

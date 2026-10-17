@@ -6,6 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
+    "test": "node --experimental-strip-types --test tests/*.test.mjs",
+    "test:recovery-browser": "node tests/serve-recovery.mjs",
     "start": "next start"
   },
   "dependencies": {

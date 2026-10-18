@@ -1,3 +1,3 @@
 export default function Loading() {
-  return null
+  return <p role="status">Loading kana practice…</p>
 }

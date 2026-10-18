@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { kanaData } from "@/lib/kana-data"
 import { useKanaProgress } from "@/hooks/use-kana-progress"
@@ -13,11 +13,11 @@ import { QuizMode } from "@/components/kana/quiz-mode"
 import { TableView } from "@/components/kana/table-view"
 
 export default function KanaLearningApp() {
-  const [mounted, setMounted] = useState(false)
   const [currentMode, setCurrentMode] = useState<"flashcard" | "quiz" | "table">("flashcard")
 
   const {
     progress,
+    storageStatus,
     score,
     markAsLearned,
     resetProgress,
@@ -38,19 +38,12 @@ export default function KanaLearningApp() {
     categories,
   } = useKanaFilters(kanaData)
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return null
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
 
-      <div className="container mx-auto px-4 py-6 max-w-6xl">
+      <main className="container mx-auto px-4 py-6 max-w-6xl">
+        <p role="status" className="text-sm text-muted-foreground mb-3">{storageStatus} Familiarity is not long-term mastery.</p>
         <ProgressCard
           progress={progress}
           score={score}
@@ -70,7 +63,7 @@ export default function KanaLearningApp() {
           filteredCount={filteredKana.length}
         />
 
-        <Tabs value={currentMode} onValueChange={(value: any) => setCurrentMode(value)}>
+        <Tabs value={currentMode} onValueChange={(value) => { if (value === "flashcard" || value === "quiz" || value === "table") setCurrentMode(value) }}>
           <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="flashcard">Flashcard Mode</TabsTrigger>
             <TabsTrigger value="quiz">Quiz Mode</TabsTrigger>
@@ -95,7 +88,7 @@ export default function KanaLearningApp() {
             <TableView filteredKana={filteredKana} />
           </TabsContent>
         </Tabs>
-      </div>
+      </main>
 
       <footer className="border-t bg-card py-4 text-center text-sm text-muted-foreground">
         &copy; {new Date().getFullYear()} Dika-sama App. All rights reserved.

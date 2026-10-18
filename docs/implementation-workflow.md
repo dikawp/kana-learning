@@ -1,29 +1,23 @@
 # Implementation workflow
 
-These rules apply to every implementation checkpoint. Read this document together with the root `implementation-plan.md`, `docs/implementation-progress.md`, applicable repository instructions, recent commits, and `git status` **before starting**. A checkpoint request narrows the plan; it does not authorize implementing the entire phase.
+Current policy: C1–C6, revised 18 October 2026 (Asia/Jakarta). The application has no users. Clean redesign and breaking internal contracts are acceptable. P0-A/P0-S remain historical evidence, not current requirements.
 
-1. Record the starting commit, existing staged/unstaged/untracked changes, dependencies, and relevant acceptance criteria. Verify the current code before editing. Reuse verified existing work; do not repeat completed tasks.
-2. Implement only the requested checkpoint. Preserve unrelated changes and do not stage them implicitly. Do not upgrade dependencies/frameworks or fix adjacent defects unless that checkpoint authorizes them.
-3. Follow the plan's relevant dependencies and acceptance criteria. Record justified implementation choices and any narrower checkpoint boundary; do not silently weaken requirements.
-4. After **each completed subtask**, update `docs/implementation-progress.md` with changes, decisions, verification commands/results, blockers, and the exact next step. Keep a durable handoff before switching tasks or stopping.
-5. Mark work complete only with evidence. Distinguish **implemented**, **tested**, and **awaiting external verification**. A test attempt, successful compile, or mocked API is not proof of browser behavior or production integration. Never fabricate credentials, content approval, or test results.
-6. Run appropriate checks and report failures with their cause and scope. Do not hide failures, suppress diagnostics, skip failing tests to claim success, or weaken existing checks. Baseline failures remain visible until an authorized checkpoint resolves them.
-7. Use isolated synthetic fixtures, local test servers, and disposable test infrastructure. Do not push, deploy, provision paid services, or modify production data. Never expose secrets in files, logs, screenshots, commits, or handoffs.
-8. Preserve recoverable user data before migrations or storage changes. Do not reset/repair the only original copy to make a test pass. Use synthetic progress for browser checks. Keep recovery separate from automatic persistence.
-9. Keep verified checkpoint changes in a focused **local commit**. Review the exact diff, stage explicit paths, check whitespace, and verify commit contents/status. Preserve and document unfinished or unrelated changes. Do not discard another person's work. If committing is blocked, record the reason and exact staged/unstaged state; do not claim a commit exists.
-10. Do not implement AI companion, subscriptions, offline synchronization, or handwriting recognition. Future planning mentions do not authorize these features.
+1. Before each checkpoint read implementation-plan.md, this workflow, docs/implementation-progress.md, applicable repository instructions, recent commits and git status (staged/unstaged/untracked). Record starting commit and baseline checks.
+2. Implement only the user's requested checkpoint; reuse verified work and preserve unrelated changes/secrets. C2–C6 are governed by their future prompts, not permission to implement later modules now.
+3. Follow relevant dependencies and acceptance criteria. Update the plan when requirements change; mark replaced checkpoints superseded while preserving historical progress.
+4. After meaningful subtasks update docs/implementation-progress.md with changes, decisions, exact automated results, blockers and the exact next step.
+5. Mark completion only with verification evidence. Distinguish implemented, automated-tested, blocked and awaiting external integration verification. Never fabricate credentials, content approval, provenance or results.
+6. Run relevant automated tests, lint, strict typecheck and production builds. Do not hide failures, disable checks, skip failing tests or bypass diagnostics.
+7. Do not perform manual QA, exploratory browser testing, visual inspection or request manual QA approval. Do not create or maintain manual QA checklists. Historical observations create no new manual requirements.
+8. Use synthetic fixtures and isolated infrastructure. Reset only explicitly designated disposable databases. Do not push, deploy, provision paid services or modify production data. Never expose secrets.
+9. No legacy guest/account migration, progress export, backup/restore rehearsals, old-origin migration or backward-compatibility adapters. New guest storage may use a clean contract; future accounts start independently. Stable source identities still matter for content updates.
+10. Keep verified work in focused local commits. Review exact diffs, stage explicit paths, check whitespace and verify commit contents/status. Preserve and document unfinished/unrelated changes; do not claim a blocked commit exists.
+11. AI companion, subscriptions, offline synchronization and handwriting recognition are excluded. No backend implementation in C1.
 
-## Progress entry template
+## Progress entry
 
-- Checkpoint/subtask and status: implemented / tested / awaiting external verification / blocked.
-- Starting commit and relevant plan sections/dependencies.
-- Changes and files; decisions and scope exclusions.
-- Verification: exact commands, results, evidence, and limitations.
-- Blockers or remaining baseline failures.
-- Exact next step and handoff owner/action.
+Record checkpoint/subtask/status, starting commit, scope/dependencies, changed paths, decisions, exact automated checks/results, limitations/blockers and exact next action. Mark superseded requirements without rewriting historical outcomes.
 
-## P0-A test and recovery entrypoints
+## Automated entrypoints
 
-`npm test` runs Node's built-in test runner with TypeScript stripping on Node 22.6+ (verified runtime recorded in the progress log). It needs no third-party test dependencies. Type stripping executes the real kana dataset; it does **not** typecheck the application or replace future React/browser tests. See [Node's TypeScript documentation](https://nodejs.org/docs/latest-v22.x/api/typescript.html).
-
-The static `/guest-progress-backup.html` page is intentionally independent of the root React page and progress hook. Open it directly on the origin containing the existing progress before storage migrations. Localhost cannot read progress saved on the deployed origin. See `docs/guest-progress-recovery.md` for the backup format and read-only recovery verification. A later authorized checkpoint can add restore/migration; P0-A never writes the exported raw value back.
+Use npm and package-lock.json. npm run check is the aggregate gate: tests, lint, typecheck and production build. Native tests retain the verified 208-entry fixture; React interaction tests cover frontend behavior with synthetic data. Framework/runtime choices require official documentation and package compatibility checks.

@@ -43,12 +43,9 @@ export function ProgressCard({
     <Card>
       <CardHeader>
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-          <CardTitle className="text-lg">Learning Progress</CardTitle>
+          <CardTitle className="text-lg">Kana Familiarity</CardTitle>
 
           <div className="flex flex-wrap gap-2">
-            <Button variant="outline" size="sm" asChild>
-              <a href="/guest-progress-backup.html">Export guest progress</a>
-            </Button>
             <AlertDialog>
               <AlertDialogTrigger asChild>
                 <Button variant="outline" size="sm">
@@ -123,7 +120,7 @@ export function ProgressCard({
               <span>Overall Progress</span>
               <span>{progress.overall}%</span>
             </div>
-            <Progress value={progress.overall} className="h-2" />
+            <Progress aria-label="Overall familiarity" value={progress.overall} className="h-2" />
           </div>
 
           <div>
@@ -131,7 +128,7 @@ export function ProgressCard({
               <span>Hiragana Progress</span>
               <span>{progress.hiragana}%</span>
             </div>
-            <Progress value={progress.hiragana} className="h-2" />
+            <Progress aria-label="Hiragana familiarity" value={progress.hiragana} className="h-2" />
           </div>
 
           <div>
@@ -139,14 +136,14 @@ export function ProgressCard({
               <span>Katakana Progress</span>
               <span>{progress.katakana}%</span>
             </div>
-            <Progress value={progress.katakana} className="h-2" />
+            <Progress aria-label="Katakana familiarity" value={progress.katakana} className="h-2" />
           </div>
 
           <div className="flex items-center gap-4 text-sm">
-            <Badge variant="secondary">Characters Learned: {progress.learnedCharacters.size}</Badge>
+            <Badge variant="secondary">Familiar Entries: {progress.learnedCharacters.size}</Badge>
             {score.total > 0 && (
               <Badge variant="secondary">
-                Quiz Score: {score.correct}/{score.total} ({Math.round((score.correct / score.total) * 100)}%)
+                Last Quiz (this session): {score.correct}/{score.total} ({Math.round((score.correct / score.total) * 100)}%)
               </Badge>
             )}
           </div>

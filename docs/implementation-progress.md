@@ -1,8 +1,74 @@
 # Implementation progress
 
+**Current authority (18 October 2026): C1–C6 user checkpoints supersede the old P0/phase execution sequence.** P0-A/P0-S below are historical work. Migration/export/recovery and manual verification requirements are superseded; do not repeat them. There are no users or legacy compatibility requirements. C2–C6 await their respective user prompts.
+
+## C1 — Simplify and stabilize the frontend
+
+Starting commit: `805f6f31c2f4b1e2a53161e65ec8d77a5e7f0ac7`. Starting tree: only untracked `implementation-plan.md` from planning; updating/tracking it is authorized by C1. No applicable AGENTS.md found in repository/checked ancestors. No backend work authorized.
+
+### C1.1 — Baseline and revised workflow (implemented; automated baseline in progress)
+
+- Read plan/workflow/progress/history and existing hooks/components. Reuse Next 16.4.2/npm reconciliation from P0-S and frozen 208-entry fixture from P0-A. Native baseline: 21/21 passed. Lint/typecheck being captured; known missing `pronunciation` and Hooks/type findings remain in current code.
+- Updated workflow to C1–C6 policy: automated-only verification, no migration/export/restore or manual QA, focused commits and isolated infrastructure. Historical progress remains intact.
+- Official Next upgrade/support, Node release policy and React 19 documentation checked. Node 22.22.0 remains supported; Next 16.4.2 matches current official docs. Complete React/type compatibility instead of repeating the Next upgrade.
+- Next: replace obsolete plan requirements; remove export modules/tests while retaining the kana fixture; implement frontend regressions and restore automated gates.
+
 Read `implementation-plan.md` and `docs/implementation-workflow.md` before continuing. This log distinguishes implemented work, verification, and external checks still needed.
 
-## P0-A — Baseline, recovery, and implementation workflow
+### C1.2 — Simplified frontend contracts (implemented; automated regressions next)
+
+- Baseline lint exits 1 with 10 findings; typecheck exits 2 on `pronunciation`; baseline production build passes while explicitly skipping types. Native 21/21 passed. The first sandbox baseline process stalled; elevated checks returned actual diagnostics. No failures suppressed.
+- Replaced the execution plan with C1–C6 policy and retained source/ingestion/relational design. Removed legacy guest migration/export/restore and manual QA requirements. C2–C6 remain awaiting prompts; no invented checkpoint scopes.
+- Removed obsolete P0-A recovery page/modules/docs/tests/server and UI link; these are recoverable through commit a997c36. Retained the independent 208-entry fixture. Renamed the actual dataset/type/UI field directly to `romaji`, without adapters.
+- Added pure search and Fisher–Yates quiz/results modules; reset flashcard sessions by pool identity. Quiz now uses explicit feedback/Next/Cancel with synchronous submission/completion guards and no timers. Added accessible control labels, table headers/Japanese language, session score/familiarity wording, loading/error UI and resolved-theme toggle with stable markup.
+- Replaced effect-based guest storage with a validated external store: new key `kana-learning:guest:v1`, safe SSR snapshot, read-only hydration, known-ID filtering, guarded writes with in-memory status, cross-tab snapshot replacement/reset policy. Old keys are neither read nor converted. localStorage concurrent writes remain best effort, not account synchronization.
+- React/DOM 19.3.1 and React types 19.3.0 installed; updated incompatible cmdk/vaul peers and pinned prior floating Geist/next-themes. Incremental install emitted transient old React/type peer warnings; clean install/tree check required before completion. Native ESM package semantics declared. Added pinned Vitest/RTL/jsdom/axe for automated tests (jsdom 26.1.0 supports current Node; latest jsdom requires a newer patch).
+- Removed build type bypass; consolidated duplicate mobile/toast hooks, synchronized responsive/carousel state through subscriptions, and removed random skeleton render to resolve real lint findings without disabled rules.
+- Next: implement/run synthetic domain, React storage/hydration, lifecycle and accessibility regressions; then fix actual failures and run all quality gates from a clean npm install.
+
+### C1.3 — Automated regression suite and first failures (implemented; fixes under verification)
+
+- Added 23 initial Vitest domain/React tests plus the retained native fixture. Coverage includes all filter group/script combinations, full-width/case queries, pool shrink/empty/reveal, duplicate answers, quiz cancel/unmount/results, invalid/blocked/quota storage, cross-tab resets, StrictMode/remount and SSR hydration. Scoped axe semantic rules check control names/ARIA/table structure; jsdom has no layout engine and no visual/contrast proof is claimed.
+- First run: 20 passed / 3 failed. One actual UI defect: question-count select lacked its label ID; fixed. Two test expectation issues: kana substring search legitimately matches combinations (`し` includes `しゃ`), and raw HTML serialization differs from DOM entity normalization; corrected expectations without changing product search or suppressing hydration diagnostics.
+- Typecheck additionally caught invalid Testing Library `exact` options; removed (role name string matching is exact by default). React 19 application types otherwise compile. Automated role inspection exposed an existing Progress primitive bug: it consumed value for CSS but never forwarded it to Radix, leaving every bar indeterminate; fixed and added numeric ARIA assertion.
+- React peer tree command passes after install; initial transient peer warnings are not final mismatches. Removed obsolete Vitest esbuild option because Vite now uses Oxc. No manual QA performed.
+- Next: rerun tests/lint/typecheck, correct remaining failures, update README/CI and complete clean-install/build/audit evidence.
+
+### C1.4 — Passing regression/static/build checks; clean-install check (automated-tested; install retry needed)
+
+- Native fixture passes; final expanded frontend suite is 24/24 passed across five files, including actual Radix filter changes and real next-themes system-change/toggle persistence. Provider test initially failed because jsdom lacks matchMedia; supplied a synthetic media-query source, then the real provider test passed. No browser or visual/manual QA used.
+- `npm run lint` and `npm run typecheck` pass. `npm run build` passes on React 19 and explicitly runs TypeScript (no skipped validation). `npm audit --json` returns zero across every severity including dev dependencies. React/type peer-tree inspection passes.
+- Added `npm run check` to stop on tests/lint/typecheck/build failures and a read-only GitHub Actions workflow using the same command. Official checkout/setup-node READMEs now specify v7; use those current majors with no persisted checkout credentials. Workflow execution is not claimed because no push is authorized. README now documents 208 entries, actual grouped tables, familiarity/session score, clean storage and automated checks.
+- Disclosure retains its button/focus and exposes expanded state; Progress now forwards numeric values to Radix. Removed stale spelling and build bypass. No rules disabled.
+- Clean `npm ci --no-audit --no-fund` attempt failed with Windows EPERM unlinking the native lightningcss binary. This is an actual OS file-lock failure, not a passing clean install. Next step: identify only task-owned lingering processes, resolve the lock safely, retry npm ci and run the aggregate gate; preserve unrelated processes/work.
+
+### C1.5 — Isolated clean-install verification (in progress)
+
+- Identified an already-running `next dev` process for this workspace holding the lightningcss native DLL. It is unrelated to this checkpoint's tests and has been preserved. No process was stopped. The failed npm ci partially removed dependencies; `npm install --no-audit --no-fund` is completing the workspace installation without deleting the loaded binary.
+- Created a disposable source-only verification directory: `C:/Users/ramad/AppData/Local/Temp/kana-c1-verification-89fbfe7cfca4485db6cfcb698512adc3`. Copied only an explicit allowlist of frontend source/tests/config/manifests/assets; no `.git`, environment files, credentials, databases or production data. Running clean `npm ci`, aggregate `npm run check`, audit and dependency-tree diagnostics there. This is test infrastructure, not a backup/restore workflow.
+- Registry download logs show successful HTTP 200 responses for previously uncached archives; installation is slow, not yet a passing clean-install claim. Deprecated transitive `whatwg-encoding` warning remains visible; no suppression or force flags.
+- New CI setup follows official [checkout](https://github.com/actions/checkout) and [setup-node](https://github.com/actions/setup-node) READMEs; actual remote workflow execution is pending an independently authorized push. [Vitest configuration](https://vitest.dev/config/) documents the test setup. No remote CI result is fabricated.
+- Next: await the actual install/check outputs, compare verification source hashes to this workspace, then record final results and commit C1 locally. No C2 work.
+
+### C1.6 — Reproducible clean install verified (automated-tested)
+
+- Isolated `npm ci --no-audit --no-fund`: exit 0, 405 packages installed, no peer/engine bypass. Isolated `npm run check`: exit 0; native fixture 1/1 and frontend 24/24, lint, typecheck and production build all pass. Next explicitly runs TypeScript. `npm audit`: exit 0, zero vulnerabilities including development dependencies.
+- All 94 allowlisted source/config/fixture/asset SHA-256 hashes match the workspace. Manifest/lock/tsconfig hashes still match after workspace dependency completion. The baseline fixture itself is unchanged (SHA-256 `7B56ECB95981835A5D54DC1A94C0FC080FEE1E7C0F659D0E14D29FB8ACB94348`). This verifies the isolated checks ran the actual C1 code, not a diverging copy.
+- Isolated `npm ls --all --json`: exit 0, but reports the same two optional extraneous Sharp/WASM entries as P0-S (`@emnapi/runtime@1.11.3`, `@img/sharp-wasm32@0.35.5`). Do not describe the tree as warning-free; no invalid React/type peer is reported. No lock entries were deleted to hide them.
+- Workspace `npm install --no-audit --no-fund`: exit 0, dependencies complete. npm leaves three ignored temporary native-package directories locked by the existing dev process; cleanup warnings are recorded, no deletion/termination attempted. The isolated build also warned that an unrelated home-directory lockfile was ignored; no project config was changed to hide that environment warning.
+- Final aggregate gate is running in the original workspace too; native/frontend tests and lint passed, typecheck/build pending at this entry. Final next step: capture that exit code, review/stage exact C1 diff and whitespace, commit locally and verify status. No manual QA, production data, database reset, push or deploy.
+
+### C1.7 — Completed checkpoint and handoff (implemented and automated-tested)
+
+- Original workspace `npm run check`: **exit 0** after dependency completion: native fixture **1/1**, frontend **24/24** (25 distinct tests total; no skips/failures), configured lint, strict typecheck and production build including TypeScript validation. Same gate also passed after isolated clean npm ci. Baseline's 10 lint errors, absent-field typecheck failure and type-bypass build are resolved, not suppressed.
+- Requested frontend contracts are covered: normalized search/intersected filters; reset index/reveal on pool changes; safe validated guest hydration/persistence/error status and cross-tab reset; quiz duplicate/cancel/empty/results lifecycle; direct `romaji` naming; resolved/system theme with stable hydration; named controls, numeric progress ARIA, table headers and Japanese language. Existing three modes and all 208 kana entries remain operational under automated tests.
+- Plan/workflow use C1–C6 and no-user policy. Removed obsolete migration/export/recovery requirements and source/tests. Historical P0-A/P0-S evidence remains; verified fixture and Next/npm security work are reused. No backend/API/schema/import/auth feature, secret changes, database operations, manual QA, push or deployment performed.
+- Remaining non-blocking environment/tool notices: transitive whatwg-encoding deprecation; two reported optional Sharp/WASM extraneous entries; ignored native temporary directories locked by the existing dev server. No audit finding. Existing dev server preserved. Temporary verification copy remains outside the repository; no environment/secret files were copied.
+- External distinction: CI workflow **implemented**, equivalent commands **locally tested**; remote Actions/Vercel execution **not performed**. No manual verification or approval is required by this checkpoint. These are not claims of deployed behavior or comprehensive visual accessibility.
+- Final review: exact C1 file scope and unchanged fixture checked; full staged whitespace and commit/status verification follow. Focused local commit title: `Complete C1 frontend stabilization and simplify workflow`; actual hash is reported after commit verification rather than embedding a self-referential hash here.
+- **Handoff:** C1 is complete. Read current plan/workflow/log/status before continuing; wait for the user's C2 prompt to define its goal, dependencies and acceptance criteria. Do not reinterpret superseded phase 2 as authorization for backend work. No unfinished C1 source changes are intended to remain.
+
+## P0-A — Baseline, recovery, and implementation workflow (historical; requirements superseded)
 
 Date: 17 October 2026 (Asia/Jakarta). Starting commit: `9bf0c966d039cf0716935693e10394f287a2a0a9` (`simple update UI V.0.1.1`).
 
@@ -73,7 +139,7 @@ Scope: workflow/log, frozen kana IDs/glyphs, read-only guest progress backup/rec
 
 **Checkpoint handoff:** P0-A's implementation and local recovery contracts are verified; full Next integration remains awaiting dependency-enabled verification. This does not mark the wider P0/phase 1 complete. Exact next step, when a subsequent checkpoint is authorized: read plan/workflow/this log and `git status`, preserve the untracked plan, restore locked dependencies in a network-enabled development environment, then run `npm run build`, `npm run lint`, and `node node_modules/typescript/bin/tsc --noEmit --incremental false` to capture actual application diagnostics before implementing that checkpoint. Do not repeat the frozen fixture/export work or silently fix the deferred P0 defects. The direct recovery page is `/guest-progress-backup.html`; see `docs/guest-progress-recovery.md` for isolated reproduction and restore boundaries.
 
-## P0-S — Dependency security before the next feature checkpoint
+## P0-S — Dependency security before the next feature checkpoint (historical; prior handoff superseded)
 
 Date: 17 October 2026 (Asia/Jakarta). Starting commit: `a997c363db1d6b3c3101e9a074e0cc88ecdcab0c`.
 

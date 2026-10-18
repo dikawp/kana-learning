@@ -1,7 +1,7 @@
 export type KanaCharacter = {
   id: string
   character: string
-  romanji: string
+  romaji: string
   type: "hiragana" | "katakana"
   category: string
 }

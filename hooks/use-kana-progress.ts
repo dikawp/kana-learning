@@ -1,95 +1,26 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useSyncExternalStore } from "react"
 import { kanaData } from "@/lib/kana-data"
+import { guestStore } from "@/lib/progress/guest-store"
 
-interface DetailedProgress {
-  overall: number
-  hiragana: number
-  katakana: number
-  learnedCharacters: Set<string>
-}
-
-export function useKanaProgress() {
-  const [learnedCharacters, setLearnedCharacters] = useState<Set<string>>(new Set())
+export function useKanaProgress(store = guestStore) {
+  const snapshot = useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot)
+  const learnedCharacters = new Set(snapshot.learnedIds)
   const [score, setScore] = useState({ correct: 0, total: 0 })
-
-  useEffect(() => {
-    const savedProgress = localStorage.getItem("kana-learned-characters")
-    if (savedProgress) {
-      setLearnedCharacters(new Set(JSON.parse(savedProgress)))
-    }
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem("kana-learned-characters", JSON.stringify(Array.from(learnedCharacters)))
-  }, [learnedCharacters])
-
-  const calculateProgress = (): DetailedProgress => {
-    const totalCharacters = kanaData.length
-    const hiraganaCharacters = kanaData.filter((char) => char.type === "hiragana")
-    const katakanaCharacters = kanaData.filter((char) => char.type === "katakana")
-
-    const learnedHiragana = hiraganaCharacters.filter((char) => learnedCharacters.has(char.id)).length
-    const learnedKatakana = katakanaCharacters.filter((char) => learnedCharacters.has(char.id)).length
-
-    return {
-      overall: Math.round((learnedCharacters.size / totalCharacters) * 100),
-      hiragana: Math.round((learnedHiragana / hiraganaCharacters.length) * 100),
-      katakana: Math.round((learnedKatakana / katakanaCharacters.length) * 100),
-      learnedCharacters,
-    }
+  const percent = (type?: "hiragana" | "katakana") => {
+    const pool = kanaData.filter((kana) => !type || kana.type === type)
+    return pool.length ? Math.round(pool.filter((kana) => learnedCharacters.has(kana.id)).length / pool.length * 100) : 0
   }
-
-  const markAsLearned = (kanaId: string) => {
-    setLearnedCharacters((prev) => {
-      if (!prev.has(kanaId)) {
-        return new Set([...prev, kanaId])
-      }
-      return prev
-    })
-  }
-
-  const resetProgress = () => {
-    setLearnedCharacters(new Set())
-    setScore({ correct: 0, total: 0 })
-  }
-
-  const resetHiraganaProgress = () => {
-    const hiraganaIds = kanaData.filter((char) => char.type === "hiragana").map((char) => char.id)
-    setLearnedCharacters((prev) => {
-      const newSet = new Set(prev)
-      hiraganaIds.forEach((id) => newSet.delete(id))
-      return newSet
-    })
-  }
-
-  const resetKatakanaProgress = () => {
-    const katakanaIds = kanaData.filter((char) => char.type === "katakana").map((char) => char.id)
-    setLearnedCharacters((prev) => {
-      const newSet = new Set(prev)
-      katakanaIds.forEach((id) => newSet.delete(id))
-      return newSet
-    })
-  }
-
-  const updateScore = (correct: number, total: number) => {
-    setScore((prev) => ({
-      correct: prev.correct + correct,
-      total: prev.total + total,
-    }))
-  }
-
-  const progress = calculateProgress()
-
   return {
-    progress,
+    progress: { overall: percent(), hiragana: percent("hiragana"), katakana: percent("katakana"), learnedCharacters },
+    storageStatus: snapshot.message,
     score,
-    markAsLearned,
-    resetProgress,
-    resetHiraganaProgress,
-    resetKatakanaProgress,
-    updateScore,
-    isLearned: (kanaId: string) => learnedCharacters.has(kanaId),
+    markAsLearned: store.mark,
+    resetProgress: () => { store.reset(); setScore({ correct: 0, total: 0 }) },
+    resetHiraganaProgress: () => store.reset("hiragana"),
+    resetKatakanaProgress: () => store.reset("katakana"),
+    updateScore: (correct: number, total: number) => setScore({ correct, total }),
+    isLearned: (id: string) => learnedCharacters.has(id),
   }
 }

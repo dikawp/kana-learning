@@ -1,100 +1,57 @@
-# Japanese Kana Learning App
+# Kana Learning
 
-A comprehensive web application for learning Japanese Hiragana and Katakana characters with interactive flashcards, quizzes, and progress tracking.
+Practice 208 Japanese kana entries (104 Hiragana and 104 Katakana) with flashcards, multiple-choice quizzes and grouped reference tables.
 
-## Features
+## Current functionality
 
-- **Flashcard Mode**: Learn characters one by one with spaced repetition
-- **Quiz Mode**: Test your knowledge with customizable quizzes
-  - Choose between Hiragana, Katakana, or All characters
-  - Select number of questions (5-25)
-  - Get detailed results and scoring
-- **Table View**: Browse all characters organized by category and type
-- **Progress Tracking**: Track your learning progress with local storage
-- **Dark/Light Mode**: Toggle between themes
-- **Mobile Responsive**: Works perfectly on all devices
-- **Search & Filter**: Find specific characters or filter by type/category
+- Search glyphs or Romaji; filter by script and basic/dakuten/handakuten/combination group.
+- Reveal flashcards, navigate in either direction and mark entries familiar.
+- Choose quiz script/count (5–25, capped by available entries); receive feedback, advance explicitly and review results.
+- Quiz scope is independent of browse filters. The last quiz score is session-only.
+- Familiarity persists on this device when storage is available; it does not represent spaced repetition or long-term mastery.
+- System/light/dark theme and named keyboard-accessible controls.
 
-## Tech Stack
+## Development
 
-- **Next.js 16** - React framework with App Router
-- **TypeScript** - Type safety
-- **Tailwind CSS** - Styling framework
-- **shadcn/ui** - UI component library
-- **Lucide React** - Icons
-- **next-themes** - Theme switching
+Use Node 22.13+ within the supported Node 22 line (verified 22.22.0) and npm 10.9.4. Next 16.4.2, React 19.3.1, TypeScript, Tailwind and existing Radix/shadcn components are retained. The committed npm lockfile is the dependency source of truth.
 
-## Prerequisites
+```sh
+npm ci
+npm run dev
+```
 
-- Node.js 22.13+ within the Node 22 release line (verified with 22.22.0)
-- npm (the repository uses `package-lock.json`)
+Local app: http://localhost:3000.
 
-## Local Setup
+## Automated quality gates
 
-1. **Clone or download the project files**
+```sh
+npm run check
+```
 
-2. **Install dependencies**
-   ```sh
-    npm ci
-    ```
-   
-4. **Run development server**
-   ```sh
-    npm run dev
-    ```
-   
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+This runs tests, lint, strict typecheck and production build in sequence; a failed gate stops the command. Build type errors are not ignored.
 
-## Available Scripts
+| Command | Purpose |
+| --- | --- |
+| npm test | Native 208-entry fixture plus Vitest/React interaction tests |
+| npm run test:native | Frozen kana ID/glyph/script contract |
+| npm run test:frontend | Search, quiz, storage, hydration, theme and accessible semantics |
+| npm run lint | ESLint with JS/TypeScript and React Hooks recommended rules |
+| npm run typecheck | Strict TypeScript checking without emit |
+| npm run build | Next production build including type validation |
+| npm run start | Serve the built application locally |
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-- `npm run typecheck` - Run TypeScript checks without bypassing diagnostics
-- `npm test` - Run the kana baseline and read-only recovery contract tests
+Automated accessibility checks cover control names, ARIA and table structure in jsdom; no layout/contrast or deployed behavior claim is made. Do not perform manual QA, exploratory browser testing or visual inspection. Read [the workflow](docs/implementation-workflow.md) and [progress log](docs/implementation-progress.md) before a checkpoint. C1–C6 supersede the original execution sequence.
 
-Use the committed npm lockfile for reproducible installs. Review security updates with `npm audit`; do not apply `npm audit fix --force` without checking compatibility. The implementation progress log records known application diagnostics separately from dependency audit results.
+## Local progress contract
 
-## Data
+Guest familiarity uses `kana-learning:guest:v1` with `{ version: 1, learnedIds: string[] }`. Reads are validated and never automatically write an empty snapshot. Duplicate/unknown IDs are excluded. Invalid or unavailable storage produces a visible status and permits in-memory practice; explicit changes start a fresh record when writing is possible. Storage events replace snapshots, including resets; concurrent localStorage writes are best effort.
 
-The app includes a comprehensive dataset of 214 Japanese characters:
-- **Hiragana**: Basic characters, dakuten, handakuten variants
-- **Katakana**: Basic characters, dakuten, handakuten variants
-- **Categories**: Vowels, K-sounds, S-sounds, T-sounds, N-sounds, H-sounds, M-sounds, Y-sounds, R-sounds, W-sounds
+There are no users or compatibility requirements. The old key is not read or converted. Export/recovery/migration features were removed in C1; historical work remains in Git. Future accounts start independently. No backend is implemented in this checkpoint.
 
-## Features in Detail
+## Planned product
 
-### Flashcard Mode
-- Navigate through characters with previous/next buttons
-- Mark characters as learned
-- Progress indicator shows completion percentage
-- Responsive card design with large, clear characters
-
-### Quiz Mode
-- Pre-quiz setup to choose type and question count
-- Multiple choice questions with 4 options
-- Real-time scoring and progress tracking
-- Detailed results screen with review of all answers
-- Option to restart or switch to flashcards for practice
-
-### Table View
-- Traditional Kana chart layout
-- Organized by categories (vowels, consonants)
-- Separate sections for Hiragana and Katakana
-- Clean table format with character and romanji
-
-### Progress Tracking
-- Automatic saving to browser's local storage
-- Persistent across sessions
-- Visual indicators for learned characters
-- Progress statistics in each mode
-
-## Contributing
-
-Feel free to submit issues and enhancement requests!
+See [implementation-plan.md](implementation-plan.md) for the English-only, N5-first platform direction: Elysia on Next/Vercel, PostgreSQL, imported licensed kanji/vocabulary, curated lessons and per-skill review scheduling. C2–C6 await the user's prompts. AI companion, subscriptions, offline synchronization and handwriting recognition are excluded.
 
 ## License
 
-This project is open source and available under the MIT License.
+Repository software is MIT licensed. Future dictionary/media imports retain their own source attribution and reuse terms.

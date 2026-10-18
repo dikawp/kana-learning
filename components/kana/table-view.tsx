@@ -49,20 +49,21 @@ export function TableView({ filteredKana }: TableViewProps) {
               <CardContent className="flex-1">
                 <div className="overflow-x-auto">
                   <table className="w-full border-collapse">
+                    <caption className="sr-only">{type} {category} kana and Romaji</caption>
                     <thead>
-                      <tr className="border-b hidden md:block">
-                        <th className="text-left p-2 text-sm font-medium text-muted-foreground">Character</th>
-                        <th className="text-left p-2 text-sm font-medium text-muted-foreground">Romanji</th>
+                      <tr className="border-b">
+                        <th scope="col" className="text-left p-2 text-sm font-medium text-muted-foreground">Character</th>
+                        <th scope="col" className="text-left p-2 text-sm font-medium text-muted-foreground">Romaji</th>
                       </tr>
                     </thead>
                     <tbody>
                       {categorizedKana[category].map((kana) => (
                         <tr key={kana.id} className="border-b hover:bg-muted/50 transition-colors">
                           <td className="p-2">
-                            <span className="text-xl font-bold text-primary">{kana.character}</span>
+                            <span lang="ja" className="text-xl font-bold text-primary">{kana.character}</span>
                           </td>
                           <td className="p-2">
-                            <span className="text-sm font-medium">{kana.romanji}</span>
+                            <span className="text-sm font-medium">{kana.romaji}</span>
                           </td>
                         </tr>
                       ))}

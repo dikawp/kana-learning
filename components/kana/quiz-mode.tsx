@@ -1,12 +1,13 @@
 "use client"
 
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Target, Trophy, CheckCircle, XCircle } from "lucide-react"
+import { generateQuizQuestions, calculateQuizResults } from "@/lib/kana/quiz"
 import type { KanaCharacter, QuizQuestion, QuizSetup, QuizResults } from "@/types/kana"
 
 interface QuizModeProps {
@@ -27,117 +28,66 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
   const [quizAnswer, setQuizAnswer] = useState<string>("")
   const [quizResult, setQuizResult] = useState<"correct" | "incorrect" | null>(null)
 
-  const generateQuizQuestions = (setup: QuizSetup) => {
-    let availableKana = kanaData
-
-    if (setup.type !== "all") {
-      availableKana = kanaData.filter((k) => k.type === setup.type)
-    }
-
-    if (availableKana.length === 0) return []
-
-    const questions: QuizQuestion[] = []
-    const usedKana = new Set<string>()
-
-    for (let i = 0; i < Math.min(setup.questionCount, availableKana.length); i++) {
-      let randomKana: KanaCharacter
-      do {
-        randomKana = availableKana[Math.floor(Math.random() * availableKana.length)]
-      } while (usedKana.has(randomKana.id) && usedKana.size < availableKana.length)
-
-      usedKana.add(randomKana.id)
-
-      const wrongAnswers = kanaData
-        .filter((k) => k.id !== randomKana.id && k.type === randomKana.type)
-        .sort(() => Math.random() - 0.5)
-        .slice(0, 3)
-        .map((k) => k.romanji)
-
-      const options = [randomKana.romanji, ...wrongAnswers].sort(() => Math.random() - 0.5)
-
-      questions.push({
-        character: randomKana,
-        options,
-        correctAnswer: randomKana.romanji,
-      })
-    }
-
-    return questions
-  }
+  const submitted = useRef(false)
+  const completed = useRef(false)
+  const [setupError, setSetupError] = useState("")
 
   const startQuiz = () => {
-    const questions = generateQuizQuestions(quizSetup)
+    const questions = generateQuizQuestions(kanaData, quizSetup)
+    if (!questions.length) {
+      setSetupError("No kana are available for this quiz. Choose another script.")
+      return
+    }
+    setSetupError("")
     setQuizQuestions(questions)
     setCurrentQuestionIndex(0)
     setQuizAnswers([])
     setQuizAnswer("")
     setQuizResult(null)
+    setQuizResults(null)
+    submitted.current = false
+    completed.current = false
     setQuizState("playing")
   }
 
   const handleQuizAnswer = (answer: string) => {
-    const currentQuestion = quizQuestions[currentQuestionIndex]
-    if (!currentQuestion) return
-
+    const question = quizQuestions[currentQuestionIndex]
+    if (quizState !== "playing" || submitted.current || !question?.options.includes(answer)) return
+    submitted.current = true
     setQuizAnswer(answer)
-    const isCorrect = answer === currentQuestion.correctAnswer
-    setQuizResult(isCorrect ? "correct" : "incorrect")
-
-    const newAnswers = [...quizAnswers]
-    newAnswers[currentQuestionIndex] = answer
-    setQuizAnswers(newAnswers)
-
-    if (isCorrect && !isLearned(currentQuestion.character.id)) {
-      onMarkAsLearned(currentQuestion.character.id)
-    }
-
-    setTimeout(() => {
-      if (currentQuestionIndex < quizQuestions.length - 1) {
-        setCurrentQuestionIndex((prev) => prev + 1)
-        setQuizAnswer("")
-        setQuizResult(null)
-      } else {
-        finishQuiz(newAnswers)
-      }
-    }, 1500)
+    const correct = answer === question.correctAnswer
+    setQuizResult(correct ? "correct" : "incorrect")
+    setQuizAnswers((previous) => [...previous, answer])
+    if (correct && !isLearned(question.character.id)) onMarkAsLearned(question.character.id)
   }
 
-  const finishQuiz = (answers: string[]) => {
-    const results: QuizResults = {
-      score: 0,
-      total: quizQuestions.length,
-      percentage: 0,
-      questions: [],
+  const advanceQuiz = () => {
+    if (!submitted.current || completed.current) return
+    if (currentQuestionIndex === quizQuestions.length - 1) {
+      completed.current = true
+      const results = calculateQuizResults(quizQuestions, quizAnswers)
+      setQuizResults(results)
+      setQuizState("results")
+      onUpdateScore(results.score, results.total)
+    } else {
+      submitted.current = false
+      setCurrentQuestionIndex((previous) => previous + 1)
+      setQuizAnswer("")
+      setQuizResult(null)
     }
-
-    quizQuestions.forEach((question, index) => {
-      const userAnswer = answers[index]
-      const isCorrect = userAnswer === question.correctAnswer
-
-      if (isCorrect) results.score++
-
-      results.questions.push({
-        character: question.character,
-        userAnswer,
-        correctAnswer: question.correctAnswer,
-        isCorrect,
-      })
-    })
-
-    results.percentage = Math.round((results.score / results.total) * 100)
-    setQuizResults(results)
-    setQuizState("results")
-
-    onUpdateScore(results.score, results.total)
   }
 
   const resetQuiz = () => {
+    submitted.current = false
+    completed.current = false
     setQuizState("setup")
+    setQuizQuestions([])
     setQuizResults(null)
     setCurrentQuestionIndex(0)
     setQuizAnswers([])
     setQuizAnswer("")
     setQuizResult(null)
+    setSetupError("")
   }
 
   return (
@@ -148,17 +98,17 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
             <div className="space-y-2">
               <Target className="h-12 w-12 mx-auto text-primary" />
               <h3 className="text-2xl font-bold">Quiz Setup</h3>
-              <p className="text-muted-foreground">Configure your quiz preferences</p>
+              <p className="text-muted-foreground">Quiz uses its own script and question count, independently of browse filters.</p>
             </div>
 
             <div className="max-w-md mx-auto space-y-4 md:flex justify-between">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Quiz Type</label>
+                <label htmlFor="quiz-type" className="text-sm font-medium">Quiz Type</label>
                 <Select
                   value={quizSetup.type}
-                  onValueChange={(value: any) => setQuizSetup((prev) => ({ ...prev, type: value }))}
+                  onValueChange={(value) => { if (value === "all" || value === "hiragana" || value === "katakana") setQuizSetup((prev) => ({ ...prev, type: value })) }}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="quiz-type">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -170,14 +120,14 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium">Number of Questions</label>
+                <label htmlFor="quiz-count" className="text-sm font-medium">Number of Questions</label>
                 <Select
                   value={quizSetup.questionCount.toString()}
                   onValueChange={(value) =>
                     setQuizSetup((prev) => ({ ...prev, questionCount: Number.parseInt(value) }))
                   }
                 >
-                  <SelectTrigger>
+                  <SelectTrigger id="quiz-count">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -191,6 +141,7 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               </div>
             </div>
 
+            {setupError && <p role="alert">{setupError}</p>}
             <Button onClick={startQuiz} size="lg">
               Start Quiz
             </Button>
@@ -217,11 +168,11 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               </div>
             </div>
 
-            <div className="text-6xl font-bold text-primary mb-4">
+            <div lang="ja" className="text-6xl font-bold text-primary mb-4">
               {quizQuestions[currentQuestionIndex].character.character}
             </div>
 
-            <p className="text-lg">What is the romanji for this character?</p>
+            <p className="text-lg">What is the romaji for this character?</p>
 
             <div className="grid grid-cols-2 gap-3 max-w-md mx-auto">
               {quizQuestions[currentQuestionIndex].options.map((option, index) => (
@@ -254,20 +205,22 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
             </div>
 
             {quizResult && (
-              <div className="space-y-2">
+              <div role="status" className="space-y-2">
                 <div
                   className={`text-lg font-semibold ${quizResult === "correct" ? "text-green-600" : "text-red-600"}`}
                 >
                   {quizResult === "correct" ? "Correct!" : "Incorrect!"}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  <div>Romanji: {quizQuestions[currentQuestionIndex].character.romanji}</div>
+                  <div>Romaji: {quizQuestions[currentQuestionIndex].character.romaji}</div>
 
                 </div>
               </div>
             )}
 
-            <Progress value={((currentQuestionIndex + 1) / quizQuestions.length) * 100} className="max-w-md mx-auto" />
+            {quizResult && <Button onClick={advanceQuiz}>{currentQuestionIndex === quizQuestions.length - 1 ? "See Results" : "Next Question"}</Button>}
+            <Button variant="ghost" onClick={resetQuiz}>Cancel Quiz</Button>
+            <Progress aria-label="Quiz progress" value={((currentQuestionIndex + 1) / quizQuestions.length) * 100} className="max-w-md mx-auto" />
           </div>
         )}
 
@@ -299,14 +252,14 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
                 {quizResults.questions.map((q, index) => (
                   <div key={index} className="flex items-center justify-between p-3 rounded-lg border">
                     <div className="flex items-center gap-3">
-                      <span className="text-2xl">{q.character.character}</span>
+                      <span lang="ja" className="text-2xl">{q.character.character}</span>
                       <div className="text-left">
-                        <div className="font-medium">{q.character.romanji}</div>
+                        <div className="font-medium">{q.character.romaji}</div>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
                       {q.isCorrect ? (
-                        <CheckCircle className="h-5 w-5 text-green-600" />
+                        <span><CheckCircle aria-hidden="true" className="inline h-5 w-5 text-green-600" /> Correct</span>
                       ) : (
                         <div className="text-right">
                           <div className="text-sm text-red-600">Your: {q.userAnswer}</div>

@@ -11,6 +11,11 @@ test("all 208 kana IDs, glyphs, scripts and ordering match the frozen starting c
   assert.equal(baseline.entries.length, 208)
   assert.equal(new Set(baseline.entries.map(({ id }) => id)).size, 208)
   assert.deepEqual(kanaData.map(({ id, character, type }) => ({ id, character, type })), baseline.entries)
+  for (const kana of kanaData) {
+    assert.equal(typeof kana.romaji, "string")
+    assert.ok(kana.romaji.length > 0)
+    assert.equal("romanji" in kana, false)
+  }
   for (const script of ["hiragana", "katakana"]) {
     assert.equal(kanaData.filter(({ type }) => type === script).length, 104)
   }

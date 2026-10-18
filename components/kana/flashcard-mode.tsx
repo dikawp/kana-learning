@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useId, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -14,6 +14,11 @@ interface FlashcardModeProps {
 }
 
 export function FlashcardMode({ filteredKana, onMarkAsLearned, isLearned }: FlashcardModeProps) {
+  return <FlashcardSession key={filteredKana.map((kana) => kana.id).join("|")} filteredKana={filteredKana} onMarkAsLearned={onMarkAsLearned} isLearned={isLearned} />
+}
+
+function FlashcardSession({ filteredKana, onMarkAsLearned, isLearned }: FlashcardModeProps) {
+  const answerId = useId()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showAnswer, setShowAnswer] = useState(false)
 
@@ -43,11 +48,11 @@ export function FlashcardMode({ filteredKana, onMarkAsLearned, isLearned }: Flas
     <Card>
       <CardContent className="pt-6">
         <div className="text-center space-y-6">
-          <div className="text-6xl font-bold text-primary mb-4">{currentKana?.character}</div>
+          <div lang="ja" className="text-6xl font-bold text-primary mb-4">{currentKana?.character}</div>
 
           {showAnswer && (
-            <div className="space-y-2">
-              <div className="text-2xl font-semibold text-foreground">{currentKana?.romanji}</div>
+            <div id={answerId} role="status" className="space-y-2">
+              <div className="text-2xl font-semibold text-foreground">{currentKana?.romaji}</div>
               <Badge variant="outline">
                 {currentKana?.type} - {currentKana?.category}
               </Badge>
@@ -60,9 +65,10 @@ export function FlashcardMode({ filteredKana, onMarkAsLearned, isLearned }: Flas
           )}
 
           <div className="flex justify-center gap-4">
-            {!showAnswer ? (
-              <Button onClick={() => setShowAnswer(true)}>Show Answer</Button>
-            ) : (
+            <Button onClick={() => setShowAnswer((previous) => !previous)} aria-expanded={showAnswer} aria-controls={showAnswer ? answerId : undefined}>
+              {showAnswer ? "Hide Answer" : "Show Answer"}
+            </Button>
+            {showAnswer && (
               <div className="flex gap-2">
                 <Button
                   variant="outline"

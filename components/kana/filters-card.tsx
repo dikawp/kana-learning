@@ -19,7 +19,7 @@ interface FiltersCardProps {
 const getCategoryDisplayName = (category: string): string => {
   switch (category) {
     case "basic":
-      return "Basic (vowels, n sound)"
+      return "Basic kana"
     case "dakuten":
       return "Dakuten (g, z, d, b sounds)"
     case "handakuten":
@@ -51,7 +51,8 @@ export function FiltersCard({
             <div className="relative flex-1">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search kana..."
+                aria-label="Search kana or Romaji"
+                placeholder="Search kana or Romaji..."
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}
                 className="pl-10"
@@ -60,7 +61,7 @@ export function FiltersCard({
 
             {/* Type Select */}
             <Select value={selectedType} onValueChange={onTypeChange}>
-              <SelectTrigger className="w-[160px]">
+              <SelectTrigger aria-label="Kana script" className="w-[160px]">
                 <SelectValue placeholder="Select type" />
               </SelectTrigger>
               <SelectContent>
@@ -72,7 +73,7 @@ export function FiltersCard({
 
             {/* Category Select */}
             <Select value={selectedCategory} onValueChange={onCategoryChange}>
-              <SelectTrigger className="w-[180px]">
+              <SelectTrigger aria-label="Kana group" className="w-[180px]">
                 <SelectValue placeholder="Select category" />
               </SelectTrigger>
               <SelectContent>
@@ -87,7 +88,7 @@ export function FiltersCard({
           </div>
 
           {/* Right: Count */}
-          <div className="text-sm text-muted-foreground whitespace-nowrap">
+          <div role="status" className="text-sm text-muted-foreground whitespace-nowrap">
             {filteredCount} characters
           </div>
         </div>

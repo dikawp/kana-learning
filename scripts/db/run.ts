@@ -1,4 +1,4 @@
-import { loadEnvConfig } from "@next/env"
+import nextEnv from "@next/env"
 import postgres from "postgres"
 import { drizzle } from "drizzle-orm/postgres-js"
 import { migrate } from "drizzle-orm/postgres-js/migrator"
@@ -7,7 +7,7 @@ import { migrationTarget } from "./targets"
 import * as schema from "../../server/db/schema"
 
 async function main() {
-  loadEnvConfig(process.cwd())
+  nextEnv.loadEnvConfig(process.cwd())
   const config = migrationTarget(process.env)
   const connection = postgres(config.url, { max: 1, prepare: false, ssl: config.local ? false : "require", connect_timeout: 10 })
   try {

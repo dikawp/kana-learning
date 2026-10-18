@@ -82,7 +82,19 @@ npm run test:postgres
 
 It refuses missing/non-loopback/wrong-name/nonempty/production targets; it never resets existing schemas. It creates a restricted random LOGIN role, tests simultaneous requests over four pooled connections and removes only that role on completion. CI defines a disposable PostgreSQL 17 service for this suite. The CI service credentials are public synthetic fixtures for that short-lived service, not deployment credentials. Do not copy production data into it.
 
-At C2 investigation time Docker Desktop's engine is unavailable and no Supabase/test connection credentials are configured. Network PostgreSQL, real Supabase email/confirmation/recovery/session revocation, provider pooler/role/region setup and Vercel integration remain **unavailable external checks**, with no fabricated success. Their automated entrypoints and limitations are recorded in `implementation-progress.md`. No production writes, deployment, backup/restore rehearsal or remote CI execution is authorized.
+Docker is optional test infrastructure, not an application dependency. Hosted Supabase supplies development PostgreSQL/Auth; Next/Elysia runs locally. `test:postgres` remains loopback-only and must never target a hosted Supabase project.
+
+On 18 October 2026 the user designated their existing Supabase development project, supplied its administrative URL locally and explicitly approved a restricted `kana_app` LOGIN and local credential storage. Applied all three committed migrations, seeded 208 kana, repeated migrations/seed successfully, and configured the two exact localhost Auth redirects. The SQL role inherits `learning_runtime`, has no superuser/BYPASSRLS/role-creation/database-creation privileges and connects through the transaction pooler. Actual credentials exist only in ignored `.env.local`; no deployment or production changes occurred. The database region is Tokyo/ap-northeast-1; Vercel region selection remains future deployment work.
+
+After `npm run build`, run the opt-in **read-only** hosted verification:
+
+```sh
+npm run verify:supabase
+```
+
+It requires `APP_ENV=development`, `DATABASE_CHANGE_TARGET=disposable-development`, a matching hosted Supabase Auth project, administrative session-pooler identity and `kana_app` transaction-pooler URL. The administrative URL is checked locally, never used to connect by this verifier. It reads all 208 kana under the runtime role, compares the actual dataset, verifies forced RLS and restrictive grants, proves Auth-table access is denied, and opens concurrent pooled read requests. It checks public Auth settings with the publishable key and starts/stops its own random-port Next production server to verify database-backed Elysia content and anonymous/validation/Origin boundaries. It never creates users, sends emails, modifies SQL rows or resets a database. It requires outbound network permission and ordinary filesystem access; no Docker or admin key is required. It is excluded from default/CI checks to prevent accidental cloud access. Restart the existing dev server after `.env.local` changes.
+
+This verifier does **not** prove authenticated account isolation/persistence, concurrent mutations on hosted PostgreSQL, actual email/confirmation/recovery/session revocation or Vercel deployment. Those remain external checks requiring explicitly isolated test accounts and appropriately authorized managed Auth setup. Local embedded SQL, Auth transport and disposable-network tests remain distinct evidence. No backup/restore rehearsal or remote CI execution is authorized.
 
 ## Technical references
 

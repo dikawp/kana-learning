@@ -20,6 +20,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/db/run.ts migrate",
     "db:seed": "tsx scripts/db/run.ts seed",
+    "verify:supabase": "tsx scripts/db/verify-development.ts",
     "test:postgres": "vitest run --config vitest.postgres.config.mts",
     "test:production": "node tests/production-smoke.mjs"
   },

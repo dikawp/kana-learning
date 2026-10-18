@@ -8,7 +8,7 @@ Build an English-language Japanese learning platform: kana, kanji and vocabulary
 
 There are no users. Clean redesign, new storage keys, breaking internal contracts and fresh account state are acceptable. Remove guest/account migration, progress export, backup/restore rehearsals, old-origin transfer and backward-compatibility adapters. Future accounts start independently; no synthetic historical reviews or mastery.
 
-Excluded: AI companion, subscriptions, offline synchronization and handwriting recognition. No backend, accounts, database, imports or deployment in C1. Architecture for later modules is a proposal, not authorization to build them. C2–C6 details are not supplied yet; do not invent their scope or begin them.
+Excluded: AI companion, subscriptions, offline synchronization and handwriting recognition. C1 delivered frontend stabilization; C2 now authorizes the account/backend slice below. Dictionary imports and later learning modules remain proposals, not authorization to build them. C3–C6 details are not supplied yet. No production changes, deployment, backup/restore rehearsals or manual QA.
 
 ## 2. Evidence and starting repository
 
@@ -38,11 +38,11 @@ C1 starting tree: untracked implementation-plan.md only. No applicable AGENTS.md
 
 Data flow: bundled kana → filter hook → flashcards/table; full dataset → quiz's separately labelled script/count setup. Reveal + Got it and correct quiz answers update a binary familiarity set. It is not SRS or mastery. Quiz score is explicitly session-only in C1; durable sessions belong to a later authorized checkpoint. Guest storage uses a clean versioned snapshot, no reading/conversion of old keys. Failed storage must allow safe in-memory use and disclose persistence limitations. Validate shape, deduplicate and exclude unknown IDs; never write on initial render or merely reading state. Cross-tab policy is latest validated snapshot replacement, including resets; no union that resurrects reset entries. Simultaneous localStorage writes are best effort, not transactional synchronization.
 
-Current local implementation has no backend, authentication, SQL schema, content API or imported kanji/vocabulary. No current code/deployment identity equivalence is assumed.
+The C1 starting implementation had no backend. C2 adds the concrete modules in section 9 and docs/backend-setup.md; imported kanji/vocabulary and SRS remain future scope. No current code/deployment identity equivalence is assumed.
 
-## 4. Architecture for later authorized checkpoints
+## 4. Architecture and C2 account foundation
 
-Retain Next App Router and UI primitives. Recommended backend is Elysia in proposed app/api/[[...slugs]]/route.ts using app.fetch, runtime=nodejs, no listener. Supabase PostgreSQL/Auth with Drizzle is the preferred database/account foundation. External dictionary APIs support ingestion/updates; normal study reads imported published PostgreSQL content.
+Retain Next App Router and UI primitives. C2 implements Elysia in app/api/[[...slugs]]/route.ts using app.fetch, runtime=nodejs, no listener. Supabase PostgreSQL/Auth with Drizzle is the account foundation; environment credentials are not fabricated. External dictionary APIs remain future ingestion/update inputs; normal account kana study reads the seeded PostgreSQL content.
 
 A separate Elysia Vercel project permits independent releases/clients but adds CORS, cookies/token forwarding, shared-contract versioning and preview coordination. This repository has one frontend and no demonstrated need for that cost. Keep domain services separate internally to allow later extraction. Bun is optional, not required.
 
@@ -66,7 +66,7 @@ Official references: [Next upgrade](https://nextjs.org/docs/app/guides/upgrading
 | No content operations | Separate source reference data, editorial corrections, approved lesson targets and atomic publication. |
 | No advanced modules | Grammar, graded reading/furigana/lookup, licensed listening/transcripts, section results after N5 foundation. |
 
-The N5 release requires the curated course and actual lesson → practice → feedback → scheduled review loop, source attribution, auth ownership/idempotency and automated integration evidence. Reference dictionaries alone are not a curriculum. Exact checkpoint allocation after C1 awaits C2–C6 prompts.
+The N5 release requires the curated course and actual lesson → practice → feedback → scheduled review loop, source attribution, auth ownership/idempotency and automated integration evidence. Reference dictionaries alone are not a curriculum. C2 covers account persistence/server grading; later checkpoint allocation awaits C3–C6 prompts.
 
 ## 6. Content sources and ingestion
 
@@ -241,13 +241,27 @@ The original P0/phase 1–6 sequence is **superseded**. P0-A/P0-S historical out
 - Acceptance: all 208 IDs/glyphs remain; shi/SHI/trimmed/kana/nonmatches and combined filters work. Shrink/empty/expand never expose invalid or previously revealed cards. Refresh/remount reads valid new storage; invalid/blocked/quota storage does not crash; no initial empty overwrite; known-ID percentages stay bounded; cross-tab resets replace state. Quiz has unique prompts/options, one submission/question, explicit cancellation/advancement, correct final review and zero-pool feedback. All UI/data contracts say Romaji. System/light/dark hydration is stable; inputs, progress, table headers, theme and feedback have accessible semantics. All automated gates pass with no build bypass or suppressed diagnostics.
 - Tests: native dataset contract, pure domain tests, React interaction/storage/hydration tests, automated accessibility, lint, strict typecheck, production build. No manual QA, browser exploration or visual inspection.
 
-### C2–C6 — Await user checkpoint prompts
+### C2 — Backend, database, login and persistent progress (implemented; local automated verification passed; external checks pending)
 
-Not started. Exact goal/dependencies/deliverables/files/database/API/acceptance/tests will be specified when the corresponding prompt arrives. Backend/account/content/SRS/advanced-module architecture above remains planning context. Do not infer that C2 equals old phase 2 or begin backend work in C1.
+- Goal/dependencies: layer real account services onto verified C1 kana functionality without a guest/account adapter or migration. Supabase manages email/password, verification/recovery and token sessions; Elysia owns account authorization, grading and idempotency; PostgreSQL/Drizzle owns persistence. No content import, scheduler or advanced course work.
+- Deliverables: Node fetch integration, private SQL schema and committed migrations, repeatable 208-entry seed, restricted pooled SQL connection, server-only environment configuration, managed auth/account UI, persistent familiarity, server-issued quiz snapshots/feedback/results/history and durable retry receipts.
+- Existing files reused/extended: components/layout/header.tsx, components/kana/flashcard-mode.tsx, filters-card.tsx and primitives; lib/kana/quiz.ts and types/kana.ts; C1 guest root/hook/store remain independent. Extend package scripts, lockfile, CI and documentation.
+- Implemented additions: app/api/[[...slugs]]/route.ts; server/api/{app,runtime,errors}.ts; server/config.ts; server/db/{client,schema}.ts; server/services/learning.ts; server/auth/{client,gateway,supabase,callback,refresh}.ts; proxy.ts; app/auth/callback/route.ts; app/account/page.tsx and password/page.tsx; components/account/*; lib/account/{client,contracts}.ts; drizzle/ and drizzle.config.ts; scripts/db/{run,seed-kana,targets}.ts; .env.example; docs/backend-setup.md; backend/account/production/network automated tests and configs.
+- Concrete C2 database slice: private learning.profiles (FK managed auth.users), kana (text ID from fixture, unique script/glyph/order), kana_familiarity (profile/kana PK), quiz_sessions, quiz_questions and quiz_answers (composite owner/session FKs, unique prompt/answer, bounded result state), mutation_receipts (profile/request PK, canonical payload hash and saved result). General UUID material/source/release tables from section 7 stay later content work; do not create empty entities for them now.
+- SQL protection: least-privilege non-bypass runtime role, private schema, forced per-profile RLS and explicit query scoping. Transaction-local claims and profile row locks serialize mutations across pooled requests; a unique durable receipt prevents replayed activity. Immutable questions/answers/receipts are insert/read only to runtime. No client-supplied owner, correctness or score.
+- API: docs/backend-setup.md lists exact implemented /api/v1 auth/content/progress/quiz resources. GET quiz-sessions/:id supplies both resumable state and completed review; history is cursor-paginated. Request validation rejects extra fields and oversized/non-JSON bodies, errors are safe/consistent and private responses uncached. Writes require the configured exact Origin.
+- UI: separate /account sign-in/signup/recovery/sign-out/password change, filtered server-content flashcards, server-checked quiz, review/history/resume and stable-ID retry buttons. Failed mutations do not credit progress optimistically. Guest storage is not read/imported. Accounts never claim single-answer mastery.
+- Acceptance: local Node route handles requests without Bun/listeners; managed auth methods and refresh/callback cookies are wired; unauthenticated or foreign-account access is denied; invalid payloads/unknown kana/foreign questions are rejected; seed and migrations repeat safely; new service/process state reads persisted progress/results; one response per question and one completed score survive repeated/concurrent submissions; complete only after every issued answer exists; no secrets in client output. No production operation, migration at startup, backup rehearsal or manual QA.
+- Automated evidence: retained kana fixture and React regressions; real embedded PostgreSQL migrations/constraints/RLS and disk close/reopen; actual Elysia Request/Response boundaries; real Supabase SDK through synthetic HTTP Auth transport; Next callback/proxy cookie/redirect tests; retry/account-switch UI tests; lint/typecheck/build and automated loopback production HTTP smoke. Network test: explicit new empty loopback kana_c2_test_* database, restricted random login and independent pooled connections; CI defines a disposable PostgreSQL service.
+- External distinction: no Supabase credentials/project or running Docker engine are available here. Hosted email/confirmation/recovery/revocation, real pooler/TLS/region behavior, network PostgreSQL contention and Vercel/remote CI are not claimed tested. Configuration and automated entrypoints/limits are documented. Continue independent implementation; no manual QA approval gate or deployment is introduced.
+
+### C3–C6 — Await user checkpoint prompts
+
+Not started. Their goal/dependencies/deliverables/files/database/API/acceptance/tests will follow the corresponding prompt. Later content/SRS/advanced-module architecture above remains planning context, not authorization.
 
 ## 10. Automated verification and local delivery
 
-Use npm with one lockfile and supported pinned framework/runtime line. Aggregate command npm run check runs native/React tests, lint, typecheck and production build. Native fixture remains evidence of the original kana inventory; interaction tests use synthetic local state. No test depends on production services or live upstream dictionaries. Add pinned source fixtures and disposable database/API integration tests in later authorized checkpoints. A simulated DOM does not prove deployed browser performance or production integration; report that limit without requesting manual approval.
+Use npm with one lockfile and supported pinned framework/runtime line. Aggregate npm run check runs native/React/backend tests, lint, typecheck, production build and loopback HTTP smoke. Native fixture remains evidence of the kana inventory; tests use synthetic local data and embedded PostgreSQL, not production services or live dictionaries. test:postgres separately requires an explicit new disposable network target. A simulated DOM or Auth transport does not prove hosted behavior; report that limit without requesting manual approval.
 
 Do not perform manual QA, exploratory browser testing, visual inspection, manual acceptance checklists or backup/restore rehearsals. Editorial provenance/rights approval is a content publication responsibility, never fabricate it or mislabel it as automated proof of pedagogy.
 
@@ -255,7 +269,7 @@ Before each focused local commit check exact diff, whitespace, automated results
 
 ## 11. Risks and unresolved decisions
 
-- C2–C6 scope/order, provider budget/region, authentication provider, exact N5 manifest and content reviewers await later prompts/decisions.
+- C3–C6 scope/order, provider budget/region, actual isolated Supabase credentials/configuration, exact N5 manifest and content reviewers await later prompts/decisions. C2 uses managed Supabase email/password and restricted PostgreSQL.
 - API schema fixtures, JLPT vocabulary mapping reuse permission, media rights and editorial capacity are publication gates. Preserve unknowns; do not fabricate content.
 - Node 22 is supported; Next 16.4.2 already upgraded. C1 verifies React 19 and UI peer/type compatibility. Exact dependency results and failed attempts belong in the progress log.
 - Guest familiarity is best-effort device-local; no cross-device guest sync, guaranteed concurrent-write merging, old-key conversion or migration into an account.
@@ -265,7 +279,7 @@ Before each focused local commit check exact diff, whitespace, automated results
 ## 12. Prioritized checklist
 
 - [x] C1: replaced obsolete policy/export contracts; normalized Romaji/search; stabilized filter/card/storage/quiz/theme/accessibility; all automated gates pass. Exact verification and local commit handoff are in docs/implementation-progress.md and Git history.
-- [ ] C2: await prompt and update dependencies/acceptance before implementation.
+- [x] C2 implementation and local automated gates: 50 tests, lint, strict typecheck, production build/HTTP smoke, repeatable isolated SQL and clean npm install verified. Hosted/network/provider checks explicitly await genuine isolated configuration; see progress log and docs/backend-setup.md.
 - [ ] C3: await prompt.
 - [ ] C4: await prompt.
 - [ ] C5: await prompt.

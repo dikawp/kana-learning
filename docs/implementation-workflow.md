@@ -3,7 +3,7 @@
 Current policy: C1–C6, revised 18 October 2026 (Asia/Jakarta). The application has no users. Clean redesign and breaking internal contracts are acceptable. P0-A/P0-S remain historical evidence, not current requirements.
 
 1. Before each checkpoint read implementation-plan.md, this workflow, docs/implementation-progress.md, applicable repository instructions, recent commits and git status (staged/unstaged/untracked). Record starting commit and baseline checks.
-2. Implement only the user's requested checkpoint; reuse verified work and preserve unrelated changes/secrets. C2–C6 are governed by their future prompts, not permission to implement later modules now.
+2. Implement only the user's requested checkpoint; reuse verified work and preserve unrelated changes/secrets. C2 is now authorized by its backend/account prompt; C3–C6 remain governed by future prompts, not permission to implement later modules now.
 3. Follow relevant dependencies and acceptance criteria. Update the plan when requirements change; mark replaced checkpoints superseded while preserving historical progress.
 4. After meaningful subtasks update docs/implementation-progress.md with changes, decisions, exact automated results, blockers and the exact next step.
 5. Mark completion only with verification evidence. Distinguish implemented, automated-tested, blocked and awaiting external integration verification. Never fabricate credentials, content approval, provenance or results.
@@ -20,4 +20,4 @@ Record checkpoint/subtask/status, starting commit, scope/dependencies, changed p
 
 ## Automated entrypoints
 
-Use npm and package-lock.json. npm run check is the aggregate gate: tests, lint, typecheck and production build. Native tests retain the verified 208-entry fixture; React interaction tests cover frontend behavior with synthetic data. Framework/runtime choices require official documentation and package compatibility checks.
+Use npm and package-lock.json. npm run check is the aggregate gate: native/React/backend tests, lint, typecheck, production build and automated loopback HTTP smoke. Backend tests use isolated embedded PostgreSQL and synthetic Auth transport; test:postgres requires an explicitly designated new disposable loopback database and never resets an existing schema. See docs/backend-setup.md. Native tests retain the verified 208-entry fixture. Framework/runtime choices require official documentation and package compatibility checks. Mark live Auth/pooler/remote CI checks unavailable when configuration is absent; never fabricate them.

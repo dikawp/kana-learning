@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 
 export function Header() {
   const { resolvedTheme, setTheme } = useTheme()
@@ -14,11 +15,13 @@ export function Header() {
             <h1 className="text-2xl font-bold text-foreground">Kana Learning</h1>
             <p className="text-sm text-muted-foreground">Hiragana &amp; Katakana</p>
           </div>
+          <div className="flex items-center gap-3"><Link href="/account" className="underline">Account</Link>
           <Button aria-label="Toggle color theme" variant="outline" size="icon"
             onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}>
             <Sun aria-hidden="true" className="hidden dark:block h-4 w-4" />
             <Moon aria-hidden="true" className="block dark:hidden h-4 w-4" />
           </Button>
+          </div>
         </div>
       </div>
     </header>

@@ -1,0 +1,640 @@
+{
+  "id": "ffa2aafd-a131-4fd9-af76-90dd36f2032c",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "learning.kana_familiarity": {
+      "name": "kana_familiarity",
+      "schema": "learning",
+      "columns": {
+        "profile_id": {
+          "name": "profile_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kana_id": {
+          "name": "kana_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "kana_familiarity_profile_id_profiles_id_fk": {
+          "name": "kana_familiarity_profile_id_profiles_id_fk",
+          "tableFrom": "kana_familiarity",
+          "tableTo": "profiles",
+          "schemaTo": "learning",
+          "columnsFrom": [
+            "profile_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "kana_familiarity_kana_id_kana_id_fk": {
+          "name": "kana_familiarity_kana_id_kana_id_fk",
+          "tableFrom": "kana_familiarity",
+          "tableTo": "kana",
+          "schemaTo": "learning",
+          "columnsFrom": [
+            "kana_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "kana_familiarity_profile_id_kana_id_pk": {
+          "name": "kana_familiarity_profile_id_kana_id_pk",
+          "columns": [
+            "profile_id",
+            "kana_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "learning.kana": {
+      "name": "kana",
+      "schema": "learning",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "character": {
+          "name": "character",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "romaji": {
+          "name": "romaji",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "kana_script_glyph": {
+          "name": "kana_script_glyph",
+          "nullsNotDistinct": false,
+          "columns": [
+            "type",
+            "character"
+          ]
+        },
+        "kana_position": {
+          "name": "kana_position",
+          "nullsNotDistinct": false,
+          "columns": [
+            "position"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "kana_script": {
+          "name": "kana_script",
+          "value": "\"learning\".\"kana\".\"type\" in ('hiragana', 'katakana')"
+        },
+        "kana_text": {
+          "name": "kana_text",
+          "value": "length(\"learning\".\"kana\".\"character\") > 0 and length(\"learning\".\"kana\".\"romaji\") > 0 and \"learning\".\"kana\".\"position\" >= 0"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "learning.mutation_receipts": {
+      "name": "mutation_receipts",
+      "schema": "learning",
+      "columns": {
+        "profile_id": {
+          "name": "profile_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "request_id": {
+          "name": "request_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "operation": {
+          "name": "operation",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "payload_hash": {
+          "name": "payload_hash",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "result": {
+          "name": "result",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "mutation_receipts_profile_id_profiles_id_fk": {
+          "name": "mutation_receipts_profile_id_profiles_id_fk",
+          "tableFrom": "mutation_receipts",
+          "tableTo": "profiles",
+          "schemaTo": "learning",
+          "columnsFrom": [
+            "profile_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "mutation_receipts_profile_id_request_id_pk": {
+          "name": "mutation_receipts_profile_id_request_id_pk",
+          "columns": [
+            "profile_id",
+            "request_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "learning.profiles": {
+      "name": "profiles",
+      "schema": "learning",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "profiles_id_users_id_fk": {
+          "name": "profiles_id_users_id_fk",
+          "tableFrom": "profiles",
+          "tableTo": "users",
+          "schemaTo": "auth",
+          "columnsFrom": [
+            "id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "learning.quiz_answers": {
+      "name": "quiz_answers",
+      "schema": "learning",
+      "columns": {
+        "question_id": {
+          "name": "question_id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_id": {
+          "name": "profile_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "submission_id": {
+          "name": "submission_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answer": {
+          "name": "answer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "is_correct": {
+          "name": "is_correct",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "answered_at": {
+          "name": "answered_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        }
+      },
+      "indexes": {
+        "answers_owner_session": {
+          "name": "answers_owner_session",
+          "columns": [
+            {
+              "expression": "profile_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "session_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "quiz_answers_question_id_session_id_profile_id_quiz_questions_id_session_id_profile_id_fk": {
+          "name": "quiz_answers_question_id_session_id_profile_id_quiz_questions_id_session_id_profile_id_fk",
+          "tableFrom": "quiz_answers",
+          "tableTo": "quiz_questions",
+          "schemaTo": "learning",
+          "columnsFrom": [
+            "question_id",
+            "session_id",
+            "profile_id"
+          ],
+          "columnsTo": [
+            "id",
+            "session_id",
+            "profile_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "answer_submission": {
+          "name": "answer_submission",
+          "nullsNotDistinct": false,
+          "columns": [
+            "profile_id",
+            "submission_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "answer_length": {
+          "name": "answer_length",
+          "value": "length(\"learning\".\"quiz_answers\".\"answer\") between 1 and 64"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "learning.quiz_questions": {
+      "name": "quiz_questions",
+      "schema": "learning",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "session_id": {
+          "name": "session_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "profile_id": {
+          "name": "profile_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "kana_id": {
+          "name": "kana_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "snapshot": {
+          "name": "snapshot",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "options": {
+          "name": "options",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "correct_answer": {
+          "name": "correct_answer",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "quiz_questions_kana_id_kana_id_fk": {
+          "name": "quiz_questions_kana_id_kana_id_fk",
+          "tableFrom": "quiz_questions",
+          "tableTo": "kana",
+          "schemaTo": "learning",
+          "columnsFrom": [
+            "kana_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "quiz_questions_session_id_profile_id_quiz_sessions_id_profile_id_fk": {
+          "name": "quiz_questions_session_id_profile_id_quiz_sessions_id_profile_id_fk",
+          "tableFrom": "quiz_questions",
+          "tableTo": "quiz_sessions",
+          "schemaTo": "learning",
+          "columnsFrom": [
+            "session_id",
+            "profile_id"
+          ],
+          "columnsTo": [
+            "id",
+            "profile_id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "question_session_owner": {
+          "name": "question_session_owner",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "session_id",
+            "profile_id"
+          ]
+        },
+        "question_position": {
+          "name": "question_position",
+          "nullsNotDistinct": false,
+          "columns": [
+            "session_id",
+            "position"
+          ]
+        },
+        "question_kana": {
+          "name": "question_kana",
+          "nullsNotDistinct": false,
+          "columns": [
+            "session_id",
+            "kana_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "question_options": {
+          "name": "question_options",
+          "value": "jsonb_typeof(\"learning\".\"quiz_questions\".\"options\") = 'array' and jsonb_array_length(\"learning\".\"quiz_questions\".\"options\") between 1 and 4 and \"learning\".\"quiz_questions\".\"options\" ? \"learning\".\"quiz_questions\".\"correct_answer\""
+        },
+        "question_position_range": {
+          "name": "question_position_range",
+          "value": "\"learning\".\"quiz_questions\".\"position\" between 0 and 24"
+        }
+      },
+      "isRLSEnabled": false
+    },
+    "learning.quiz_sessions": {
+      "name": "quiz_sessions",
+      "schema": "learning",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "profile_id": {
+          "name": "profile_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "config": {
+          "name": "config",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "status": {
+          "name": "status",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'active'"
+        },
+        "total": {
+          "name": "total",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "score": {
+          "name": "score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "completed_at": {
+          "name": "completed_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "sessions_owner_history": {
+          "name": "sessions_owner_history",
+          "columns": [
+            {
+              "expression": "profile_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "created_at",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            },
+            {
+              "expression": "id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "quiz_sessions_profile_id_profiles_id_fk": {
+          "name": "quiz_sessions_profile_id_profiles_id_fk",
+          "tableFrom": "quiz_sessions",
+          "tableTo": "profiles",
+          "schemaTo": "learning",
+          "columnsFrom": [
+            "profile_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "session_owner": {
+          "name": "session_owner",
+          "nullsNotDistinct": false,
+          "columns": [
+            "id",
+            "profile_id"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {
+        "session_total": {
+          "name": "session_total",
+          "value": "\"learning\".\"quiz_sessions\".\"total\" between 1 and 25"
+        },
+        "session_state": {
+          "name": "session_state",
+          "value": "(\"learning\".\"quiz_sessions\".\"status\" = 'active' and \"learning\".\"quiz_sessions\".\"score\" is null and \"learning\".\"quiz_sessions\".\"completed_at\" is null) or (\"learning\".\"quiz_sessions\".\"status\" = 'completed' and \"learning\".\"quiz_sessions\".\"score\" between 0 and \"learning\".\"quiz_sessions\".\"total\" and \"learning\".\"quiz_sessions\".\"completed_at\" is not null)"
+        }
+      },
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

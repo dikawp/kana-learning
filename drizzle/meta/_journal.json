@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792299210868,
+      "tag": "0000_c2_foundation",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792299212746,
+      "tag": "0001_c2_security",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1792299826446,
+      "tag": "0002_c2_score_constraint",
+      "breakpoints": true
+    }
+  ]
+}

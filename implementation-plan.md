@@ -1,74 +1,90 @@
 # Kana Learning implementation plan
 
-Revised 18 October 2026 (Asia/Jakarta). C1–C6 from the user's checkpoint prompts govern execution. This revision supersedes the original P0/phase sequence and all legacy migration/recovery/compatibility and manual QA requirements. Historical P0-A/P0-S outcomes remain in docs/implementation-progress.md and Git commits.
+Revised 18 October 2026 (Asia/Jakarta). Current direction: one public learning interface without learner accounts; device-local progress; Supabase for published materials. This revision supersedes the C2 learner Auth/cloud-progress design. C1 fixes and useful C2 content/backend infrastructure remain reusable.
 
-## 1. Product goal and current scope
+## 1. Scope and implementation authority
 
-Build an English-language Japanese learning platform: kana, kanji and vocabulary across N5–N1, then grammar, reading, listening and section-based practice. Import English meanings; Indonesian translation is excluded. First product release targets a coherent curated N5 kana/kanji/vocabulary learning loop, not exhaustive JLPT examination preparation or importing 13,000+ kanji.
+Build an English-meaning Japanese learning platform for kana, kanji and vocabulary across JLPT N5–N1, then grammar, reading and listening. Deliver a complete curated N5 experience first, not an all-13,000-kanji import. Indonesian translation is excluded.
 
-There are no users. Clean redesign, new storage keys, breaking internal contracts and fresh account state are acceptable. Remove guest/account migration, progress export, backup/restore rehearsals, old-origin transfer and backward-compatibility adapters. Future accounts start independently; no synthetic historical reviews or mastery.
+Learners use the same Flashcard/Quiz/Table interface without registration, login or anonymous Supabase identities. Progress, quiz history, mistakes, goals, resume and later scheduling live in the browser. Supabase PostgreSQL holds reference dictionaries, curated lessons, sources/publication metadata and asset references. Elysia supplies public read APIs. Supabase Auth is a future option for explicitly authorized administrators, not a learner dependency.
 
-Excluded: AI companion, subscriptions, offline synchronization and handwriting recognition. C1 delivered frontend stabilization; C2 now authorizes the account/backend slice below. Dictionary imports and later learning modules remain proposals, not authorization to build them. C3–C6 details are not supplied yet. No production changes, deployment, backup/restore rehearsals or manual QA.
+Excluded: learner accounts/cloud progress, guest/account adapters, old-origin migration, progress export/import, backup/restore rehearsals, offline synchronization/service-worker delivery, AI companion, subscriptions and handwriting recognition. Local persistence is not offline synchronization. Kanjiflash's export feature is not automatically in scope.
 
-## 2. Evidence and starting repository
+This task changes planning/documentation only, consolidates active guides and archives historical progress. Runtime/dependency/env/SQL cleanup is the mandatory C2-R checkpoint below, to implement when explicitly requested before C3. No push, deployment, paid provisioning, manual QA, exploratory browser testing or visual inspection. No remote data/credential deletion is authorized by a request for a clean project folder.
 
-Original investigation was at 9bf0c96 (17 October 2026). Historical live observations included version 0.1.1, 208 entries, Flashcard/Quiz/Table modes, persistent binary learned IDs, transient quiz score and a search exception. The deployment SHA was unverified. Those observations are historical evidence, not a requirement for further browser inspection.
+## 2. Verified starting point and current behavior
 
-P0-A commit a997c36 added the frozen 208-entry fixture, workflow and read-only export tests/page. C1 retains the useful kana fixture and removes obsolete export/recovery code/tests. P0-S commit 805f6f3 already upgraded Next 14 to 16.4.2, reconciled npm, patched audit findings and configured ESLint/typecheck. Reuse that work.
+Starting commit: 3c12ca8; tracked tree clean at inspection. No applicable AGENTS.md previously found; recheck before implementation. Installed Next 16.4.2, React 19.3.1, Node >=22.13 <23, npm 10.9.4, Elysia 1.4.30, Drizzle/Postgres.js already support this redesign; no framework rewrite/upgrade is required.
 
-C1 starting tree: untracked implementation-plan.md only. No applicable AGENTS.md found in repo/checked ancestors. Baseline Node 22.22.0/npm 10.9.4; Next 16.4.2; React 18.3.1. Native tests 21 passed. Lint has 10 actual findings; typecheck fails on nonexistent KanaCharacter.pronunciation. Build previously bypassed types. Current execution evidence belongs in the progress log.
+C1 fixed search, filtered flashcard indexing, storage failure handling, quiz lifecycle/empty states, Romaji, theme and accessibility. C2 added managed accounts, separate practice, relational cloud quiz/progress, migrations and public kana content. Follow-up applied/repeated three SQL migrations and 208-kana seed, configured a restricted kana_app LOGIN and localhost Auth callbacks. Reuse completed work rather than provisioning again.
 
-## 3. Existing code and flow to evolve
+Historical automated evidence at 3c12ca8: 51 tests plus lint/typecheck/build/loopback HTTP passed; hosted read-only SQL/Auth-settings/Next checks passed; localhost content returned 208 kana. These do not verify this proposed redesign. Hosted authenticated integration was not automated. The user's subsequent screenshot shows a signed-in account with familiarity/quiz history: do not assume the database is empty or that no user activity exists.
 
-| Existing path | Responsibility and C1 action |
+| Existing paths | Verified flow and redesign decision |
 | --- | --- |
-| app/page.tsx | Single client page and three Radix tabs. Remove blank mounted gate, type mode changes, use semantic main and status output. |
-| app/layout.tsx; components/theme-provider.tsx | Geist, English document and next-themes class/system provider. Keep shell/provider. |
-| lib/kana-data.ts; types/kana.ts | 208 records / 104 per script; id, character, romanji, type, category. Rename to romaji directly and validate shape. Preserve useful fixture; no compatibility adapter. |
-| hooks/use-kana-filters.ts | Script/group/query state. Invalid pronunciation access crashes search. Extract testable normalized filter predicate. |
-| components/kana/flashcard-mode.tsx | Index/reveal wraps over filtered pool; stale index on shrink. Reset child session by pool identity so reveal/index never cross pools. |
-| hooks/use-kana-progress.ts | Unguarded mount JSON read plus initial empty write, unknown-ID inflation, in-memory score. Replace with clean validated local store, SSR snapshot, guarded storage access, explicit ephemeral/error status and cross-tab replacement semantics. |
-| components/kana/quiz-mode.tsx | Random-comparator sampling, unguarded timer, zero-pool playing state, client results. Extract pure generator/results; simplify to explicit answer/Next transitions, preventing stale timers and duplicate submissions. |
-| components/kana/filters-card.tsx; table-view.tsx | Grouped two-column tables, script/group controls, explicit no-results. Label controls/headers and Japanese text; clarify quiz uses its own scope. |
-| components/kana/progress-card.tsx | Percentages, reset dialogs and session score. Remove export link; label binary familiarity separately from long-term mastery and identify session-only scores. |
-| components/layout/header.tsx | Hardcoded version and unresolved theme toggle. Use resolvedTheme, deterministic hydration shell and accessible theme name. |
-| components/ui/; hooks/use-mobile.ts; hooks/use-toast.ts | Existing primitives. Resolve real lint/type compatibility defects; consolidate duplicate hooks without changing unrelated UI APIs. |
-| next.config.mjs; package.json; package-lock.json | npm-only locked installation; restore typechecking build safety and strict aggregate quality gate. |
-| tests/fixtures/kana-baseline-v1.json | Verified P0-A data fixture. Reuse, do not regenerate to hide failures. |
+| app/page.tsx; components/kana/ | Bundled kana -> filter hook -> Flashcard/Quiz/Table. Reuse the single UI and all three modes. |
+| hooks/use-kana-progress.ts; lib/progress/guest-store.ts | Validated kana-learning:guest:v1 familiarity, guarded reads/writes and cross-tab replacement. Reuse; last quiz score is currently session-only. |
+| lib/kana-data.ts; types/kana.ts; lib/kana/{search,quiz}.ts | 208 records, stable IDs, glyph/Romaji/type/category; working filter/question generation. Keep stable identities and pure domain logic. |
+| app/account/; components/account/; lib/account/ | Separate account surface; its dashboard does not mount TableView. Remove after local feature parity, not as a Supabase limitation. |
+| server/api/{app,runtime,errors}.ts | Public content plus private learner Auth/progress/quiz APIs. Rewrite to public content only. |
+| server/services/learning.ts | Mixed content reads/account transactions. Extract public content, remove cloud learner service. |
+| server/db/{schema,client}.ts; drizzle/ | Seven learning tables, auth.users FK, forced RLS and pooled SQL role. Preserve kana and immutable applied migration history. |
+| server/auth/; proxy.ts; app/auth/callback/route.ts | Learner session/callback/refresh infrastructure to retire. |
+| scripts/db/{run,targets,seed-kana,verify-development}.ts | Real CLI/seed/target guards useful; hosted verifier still assumes learner Auth and needs rewriting. |
+| tests/fixtures/kana-baseline-v1.json | Frozen 208 IDs/glyphs/scripts/order. Retain unchanged. |
 
-Data flow: bundled kana → filter hook → flashcards/table; full dataset → quiz's separately labelled script/count setup. Reveal + Got it and correct quiz answers update a binary familiarity set. It is not SRS or mastery. Quiz score is explicitly session-only in C1; durable sessions belong to a later authorized checkpoint. Guest storage uses a clean versioned snapshot, no reading/conversion of old keys. Failed storage must allow safe in-memory use and disclose persistence limitations. Validate shape, deduplicate and exclude unknown IDs; never write on initial render or merely reading state. Cross-tab policy is latest validated snapshot replacement, including resets; no union that resurrects reset entries. Simultaneous localStorage writes are best effort, not transactional synchronization.
+Current account flow: managed Auth -> Elysia -> PostgreSQL progress/quizzes. Target: public content -> shared UI -> validated browser learner state. Familiarity remains different from mastery.
 
-The C1 starting implementation had no backend. C2 adds the concrete modules in section 9 and docs/backend-setup.md; imported kanji/vocabulary and SRS remain future scope. No current code/deployment identity equivalence is assumed.
+Kanjiflash informed the experience, not a claim about its server stack. Its inspected public client used localStorage, embedded practice payloads and /api/dashboard-data. That does not prove a database/server runtime or a live third-party dictionary call on each practice request. References: [privacy](https://kanjiflash.com/privacy), [sources](https://kanjiflash.com/sources), [client](https://kanjiflash.com/static/client.js). Do not copy branding, teaching text or code.
 
-## 4. Architecture and C2 account foundation
+## 3. Target architecture
 
-Retain Next App Router and UI primitives. C2 implements Elysia in app/api/[[...slugs]]/route.ts using app.fetch, runtime=nodejs, no listener. Supabase PostgreSQL/Auth with Drizzle is the account foundation; environment credentials are not fabricated. External dictionary APIs remain future ingestion/update inputs; normal account kana study reads the seeded PostgreSQL content.
+Keep Next App Router + Elysia fetch integration in app/api/[[...slugs]]/route.ts on Vercel-compatible Node. No Bun listener or separate backend project. A separate project adds CORS, deployment/contract coordination with no demonstrated need.
 
-A separate Elysia Vercel project permits independent releases/clients but adds CORS, cookies/token forwarding, shared-contract versioning and preview coordination. This repository has one frontend and no demonstrated need for that cost. Keep domain services separate internally to allow later extraction. Bun is optional, not required.
+Supabase PostgreSQL remains the normal material source. Use one shared published-content loader/API instead of parallel bundled guest content and account data. Server-rendered initial payloads are acceptable through the same contract. On fetch failure show loading/error/retry and retain already loaded session content; do not silently substitute an unversioned dictionary. Seed all 208 stable kana IDs first.
 
-Supabase Auth issues/verifies identity; PostgreSQL/Drizzle persists relational content/progress; Storage serves licensed SVG/audio when needed; Elysia validates, authorizes, grades and schedules. Owner/service SQL connections can bypass RLS: always verify identity and scope personal queries by profile, use minimum runtime privileges, and test the actual SQL role. Do not assume Auth identity reaches arbitrary Drizzle SQL. Use transaction-local claims if adding non-bypass RLS defense; separate job/schema credentials from runtime.
+Retain bounded Postgres.js pool, prepare:false, TLS and timeouts. Narrow the runtime role to SELECT on published content, no owner/superuser/BYPASSRLS or learner writes. Migration/import credentials stay separate. Supabase Auth does not automatically protect privileged SQL. Keep learning outside exposed Data API schemas and do not grant anonymous SQL writes.
 
-Use Supabase transaction pooler/Postgres.js with bounded module-scoped connections, prepare:false, statement timeouts and same-region API/database. Neon alternative: Drizzle neon-http for noninteractive reads/batches, WebSocket Pool/Client for interactive review transactions; choose Auth explicitly (managed Supabase Auth is a candidate), and avoid extra providers without need. No Redis/worker/queue until workload justifies it. Imports use dedicated scripts/job workflows.
+Public published GETs may use bounded release-aware caching/ETags; draft/admin/error/identity responses remain private/no-store. Validate search/cursor/page limits, index release/kind/level/order keys and invalidate publication caches correctly. Keep API/database regions close; development currently uses Tokyo, production placement is a later deployment decision.
 
-Stateless API requests use durable database state; public content has capped cursor pagination, release-aware cache keys/indexes, private responses no-store. Review grading/scheduling is server-owned with unique submission IDs, transactions and optimistic versions. Assets live in static/object storage with source/license metadata. Development/preview/production credentials and Auth/media are separated; reset only designated disposable databases. No provisioning, push or deployment under C1.
+Neon remains an alternative, not a reason to migrate. Driver/transactions require current verification if adopted. Supabase Storage is optional for licensed stroke/audio assets when needed. No Redis/queue/worker until workload justifies it. Imports run dedicated scripts/job workflows, never learning requests.
 
-Official references: [Next upgrade](https://nextjs.org/docs/app/guides/upgrading/version-16), [support policy](https://nextjs.org/support-policy), [Node release policy](https://nodejs.org/en/about/previous-releases), [React 19](https://react.dev/blog/2024/12/05/react-19), [Elysia Next](https://elysiajs.com/integrations/nextjs), [Elysia Vercel](https://elysiajs.com/integrations/vercel), [Vercel runtime](https://vercel.com/docs/functions/runtimes/node-js/node-js-versions), [Supabase Drizzle](https://supabase.com/docs/guides/database/drizzle), [pooling](https://supabase.com/docs/guides/database/connecting-to-postgres), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), [Auth SSR](https://supabase.com/docs/guides/auth/server-side/creating-a-client), [Neon driver](https://neon.com/docs/serverless/serverless-driver), [Drizzle Neon](https://orm.drizzle.team/docs/connect-neon).
+Future admin Auth is separate: server-verified editor/publisher allowlist, no public admin sign-up and no automatic promotion of a former learner. Initial curation/import/publication can remain operator CLI work. Remove unused learner Auth dependencies rather than keep hypothetical admin placeholders.
 
-## 5. Gap analysis and release boundary
+Technical references: [Elysia Next](https://elysiajs.com/integrations/nextjs), [Vercel Node](https://vercel.com/docs/functions/runtimes/node-js), [Supabase pooling](https://supabase.com/docs/guides/database/connecting-to-postgres), [Drizzle migrations](https://orm.drizzle.team/docs/migrations), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API). Verify official compatibility when actual package changes are needed.
 
-| Existing capability | Target / dependency |
+## 4. Device-local learning model
+
+Existing kana IDs such as h-a remain canonical. Local state references stable material/card keys plus content revision, never array offsets or IDs regenerated on fetch.
+
+C2-R retains the validated localStorage familiarity/settings store and adds bounded, validated quiz resume/history records. Specify session-count/size limits in implementation/tests; do not silently clear saved data on reads. Proposed new modules: lib/content/{client,contracts}.ts, lib/study/{contracts,local-store,quiz-history}.ts and hooks/use-study-session.ts.
+
+C4 uses IndexedDB for larger indexed review logs and atomic writes: settings/target level/goals/timezone, lesson resume, per-skill schedules, review/mistake events and quiz sessions are separate stores. Proposed lib/study/{indexeddb-store,scheduler,review-queue}.ts. New schema contracts may start fresh with a clear reset notice; no legacy/dual-write adapter. Stable content IDs and compatible review state must survive normal content corrections; do not blindly reset schedules on every release.
+
+Practice grading is client-owned against pinned prompt/answer-policy snapshots. Store question/options/accepted-answer revision, response, cursor/status, completion/result/review. Do not recompute historical results using changed answers. Unique local attempt IDs and one transition per question/completion prevent duplicates; IndexedDB later provides atomic stale-tab/version checks. Client results are personal study feedback, not trusted certification.
+
+Storage denied/quota/corrupt/unknown-ID states permit in-memory practice and disclose failed durability. Never overwrite initial stored state just by mounting. localStorage multi-tab updates remain best effort; later IndexedDB writes must handle stale versions. Browser data can be cleared/evicted and does not follow users to another device. Device clock/timezone is adequate for private practice but needs fixed-clock/jump tests.
+
+FSRS remains a C4 candidate using pinned [ts-fsrs](https://github.com/open-spaced-repetition/ts-fsrs). Recognition/meaning/reading cards have separate state where appropriate. Store algorithm/parameters/version and immutable before/after logs locally. New/learning/review/mastered is explicit policy: one correct answer is not mastery. Revealed/assisted answers cannot earn an unassisted grade; quizzes must not advance SRS twice through duplicate paths. Server-owned schedules/profile timezones/quiz receipts are superseded.
+
+## 5. MVP and navigation
+
+| Current gap | Target |
 | --- | --- |
-| Kana search/filter/three modes | C1 stabilization first; typed/confusing-character practice later. |
-| Binary local familiarity | Safe independent guest storage in C1; future accounts begin fresh. |
-| Client-only quiz | C1 deterministic generation, duplicate protection, explicit transitions and empty states; server grading/durable sessions later. |
-| No kanji/vocabulary | Licensed pinned dictionaries, validated imports and a curated N5 manifest. |
-| Dataset order, no curriculum/SRS | Ordered lessons, resume/goals, per-skill cards, due queues, mistakes/statistics; FSRS candidate. |
-| No content operations | Separate source reference data, editorial corrections, approved lesson targets and atomic publication. |
-| No advanced modules | Grammar, graded reading/furigana/lookup, licensed listening/transcripts, section results after N5 foundation. |
+| Guest/account UI divergence | One public interface, no learner login gate/Account link, all three kana modes. |
+| Bundled vs SQL content | One published material contract with stable IDs and shared search/filter/table/practice data. |
+| Cloud quiz/history | Client checking and bounded device-local resume/history/mistakes. |
+| Kana binary familiarity | Preserve honestly; per-skill review comes in C4. |
+| No dictionary/course content | C3 licensed pinned imports plus curated complete N5 manifest. |
+| No editorial workflow | Operator CLI first; admin Auth/UI only for a concrete later need. |
 
-The N5 release requires the curated course and actual lesson → practice → feedback → scheduled review loop, source attribution, auth ownership/idempotency and automated integration evidence. Reference dictionaries alone are not a curriculum. C2 covers account persistence/server grading; later checkpoint allocation awaits C3–C6 prompts.
+Reuse Header, FiltersCard, ProgressCard, FlashcardMode, QuizMode, TableView and theme provider. Add Kana / Kanji / Vocabulary / Lessons / Review / Progress navigation as modules actually exist, not placeholder pages. Describe progress as belonging to this device.
+
+N5 MVP: public kana/kanji/vocabulary, curated lesson -> practice -> feedback -> review, local goals/resume/statistics and source/publication quality. No registration/cloud progress, mandatory Docker, all-kanji import, admin dashboard or advanced modules as MVP gates.
 
 ## 6. Content sources and ingestion
+
+Retained from the prior source investigation. Revalidate pinned payload/schema/licenses during C3; this planning edit did not perform a new ingestion/freshness check.
 
 ### 6.1 Source decisions and verified formats
 
@@ -131,160 +147,159 @@ Maintain proposed `docs/content-sources.md`, packaged license notices, a public 
 
 Rights approval is a publication gate, particularly for level lists, furigana helpers, recorded audio and future exam-style materials. Use original practice questions; linking official JLPT samples does not grant permission to copy them into the platform.
 
-## 7. Proposed relational data model
 
-Everything in this section is proposed. Use PostgreSQL UUIDs for internal entities, `timestamptz` in UTC for events/due dates, and text source keys (do not depend on JavaScript numeric precision). Define Drizzle schemas in proposed `server/db/schema/`; use explicit SQL for checks/partial indexes/triggers. Store reference payload JSONB for traceability, not as a substitute for relational joins needed by learning flows.
+## 7. Proposed database model and integrity
 
-### 7.1 Identity, provenance, and material integrity
+Only content/editorial state belongs in PostgreSQL. These are proposed entities unless already identified. Add them when needed; no empty future-module scaffold.
 
-| Entity | Keys, relationships, important data |
+| Entity group | Keys, relationships and indexes |
 | --- | --- |
-| `profiles` | `id` PK/FK to Supabase `auth.users.id`; target level N5–N1, timezone, daily new/review goals, display preferences, timestamps. Personal authorization always uses this ID. Provider-neutral code resolves a profile from verified identity; Neon alternative can use unique `(auth_issuer, auth_subject)` mapping. |
-| `profile_roles` | PK `(profile_id, role)`; editor/publisher/import operator roles. Not client-editable profile metadata. Audit role changes. |
-| `content_sources` | UUID PK, unique source slug, original/transport URLs, creator, license ID/URL, attribution, update policy. |
-| `source_snapshots` | UUID PK, source FK, source date, dataset/converter/schema versions, checksum/raw-object key; unique `(source_id, checksum)`. |
-| `import_runs` / `import_checkpoints` | Source/snapshot FKs, adapter version, scope, status, counts/errors, cursor, started/finished times; unique checkpoint per run/partition. Resume is tied to the snapshot. |
-| `materials` | UUID PK, immutable unique `stable_key`, `kind` (`kana`, `kanji`, `vocabulary`, later others), lifecycle/tombstone timestamps. Unique `(id, kind)`. |
-| `source_records` | UUID PK, material FK, source FK, unique `(source_id, external_id)`, latest snapshot FK, raw hash/payload. Multiple sources can describe one material without conflating them. |
-| `material_revisions` / `content_releases` / `release_items` | Immutable revision IDs with material/source-snapshot links, normalized content snapshot and editorial provenance; release manifest pins `(material_id, revision_id)`. One active release pointer. A draft revision becomes published only through a validated release. |
-| `editorial_overrides` / `publication_events` | Material/field or lesson target FK, value, base revision, author/reviewer, reason and lock/conflict state; audit draft/review/publish/retire events. Never merge overrides destructively into raw source data. |
+| content_sources; source_snapshots; import_runs; import_checkpoints | Unique source slug, source/checksum, source/external-id; license/version/date/checksum/adapter/update metadata; resumable cursor bound to snapshot. Index source/status/time. |
+| materials; source_records | UUID generic ID, immutable unique stable_key and kind; source-backed kanji/JMdict keys. Subtype checked kind + composite FK to materials(id, kind), publication validator requires exactly matching subtype. No arbitrary polymorphic IDs without FKs. |
+| kana | Existing text ID PK, unique script/glyph and position; retain 208 IDs. Add explicit unique material mapping later if necessary, never rekey local progress. |
+| kanji; kanji_readings; kanji_meanings | Unique original character/codepoint; ordered multiple raw/normalized on/kun/nanori readings and English glosses/provenance; nullable stroke/grade, alternate counts/variants. |
+| components; kanji_components; kanji_variants | Source-local keys and real FKs, radical system/position/group path; not every component is a kanji/etymology. |
+| vocabulary; vocabulary_forms; vocabulary_readings | Source entry identity, ordered child UUIDs and same-entry uniqueness; kana-only vocabulary supported. |
+| vocabulary_form_readings; vocabulary_senses; sense_glosses; sense_tags; sense_forms; sense_readings | Explicit permitted pair/sense relations with same-entry composite FKs; all/restricted/none applicability, sense-specific POS and English glosses, not a Cartesian product. |
+| vocabulary_kanji; furigana_alignments | Specific written form/kanji occurrence FKs; reviewed form/reading alignment, method/version and segment reconstruction checks. |
+| sentences; sentence_translations; material_sentences | Unique source/external sentence IDs; independent English translation/contributor/license and curated sense/span associations with valid same-entry FKs. |
+| level_assignments | Material/sense, source/snapshot, taxonomy/level/evidence/status; scheme-specific range checks, conflicting sources preserved; index level/kind/status. |
+| lessons; lesson_revisions; lesson_items; study_cards | Curated course/level/order/prerequisites and stable lesson/card keys, per-skill prompt/answer policy; material/sense FKs. Study cards are reference definitions, not user schedules. |
+| material_revisions; content_releases; release_items; active_release | Immutable pinned revisions/manifests, unique release/material, transactional validated active-release switch. Index release/kind/order. |
+| editorial_overrides; publication_events; media_assets | Base revision/field locks/reason/operator audit; media key/hash/type/size/creator/source/license/publication state. No draft asset leaks. |
 
-**Generic IDs with real integrity:** each subtype uses `material_id` as its PK and a constant checked `kind` with composite FK `(material_id, kind) → materials(id, kind)`. A kana cannot accidentally occupy a vocabulary material. A deferred publication validator ensures every published material has exactly its matching subtype and required references. Drafts can be incomplete. Lesson/card/sentence links target `materials.id`, not an unvalidated `(type, arbitrary_id)` pair. Later material types add a subtype through a migration, not arbitrary JSON objects masquerading as relational targets. Revisions are immutable snapshots while normalized subtype/child tables represent current reference/editorial working state; APIs read the release-pinned snapshot, not unpublished working tables.
+Personal lesson progress, card schedules, review logs, quiz sessions/questions/answers, settings and duplicate-attempt records live locally. IndexedDB keys are card stable_key + skill, session/attempt IDs; index dueAt/status and startedAt, unique accepted question/attempt in one transaction. No target learner profiles/auth.users FK or cloud mutation_receipts. Later admin identities/audit are a separate concern.
 
-### 7.2 Dictionary and curriculum tables
+Retire active runtime use of existing profiles, kana_familiarity, quiz_sessions, quiz_questions, quiz_answers and mutation_receipts. The hosted project may contain activity. Repository cleanup does not require deleting those rows: isolate dormant data and remove runtime write grants via an authorized forward migration. Destructive table/user retirement requires separate explicit approval; no DROP CASCADE, auth.users edits or project reset. Applied SQL history remains immutable.
 
-| Entity | Keys and relationships |
+## 8. Target API
+
+| Endpoint | Responsibility |
 | --- | --- |
-| `kana` / `kana_aliases` | Kana material PK, unique `entry_key`, script, glyph, normalized `romaji`, category/group/sort order. Aliases FK to kana, unique `(kana_id, alias, purpose)`; add linguistic aliases only if a future exercise requires them. Unique `(script, glyph)` for current entries. |
-| `kanji` | Kanji material PK, unique original scalar/codepoint key and character, primary stroke count nullable, alternate counts, grade/raw legacy JLPT metadata. No requirement that every kanji has meanings/readings/level. Do not key by UTF-16 string length. |
-| `kanji_readings` / `kanji_meanings` | Reading UUID, kanji FK, kind on/kun/nanori, raw annotation, normalized kana, order; unique source-local identity. Meaning UUID, kanji FK, English gloss/order/provenance. Retain multiples rather than comma-joined strings. |
-| `kanji_variants` / `components` / `kanji_components` | Variant pair FKs with source/type; components have source keys/labels; join has kanji/component FKs, role/radical system/position/group path/source. Component may not itself be a complete kanji. Preserve source-specific radical systems. |
-| `vocabulary` | Material PK; source entry key maps through `source_records` (JMdict `ent_seq`/JSON `id`). Not keyed solely by surface text. |
-| `vocabulary_forms` / `vocabulary_readings` | UUID PKs, vocabulary FK; form text/common/tags/order, reading kana/common/tags/order and optional versioned derived romaji. Unique `(vocabulary_id, text)` within each table unless source evidence requires a richer key. |
-| `vocabulary_form_readings` | Allowed pair join with composite FKs that ensure form and reading belong to the same vocabulary entry. Kana-only cases do not fabricate kanji forms. Preserve applicability mode (`all`, `restricted`, `none`) during ingestion and materialize valid links. |
-| `vocabulary_senses` / `sense_glosses` / `sense_tags` | Sense UUID + vocabulary FK, source order/fingerprint; English gloss rows and POS/usage/field tags. POS belongs to a sense. Cross-references retain raw target plus resolved FK where possible; unresolved targets are valid import warnings. |
-| `sense_forms` / `sense_readings` | Restriction joins; same-entry composite FKs. Resolve wildcards when staging; maintain applicability semantics, not a global set of unrelated synonyms. |
-| `vocabulary_kanji` | `(form_id, kanji_id)` FK pair plus occurrence positions; vocabulary relation follows the **specific form**, not every possible spelling. Missing reference kanji becomes a sourced stub, not an invented lesson item. |
-| `furigana_alignments` | Form/reading pair FK, revision/method/version, reviewed segments JSONB; unique approved alignment per pair/revision. Validate that segments reconstruct the form and applicable reading. |
-| `sentences` / `sentence_translations` | UUID PK, unique `(source_id, external_id)`, Japanese text and revision; linked English sentence/translation with its own source ID, contributor/license and relation provenance. Source updates do not silently change an exercise snapshot. |
-| `material_sentences` | Material and sentence FKs, optional vocabulary sense/form/reading target, span/context/curation status; constraint ensures targets belong to the linked vocabulary. An English translation is not an English meaning sense. |
-| `level_assignments` | Material FK, optional vocabulary sense FK, scheme (`jlpt-current-approx`, `jlpt-pre2010`), source/snapshot FK, level value, evidence URL/key, confidence/editorial status. Check valid level ranges per scheme; unique source-target-scheme assignment identity. Preserve conflicting sources rather than overwriting. |
-| `lessons` / `lesson_revisions` | UUID PK, immutable slug, course/level/sequence, objectives, prerequisite lesson joins, draft/review/published versions. Reject prerequisite cycles. |
-| `lesson_items` | UUID PK, lesson-revision FK, material FK, optional applicable form/reading/sense target, order, explanation/exercise configuration; unique `(lesson_revision_id, position)`. A selected sense remains stable through source reorder. |
-| `media_assets` / `material_media` | Asset UUID, source/external key/version, object key/hash/MIME/size, author/license/attribution, duration/transcript if appropriate, safety/review/publication state. Typed material association and purpose (`stroke_svg`, later `audio`). |
+| GET /api/v1/health | Honest configuration/readiness distinction; no learner Auth dependency/secrets. |
+| GET /api/v1/content/kana | Existing route retained; stable 208 entries through published material contract. |
+| GET /api/v1/content/kanji and /kanji/:key (proposed) | Published level/search/cursor-limited list and readings/meanings/assets/related words. |
+| GET /api/v1/content/vocabulary and /vocabulary/:key (proposed) | Published explicit form/reading/sense relationships. |
+| GET /api/v1/content/lessons and /lessons/:slug (proposed) | Revision-pinned curated lessons/reference cards; progress calculated locally. |
+| GET /api/v1/content/releases/current (proposed) | Manifest/revision for cache/session compatibility, not offline synchronization. |
+| Later /api/v1/admin/* (proposed only when needed) | Verified admin-only curation/import status/publication; long imports remain outside HTTP handlers. |
 
-Child entries such as JMdict senses do not have guaranteed stable upstream IDs. Maintain local UUIDs using source-aware text/fingerprint matching and explicit reconciliation of edits/splits/merges; never use a changing array ordinal as a persistent learning identity. In ambiguous updates retain old target revisions, quarantine the new relationship and request editorial resolution. This is essential to preserving user progress.
+Remove /api/v1/auth/*, /me/progress*, learner /quiz-sessions* and old /me/reviews/review-attempt proposals. No compatibility stubs/redirects. Preserve Elysia validation, capped queries/body input and consistent safe request-ID errors (400/404/422/503 etc.). Public reads require no cookies/device IDs; unknown removed routes return404. Only future admin writes need identity/CSRF/origin controls and publication idempotency. Content reads never import, publish or write learner progress.
 
-### 7.3 Study, reviews, and assessments
+## 9. Explicit repository cleanup inventory
 
-| Entity | Important keys/state |
+Runtime removals below are planned C2-R implementation, not completed by this planning edit. Check actual imports/consumers before deletion. Replace relevant coverage when deleting superseded contracts; preserve unrelated code/secrets.
+
+| Existing files/config | Action and dependency |
 | --- | --- |
-| `study_cards` | UUID PK, immutable unique card key, material FK, skill (`recognition`, `meaning`, `reading`, later contextual/listening), prompt template/version, optional allowed sense/form/reading target, active revision. SQL checks/composite FKs prevent targets from another entry. A kanji reading card identifies a contextual/selected reading, not an assumption that every reading is interchangeable. |
-| `user_card_states` | PK `(profile_id, card_id)`, scheduler state new/learning/review/relearning, stability, difficulty, due, last review, reps/lapses/learning step, suspended flag, optimistic `version`, scheduler/policy version. Insert-on-enrollment for MVP; no preallocation of every reference card for every user. |
-| `review_logs` | Immutable UUID PK, profile/card FKs, unique `(profile_id, submission_id)`, prompt/content revision, raw/normalized answer or safe summary, correctness, rating, server time, elapsed time, previous/next schedule/version and scheduler version. Log genuine events only. |
-| `review_attempts` | Issued prompt/card/revision/owner/expiry and expected state version; marks completion and records response. Prevents arbitrary card/rating submissions and supports retry retrieval. |
-| `user_lesson_progress` | Profile/lesson PK, pinned lesson revision, current item, started/completed times; separate completion criteria from card mastery. |
-| `daily_activity` | Profile/local date/timezone snapshot PK, new/review counters derived from accepted unique events. Rebuildable summaries; immutable logs remain authoritative. |
-| `quiz_sessions` / `quiz_questions` | Session UUID, owner, config/release/status/score/start/finish; question UUID, unique session/ordinal, material/card target, immutable prompt/options/answer-policy snapshot and section (initially kana). Correct answers stay server-only until feedback. |
-| `quiz_answers` | FK question/session/owner, unique `(session_id, question_id)` and `(profile_id, submission_id)`, submitted/normalized answer, correctness/time; session ownership enforced. Completion computed once from stored accepted answers. |
+| app/account/page.tsx; app/account/password/page.tsx; app/auth/callback/route.ts; proxy.ts | Delete learner routes/callback/proxy after unified UI parity; remove empty directories. No compatibility redirects. |
+| components/account/{account-page,auth-form,dashboard,account-quiz}.tsx; lib/account/{client,contracts}.ts | Extract useful quiz history/resume behavior into local modules, then delete all account UI/contracts/client calls. |
+| server/auth/{client,gateway,supabase,callback,refresh}.ts | Delete learner session code after consumers are removed; no hypothetical admin scaffold. |
+| server/services/learning.ts | Extract published reads into proposed server/services/content.ts; remove account transactions/grading/receipts. |
+| server/api/{app,runtime,errors}.ts; server/config.ts; server/db/{client,schema}.ts | Retain/rewrite content-only API, SQL validation and safe errors; remove principal/Auth/learner claims dependencies. Shortened schema requires reviewed forward migration strategy, not drizzle-kit push. |
+| app/page.tsx; components/layout/header.tsx; hooks/use-kana-progress.ts; lib/progress/guest-store.ts | Shared content, local state and no Account/guest split copy. Reuse kana/theme/a11y primitives, no duplicate study screen. |
+| tests/frontend/account.test.tsx; tests/backend/auth.test.ts; tests/backend/next-auth.test.ts | Delete superseded learner Auth tests; replace useful coverage with anonymous content/boundary/local history tests. |
+| tests/backend/{database,persistence,targets,db-cli}.test.ts; tests/production-smoke.mjs | Rewrite account SQL/persistence to published content/role contracts. Keep actual CLI guard, repeat migrations/seed, public errors and Next HTTP. Local learning persistence belongs in browser storage tests. |
+| tests/postgres/concurrency.test.ts; vitest.postgres.config.mts | Remove obsolete account-mutation contention suite/config; content SQL tests remain PGlite. Do not require network account concurrency after removing account writes. |
+| .github/workflows/check.yml | Remove obsolete postgres learner-concurrency job/service/fixtures; retain reproducible npm ci and aggregate gates. No mandatory Docker. |
+| scripts/db/{run,targets,seed-kana,verify-development}.ts | Keep CLI/startup/seed/target guards. Remove disposableTestTarget when its suite is removed; rewrite hosted verifier for published content/public HTTP/read-only grants without learner Auth settings. |
+| package.json; package-lock.json | Remove test:postgres when suite gone; npm-uninstall @supabase/ssr and @supabase/supabase-js after last consumer including verifier is removed. Keep Elysia/Drizzle/Postgres.js/PGlite/tsx. Audit actual imports before other pruning, no framework upgrades/force fixes. |
+| .env.example | Remove SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, C2_TEST_* and APP_ORIGIN when learner consumers disappear. Keep APP_ENV, DATABASE_URL, MIGRATION_DATABASE_URL and explicit target designation. Retain a variable only with a concrete documented consumer. Future admin/storage vars added only when used. |
+| .env.local and ignored secrets | Preserve user values and do not print/commit/delete the file. Clean obsolete local keys only after reference checks during authorized implementation; no provider key rotation/revocation/dashboard callback/user deletion as a side effect. |
+| drizzle/0000_c2_foundation.sql; 0001_c2_security.sql; 0002_c2_score_constraint.sql; drizzle/meta/ | Keep immutable applied migration/journal/snapshots, despite historical names. Add reviewed forward SQL for grants/approved retirement; never rewrite checksums or fabricate a clean baseline. |
+| README.md; docs/backend-setup.md; docs/implementation-workflow.md; implementation-plan.md | Canonical active docs, rewritten instead of duplicated no-login/account guides. Keep current implementation vs target explicit until cleanup implemented. |
+| docs/implementation-progress.md; docs/archive/implementation-history-pre-no-login.md | Concise active progress + exactly one clearly historical archive. Old task instructions are superseded. Git holds prior plan/setup; no copies of every obsolete guide. |
 
-`mastered` is a **derived product status**, not an unconditional scheduler state. Proposed initial criterion: the relevant skill has several successful reviews on distinct days and a scheduled interval of at least 30 days; record a policy version and validate it with a learning specialist. A lapse can remove mastered status. Recognition, meaning and reading have independent states; course completion and self-reported familiarity appear separately. A single quiz success  never satisfies mastery.
+Clean means no orphaned learner route/import/dependency/env requirement, duplicate UI/data source, account-only test/job or misleading active instructions. It does not mean deleting node_modules, all UI primitives, useful data fixtures, immutable migrations or hosted personal data. Remote schema/user cleanup is separately authorized, not a filesystem operation.
 
-Important indexes/constraints: `(profile_id, due_at, card_id)` on active user states; `(profile_id, reviewed_at DESC, id)` on logs; `(profile_id, status, started_at DESC)` on sessions; all frequently joined child FK columns; release/kind/level indexes for browse; unique source/external key and snapshot checksum; lesson sequence and item position uniqueness; index normalized forms/readings and English search documents. Start with indexed prefix/equality searches; add `pg_trgm`/GIN only when substring/English search needs justify them, with query-plan tests. Do not apply English stemming assumptions to Japanese tokenization. All counters/proportions exclude tombstoned/unpublished reference-only items from the active course denominator.
+## 10. Checkpoints and acceptance
 
-User-owned tables need explicit account-deletion policies and retention limits for raw typed answers. Reference/curriculum deletion uses restrict/soft retirement so history remains interpretable; account deletion may cascade personal data through a controlled workflow. Source/progress foreign keys must not be casually cascade-deleted by an importer.
+P0-A/P0-S and C1 remain historical completed evidence. Old C2 learner Auth/cloud-progress requirements and pending hosted-account acceptance are superseded; do not continue them. Useful public content work remains. C3–C6 are provisional allocation pending their corresponding prompts.
 
-## 8. API, grading, and review contracts
+### C2-R.0 — Plan/documentation consolidation (this task)
 
-All endpoints below are **proposed** under Elysia `/api/v1`; Supabase's authentication endpoints remain responsible for credentials. Separate proposed `server/api/`, `server/services/`, `server/db/`, and `server/auth/` modules; route files orchestrate validated services and never duplicate SQL/answer policies in UI code.
+- Goal/dependencies: resolve architecture using current repository evidence, no runtime changes.
+- Deliverables/files: this plan, workflow, README/setup, concise active progress and one historical archive.
+- DB/API: no changes; secrets untouched.
+- Acceptance/tests: exact existing removal paths verified; proposed paths labelled; active relative Markdown links resolve; only docs changed; no runtime-clean claim or fabricated application check.
+- Next: explicitly request C2-R implementation before C3.
 
-| Representative endpoint | Responsibility / access |
-| --- | --- |
-| `GET /content/kana?script=&group=&q=` | Published kana, stable IDs/aliases, release/count. Public; small enough for whole-dataset client filtering if desired. |
-| `GET /content/kanji?level=N5&cursor=&limit=` / `GET /content/kanji/:id` | Published details, source-backed level, readings/meanings, stroke media, paginated related vocabulary/examples. |
-| `GET /content/vocabulary?q=&level=&cursor=` / `GET /content/vocabulary/:id` | Applicable forms/readings/senses/POS/furigana/examples; never expose unreviewed editorial drafts. |
-| `GET /lessons?level=N5` / `GET /lessons/:slug` | Course sequence, prerequisites and published lesson revision. |
-| `GET /me` / `PATCH /me/preferences` | Verified profile, target/goals/timezone; only allowlisted settings writable. |
-| `PUT /me/lessons/:id/resume` | Valid lesson revision/item; idempotent resume checkpoint. Completion validated from required activity, not an arbitrary client boolean. |
-| `GET /me/reviews?limit=` | Due/learning queue and counts; no schedule mutations on GET. |
-| `POST /me/review-attempts` / `POST /me/review-attempts/:id/answer` | Issue a prompt; submit answer/rating with idempotency key and expected card version; grade and atomically log/schedule. |
-| `POST /quiz-sessions` / `GET /quiz-sessions/:id` | Validate pool/config, snapshot questions, retrieve/resume an owned session. Account sessions are durable; guest practice remains independent and local. |
-| `POST /quiz-sessions/:id/answers` | One accepted answer per issued question, server checking and stored feedback; reject foreign/unissued questions. |
-| `POST /quiz-sessions/:id/complete` / `GET /quiz-sessions/:id/results` | Idempotent completion from stored answers, durable per-item review and aggregate/last score. |
-| `GET /me/progress` / `GET /me/mistakes?cursor=` | Course/skill counts, due load, daily goals and paginated incorrect review/quiz events; no new mistake service required. |
-| `GET /admin/import-runs` / `POST /admin/import-requests` | Admin-only run status or durable request for dedicated job workflow; no bulk execution in handler. |
-| `PATCH /admin/materials/:id/draft` / `POST /admin/lessons/:id/revisions` | Editor corrections/curation with base revision and conflict detection. |
-| `POST /admin/releases/:id/validate` / `POST /admin/releases/:id/publish` | Publisher-only checks and atomic release switch with audited reason. |
+### C2-R.1 — One public UI and local exercise state
 
-Use Elysia [request/response validation](https://elysiajs.com/essential/validation) and [error hooks](https://elysiajs.com/patterns/error-handling). Return consistent `{error:{code,message,requestId,details?}}`: 400 malformed input, 401 unauthenticated, 403 unauthorized, 404 unavailable material/session, 409 stale state/reused idempotency key with different payload, 422 invalid exercise/configuration, 429 throttled and 503 retryable dependency outage. Validate query limits, enums, UUIDs, answer lengths and body size. Never return SQL errors/secrets/raw stacks to clients; log request IDs with safe context. Use origin/CSRF protection for cookie-based writes, secure SameSite cookies, trusted redirect URLs and admin checks on the server.
+- Goal/dependencies: R.0 plus C1 UI/C2 public kana API.
+- Deliverables: shared Flashcard/Quiz/Table, filters/loading/error/retry, familiarity and bounded refresh-safe local quiz resume/history/answer review; no Account navigation.
+- Reuse app/page.tsx, Header, components/kana/*, hooks and guest store. Proposed lib/content/{client,contracts}.ts, lib/study/{contracts,local-store,quiz-history}.ts, hooks/use-study-session.ts. Extract useful account quiz behavior, never keep a second public dashboard.
+- DB/API: published kana GET; no learner SQL writes. Temporary account code must be removed in R.2 within this checkpoint, not shipped as an alternative.
+- Acceptance: 208 stable IDs, mode/filter/search parity, no duplicate answer/completion, refresh resume/history, corrupt/quota/blocked-storage disclosure.
+- Automated tests: retained fixture/domain/interaction/storage/theme/a11y plus proposed tests/frontend/local-history.test.tsx, content loading/retry; lint/typecheck/build.
 
-**Atomic review algorithm (proposal):** verify identity/attempt ownership and expiry; validate payload and hash; open a [Drizzle transaction](https://orm.drizzle.team/docs/transactions); lock the existing `(profile, card)` state row (or safely insert then lock); check for an existing submission receipt; reject mismatched expected version; grade against the attempt's pinned content/accepted-answer policy; compute the next schedule using server time; insert exactly one review log/receipt and update the state/version/daily counters; mark the attempt complete; commit. A duplicate request with the same key/body returns the stored original result, not a second advancement. Different concurrent submissions against the same state allow one winner and return 409 to the stale one. Keep transactions short; prefetch content outside the lock, with immutable revision references.
+### C2-R.2 — Content-only backend and complete cleanup
 
-The same principles apply to quiz answers/completion: unique answer constraints plus a completion transition prevent double score accumulation. A practice quiz records assessment/mistakes and familiarity; it **does not automatically reschedule an SRS card**. A dedicated review attempt advances scheduling once. If a later quiz intentionally contributes review evidence, it must share the review event transaction/idempotency path rather than calling both handlers.
+- Goal/dependencies: R.1 and inventory; complete before checkpoint handoff.
+- Deliverables: delete learner routes/Auth/services/contracts/packages/env templates/tests/CI jobs; narrow runtime SQL grants; content-only verifier; no stale docs/empty directories/admin placeholders.
+- Reuse Elysia route/errors, SQL client, CLI/seed/target guards; proposed server/services/content.ts, tests/backend/content.test.ts and reviewed forward SQL migration. Retain applied drizzle history.
+- DB/API: GET-only published content; no learner /auth, /me or /quiz-sessions. Default retain dormant hosted data isolated; destructive retirement is separate authorization.
+- Acceptance: anonymous content works without learner Auth env/cookies; removed routes404; runtime cannot write content/dormant account tables; no orphaned imports/config/scripts; dependencies coherent.
+- Automated tests: actual PGlite grants/FKs/migrate/seed repeatability, CLI guards, anonymous validation/errors, production HTTP, npm run check and unfiltered npm audit. Hosted read-only verifier remains opt-in on designated development. No manual QA or reset.
 
-**FSRS candidate:** use a pinned [ts-fsrs implementation](https://github.com/open-spaced-repetition/ts-fsrs) behind proposed `server/study/scheduler.ts` and a small portable pure scheduling contract. The [FSRS project](https://github.com/open-spaced-repetition/free-spaced-repetition-scheduler) supplies the model; product mastery thresholds remain an editorial/product policy. Store algorithm/parameter versions, all required card state and immutable before/after logs. Start with library defaults and a documented target retention; personal parameter optimization is deferred until sufficient review history exists. Incorrect objective answers map to Again; correct answers permit conservative difficulty ratings with clear UI, and revealed/assisted answers cannot earn an Easy grade. Self-graded reveal cards are explicitly self-reported. Separate cards for recognition/meaning/reading prevent one success from implying every skill was learned.
+### C3 — N5 content/ingestion (provisional)
 
-Use server timestamps for authoritative scheduling; elapsed time is bounded supporting telemetry, not trusted proof. Daily goals use profile timezone with recorded local-date attribution. Queue selection includes learning steps and overdue reviews before bounded new cards, mixes siblings to reduce immediate hints, and supports suspension/leech handling with a manual escape. Test policy changes with versioned fixed-clock fixtures; do not mass-reset schedules when upgrading a library.
+- Goal/dependencies: C2-R clean gate; complete curated N5 kanji/vocabulary/course data.
+- Deliverables: pinned licensed dictionaries, source-backed approximate levels, valid strokes/components/examples, staged/resumable imports, curriculum and attribution.
+- Reuse seed/content/SQL modules; proposed scripts/imports/*, server/content/*, content/curricula/n5.json, docs/content-sources.md and /sources; shared kanji/vocabulary UI primitives.
+- DB/API: section7 source/reference/revision/curriculum tables, paginated published content GETs. Operator CLI publication first; no external dictionary call per learning request.
+- Acceptance: complete reviewed N5 manifest, English glosses and correct multiple form/reading/sense relations, source/license metadata, unknown fields handled honestly.
+- Automated tests: pinned payload fixtures, idempotency/retries/resume/outages/editorial retention, publication atomicity, FKs/indexes/pagination/cache and full gates. Rights/editorial approval is real external publication responsibility, not fabricated test evidence.
 
+### C4 — Local lessons/SRS/progress (provisional)
 
-## 9. Checkpoint execution and acceptance
+- Goal/dependencies: C3 reference cards; lesson -> practice -> feedback -> review without login.
+- Deliverables: local goals/resume, due queues, per-skill schedules/mistakes/statistics and explicit mastery policy.
+- Reuse single UI/local quiz/store contracts. Proposed lib/study/{indexeddb-store,scheduler,review-queue}.ts and lesson/review/progress screens.
+- DB/API: reference card definitions only; personal state/logs in IndexedDB, no cloud learner endpoints.
+- Acceptance/tests: fixed-clock FSRS cases, transactional duplicate/stale-tab protection, IndexedDB reopen/schema/failure tests, timezone/goals, content revision compatibility and full gates. No claim that simulated storage proves every browser's eviction behavior.
 
-The original P0/phase 1–6 sequence is **superseded**. P0-A/P0-S historical outcomes are retained in the progress log and Git. The numbered data/architecture sections above are target design, not checkpoint authorization.
+### C5 — Grammar/reading/listening and N4–N3 (provisional)
 
-### C1 — Simplify and stabilize frontend (implemented and automated-tested)
+- Goal/dependencies: N5 complete and rights cleared.
+- Deliverables: curated explanations/exercises, graded texts/ruby/lookup, licensed audio/transcripts and N4–N3 lessons.
+- Reuse content publication/local study; proposed module-specific content adapters/UI/media metadata.
+- DB/API: content subtypes/associations and public GET/media; admin Auth only if real curation workflow needs it.
+- Acceptance/tests: approved content/media, valid furigana/transcript alignment, accessible playback and persisted local learning, parser/rights/association/component/full automated gates.
 
-- Goal/dependencies: trustworthy existing kana app; reuse supported Next/npm work and the frozen dataset fixture. No backend dependency.
-- Deliverables: revised plan/workflow, removal of obsolete recovery contracts, search/filtered-card/storage/quiz/theme/Romaji/accessibility fixes, supported React/types and automated gates.
-- Reuse/extend: actual app/page.tsx, layout/provider/Header, types/kana.ts, lib/kana-data.ts, both kana hooks, components/kana/*, existing UI primitives/config/README.
-- Implemented C1 additions: lib/kana/search.ts, lib/kana/quiz.ts, lib/progress/guest-store.ts, vitest.config.mts, tests/frontend/*, app/error.tsx and .github/workflows/check.yml. Removed public/guest-progress-backup* and their tests/docs/server. Retained tests/fixtures/kana-baseline-v1.json unchanged.
-- Database/API: none.
-- Acceptance: all 208 IDs/glyphs remain; shi/SHI/trimmed/kana/nonmatches and combined filters work. Shrink/empty/expand never expose invalid or previously revealed cards. Refresh/remount reads valid new storage; invalid/blocked/quota storage does not crash; no initial empty overwrite; known-ID percentages stay bounded; cross-tab resets replace state. Quiz has unique prompts/options, one submission/question, explicit cancellation/advancement, correct final review and zero-pool feedback. All UI/data contracts say Romaji. System/light/dark hydration is stable; inputs, progress, table headers, theme and feedback have accessible semantics. All automated gates pass with no build bypass or suppressed diagnostics.
-- Tests: native dataset contract, pure domain tests, React interaction/storage/hydration tests, automated accessibility, lint, strict typecheck, production build. No manual QA, browser exploration or visual inspection.
+### C6 — N2–N1 and advanced practice (provisional)
 
-### C2 — Backend, database, login and persistent progress (implemented; local automated and hosted development readiness verified; authenticated external checks pending)
+- Goal/dependencies: earlier courses mature.
+- Deliverables: curated advanced content, reading/listening and JLPT-style section practice with local results.
+- Reuse release/cards/local review; proposed advanced assessment manifests/section result modules.
+- DB/API: reference expansion only; no trusted cloud exams.
+- Acceptance/tests: source-backed levels, section scoring/timers, revision consistency, bounded large-dataset storage/loading and full gates. Optional tracing is future scope; handwriting recognition remains excluded.
 
-Hosted development follow-up (18 October 2026): with explicit user authorization, applied/repeated migrations and seed on the existing development project, configured restricted runtime access and exact localhost Auth callbacks. `scripts/db/verify-development.ts` and `npm run verify:supabase` verify actual hosted kana/RLS/grants/pooler/Auth settings and the local Next/Elysia route chain without writes or emails. Docker is not required. Genuine credentials remain in ignored `.env.local`. Authenticated hosted persistence/isolation/concurrent mutations, email confirmation/recovery and Vercel deployment remain unverified; see docs/backend-setup.md and C2.6 progress evidence. Fixed the real Node/tsx CommonJS environment-loader import in scripts/db/run.ts, with a child-process CLI regression test; no framework upgrade or later checkpoint work.
+## 11. Verification, rollout and data boundaries
 
-- Goal/dependencies: layer real account services onto verified C1 kana functionality without a guest/account adapter or migration. Supabase manages email/password, verification/recovery and token sessions; Elysia owns account authorization, grading and idempotency; PostgreSQL/Drizzle owns persistence. No content import, scheduler or advanced course work.
-- Deliverables: Node fetch integration, private SQL schema and committed migrations, repeatable 208-entry seed, restricted pooled SQL connection, server-only environment configuration, managed auth/account UI, persistent familiarity, server-issued quiz snapshots/feedback/results/history and durable retry receipts.
-- Existing files reused/extended: components/layout/header.tsx, components/kana/flashcard-mode.tsx, filters-card.tsx and primitives; lib/kana/quiz.ts and types/kana.ts; C1 guest root/hook/store remain independent. Extend package scripts, lockfile, CI and documentation.
-- Implemented additions: app/api/[[...slugs]]/route.ts; server/api/{app,runtime,errors}.ts; server/config.ts; server/db/{client,schema}.ts; server/services/learning.ts; server/auth/{client,gateway,supabase,callback,refresh}.ts; proxy.ts; app/auth/callback/route.ts; app/account/page.tsx and password/page.tsx; components/account/*; lib/account/{client,contracts}.ts; drizzle/ and drizzle.config.ts; scripts/db/{run,seed-kana,targets}.ts; .env.example; docs/backend-setup.md; backend/account/production/network automated tests and configs.
-- Concrete C2 database slice: private learning.profiles (FK managed auth.users), kana (text ID from fixture, unique script/glyph/order), kana_familiarity (profile/kana PK), quiz_sessions, quiz_questions and quiz_answers (composite owner/session FKs, unique prompt/answer, bounded result state), mutation_receipts (profile/request PK, canonical payload hash and saved result). General UUID material/source/release tables from section 7 stay later content work; do not create empty entities for them now.
-- SQL protection: least-privilege non-bypass runtime role, private schema, forced per-profile RLS and explicit query scoping. Transaction-local claims and profile row locks serialize mutations across pooled requests; a unique durable receipt prevents replayed activity. Immutable questions/answers/receipts are insert/read only to runtime. No client-supplied owner, correctness or score.
-- API: docs/backend-setup.md lists exact implemented /api/v1 auth/content/progress/quiz resources. GET quiz-sessions/:id supplies both resumable state and completed review; history is cursor-paginated. Request validation rejects extra fields and oversized/non-JSON bodies, errors are safe/consistent and private responses uncached. Writes require the configured exact Origin.
-- UI: separate /account sign-in/signup/recovery/sign-out/password change, filtered server-content flashcards, server-checked quiz, review/history/resume and stable-ID retry buttons. Failed mutations do not credit progress optimistically. Guest storage is not read/imported. Accounts never claim single-answer mastery.
-- Acceptance: local Node route handles requests without Bun/listeners; managed auth methods and refresh/callback cookies are wired; unauthenticated or foreign-account access is denied; invalid payloads/unknown kana/foreign questions are rejected; seed and migrations repeat safely; new service/process state reads persisted progress/results; one response per question and one completed score survive repeated/concurrent submissions; complete only after every issued answer exists; no secrets in client output. No production operation, migration at startup, backup rehearsal or manual QA.
-- Automated evidence: retained kana fixture and React regressions; real embedded PostgreSQL migrations/constraints/RLS and disk close/reopen; actual Elysia Request/Response boundaries; real Supabase SDK through synthetic HTTP Auth transport; Next callback/proxy cookie/redirect tests; retry/account-switch UI tests; lint/typecheck/build and automated loopback production HTTP smoke. Network test: explicit new empty loopback kana_c2_test_* database, restricted random login and independent pooled connections; CI defines a disposable PostgreSQL service.
-- External distinction: no Supabase credentials/project or running Docker engine are available here. Hosted email/confirmation/recovery/revocation, real pooler/TLS/region behavior, network PostgreSQL contention and Vercel/remote CI are not claimed tested. Configuration and automated entrypoints/limits are documented. Continue independent implementation; no manual QA approval gate or deployment is introduced.
+Maintain npm run check: native/frontend/backend, lint, strict typecheck, build, loopback production HTTP. Retire only superseded product tests while replacing relevant content/local-state coverage. Historical 51 tests are not a mandatory count for deleted Auth behavior; fewer tests do not prove sufficient replacement coverage.
 
-### C3–C6 — Await user checkpoint prompts
+Mandatory cleanup evidence: 208 fixture unchanged; public content with Auth env absent; three modes/search/filter; local storage corruption/quota/refresh/history/resume; public validation/errors; removed routes404; no learner client secrets/imports; restricted SELECT and denied writes; repeatable migrations/seed. Default tests use isolated embedded SQL/fixture transport, not personal cloud data. Remove obsolete Docker account suite; no new manual checklists.
 
-Not started. Their goal/dependencies/deliverables/files/database/API/acceptance/tests will follow the corresponding prompt. Later content/SRS/advanced-module architecture above remains planning context, not authorization.
+Before local commits inspect exact diff/staged paths, docs links, dead imports/scripts, actual automated results and unrelated changes. No push/deploy. Revert source with Git; applied SQL requires a reviewed forward change rather than local-history deletion/reset. No backup/restore rehearsal. Content rollback switches to a prior validated manifest/cache key, preserving stable local learning identity.
 
-## 10. Automated verification and local delivery
+This planning task does not query/migrate/delete hosted data. A cleanup implementation may test proposed privilege SQL locally; applying it must name the designated target. Destructive tables/users/project cleanup needs separate explicit authorization. Never delete .env.local to make Git appear clean.
 
-Use npm with one lockfile and supported pinned framework/runtime line. Aggregate npm run check runs native/React/backend tests, lint, typecheck, production build and loopback HTTP smoke. Native fixture remains evidence of the kana inventory; tests use synthetic local data and embedded PostgreSQL, not production services or live dictionaries. test:postgres separately requires an explicit new disposable network target. A simulated DOM or Auth transport does not prove hosted behavior; report that limit without requesting manual approval.
+## 12. Risks and prioritized handoff
 
-Do not perform manual QA, exploratory browser testing, visual inspection, manual acceptance checklists or backup/restore rehearsals. Editorial provenance/rights approval is a content publication responsibility, never fabricate it or mislabel it as automated proof of pedagogy.
+- Browser data can be cleared/evicted/unavailable; cross-device progress is deliberately absent. No implicit export/backup/offline-sync work.
+- Client grading is modifiable: appropriate for personal practice, not competitive/certification results.
+- Define local history limits in C2-R and IndexedDB retention/schema before C4 log growth.
+- Source licenses/update cadence, vocabulary level mapping, N5 curriculum, furigana and audio rights remain real gates; dictionaries alone are not a curriculum.
+- Admin roles/allowlists/session flow await actual editorial need; dormant hosted account data needs a separate retention decision.
+- Do not revive obsolete account QA or assume no users exist.
 
-Before each focused local commit check exact diff, whitespace, automated results and unrelated changes. Do not push/deploy. Git can recover removed source files from prior commits; new internal contracts need no legacy adapter. Future schema revisions may reset explicitly designated disposable development databases. Production operations require a later explicit task and actual environment-specific policy, not assumed credentials or reset permission.
+- [x] Inspect current code/history and adopt the user-approved no-login direction.
+- [x] C2-R.0: revise plan and consolidate active docs/history (actual checks in progress log).
+- [ ] C2-R.1: shared public interface, local quiz resume/history.
+- [ ] C2-R.2: remove obsolete code/config/dependencies/tests/jobs; content-only API/permissions; automated gates and clean local commit.
+- [ ] Review any hosted privilege/data operations against explicit scope, no automatic deletion.
+- [ ] Only after C2-R completion, start authorized C3 N5 content.
+- [ ] C4–C6 follow corresponding user prompts.
 
-## 11. Risks and unresolved decisions
-
-- C3–C6 scope/order, provider budget/region, actual isolated Supabase credentials/configuration, exact N5 manifest and content reviewers await later prompts/decisions. C2 uses managed Supabase email/password and restricted PostgreSQL.
-- API schema fixtures, JLPT vocabulary mapping reuse permission, media rights and editorial capacity are publication gates. Preserve unknowns; do not fabricate content.
-- Node 22 is supported; Next 16.4.2 already upgraded. C1 verifies React 19 and UI peer/type compatibility. Exact dependency results and failed attempts belong in the progress log.
-- Guest familiarity is best-effort device-local; no cross-device guest sync, guaranteed concurrent-write merging, old-key conversion or migration into an account.
-- Single correct answers do not establish mastery. Per-skill states/scheduling are later backend work.
-- No deployed verification is claimed. Only relevant automated checks are performed.
-
-## 12. Prioritized checklist
-
-- [x] C1: replaced obsolete policy/export contracts; normalized Romaji/search; stabilized filter/card/storage/quiz/theme/accessibility; all automated gates pass. Exact verification and local commit handoff are in docs/implementation-progress.md and Git history.
-- [x] C2 implementation and local automated gates: 50 tests, lint, strict typecheck, production build/HTTP smoke, repeatable isolated SQL and clean npm install verified. Hosted/network/provider checks explicitly await genuine isolated configuration; see progress log and docs/backend-setup.md.
-- [ ] C3: await prompt.
-- [ ] C4: await prompt.
-- [ ] C5: await prompt.
-- [ ] C6: await prompt.
-
-Historical completed fixture and dependency updates are reused, not repeated. English-only meanings, Elysia/Vercel/PostgreSQL, imported database content and N5-first delivery remain the target.
+Exact next implementation task: C2-R. Read plan/workflow/progress/git state; begin R.1 from the verified kana UI and complete R.2 before C3. Do not remove only documentation and claim runtime cleanup, continue learner Auth QA or implement later modules during cleanup.

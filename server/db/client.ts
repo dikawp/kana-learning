@@ -3,7 +3,7 @@ import postgres from "postgres"
 import { drizzle } from "drizzle-orm/postgres-js"
 import { databaseUrl } from "../config"
 import * as schema from "./schema"
-import { ApiError } from "../api/errors"
+import { assertContentRole, runtimeAccessSql } from "./access"
 
 let connection: ReturnType<typeof postgres> | undefined
 let database: ReturnType<typeof drizzle<typeof schema>> | undefined
@@ -19,11 +19,9 @@ export async function getDatabase() {
     database = drizzle(connection, { schema })
   }
   // Fail closed when an owner/admin credential is accidentally used as the runtime connection.
-  checkedRole ??= connection!`select rolsuper, rolbypassrls from pg_roles where rolname = current_user`.then((rows) => {
-    if (rows.length !== 1 || rows[0].rolsuper || rows[0].rolbypassrls) {
-      throw new ApiError(503, "DATABASE_ROLE_UNSAFE", "Account storage requires a restricted runtime role.")
-    }
-  }).catch((error: unknown) => { checkedRole = undefined; throw error })
+  checkedRole ??= connection!.unsafe<{ rolsuper: boolean; rolbypassrls: boolean; ddl: boolean; unsafe_grants: boolean }[]>(runtimeAccessSql)
+    .then((rows) => assertContentRole(rows))
+    .catch((error: unknown) => { checkedRole = undefined; throw error })
   await checkedRole
   return database
 }

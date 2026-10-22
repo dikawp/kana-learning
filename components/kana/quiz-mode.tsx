@@ -1,98 +1,68 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Target, Trophy, CheckCircle, XCircle } from "lucide-react"
-import { generateQuizQuestions, calculateQuizResults } from "@/lib/kana/quiz"
-import type { KanaCharacter, QuizQuestion, QuizSetup, QuizResults } from "@/types/kana"
+import { calculateQuizResults } from "@/lib/kana/quiz"
+import type { KanaCharacter, QuizSetup } from "@/types/kana"
+
+import { createStudyStore, type StudyStore } from "@/lib/study/local-store"
+import { useStudySession } from "@/hooks/use-study-session"
+import { MAX_HISTORY } from "@/lib/study/contracts"
 
 interface QuizModeProps {
   kanaData: KanaCharacter[]
+  store?: StudyStore
+  revision?: string
   onMarkAsLearned: (kanaId: string) => void
-  onUpdateScore: (correct: number, total: number) => void
   onSwitchToFlashcard: () => void
   isLearned: (kanaId: string) => boolean
 }
 
-export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToFlashcard, isLearned }: QuizModeProps) {
-  const [quizState, setQuizState] = useState<"setup" | "playing" | "results">("setup")
+export function QuizMode({ kanaData, onMarkAsLearned, onSwitchToFlashcard, isLearned, store: suppliedStore, revision = "kana-v1" }: QuizModeProps) {
+  const [ownStore] = useState(() => createStudyStore(kanaData))
+  const store = suppliedStore ?? ownStore
+  const saved = useStudySession(store)
   const [quizSetup, setQuizSetup] = useState<QuizSetup>({ type: "all", questionCount: 10 })
-  const [quizQuestions, setQuizQuestions] = useState<QuizQuestion[]>([])
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
-  const [quizAnswers, setQuizAnswers] = useState<string[]>([])
-  const [quizResults, setQuizResults] = useState<QuizResults | null>(null)
-  const [quizAnswer, setQuizAnswer] = useState<string>("")
-  const [quizResult, setQuizResult] = useState<"correct" | "incorrect" | null>(null)
-
-  const submitted = useRef(false)
-  const completed = useRef(false)
+  const [resultId, setResultId] = useState<string | null>(null)
   const [setupError, setSetupError] = useState("")
-
+  const active = saved.data.active
+  const activeType = active?.setup.type ?? quizSetup.type
+  const result = saved.data.history.find((entry) => entry.id === resultId)
+  const quizState = active ? "playing" : result ? "results" : "setup"
+  const quizQuestions = active?.questions ?? result?.questions ?? []
+  const currentQuestionIndex = active?.position ?? 0
+  const quizAnswer = active?.answers[currentQuestionIndex] ?? ""
+  const quizResult = quizAnswer ? quizAnswer === quizQuestions[currentQuestionIndex]?.correctAnswer ? "correct" : "incorrect" : null
+  const quizResults = result ? calculateQuizResults(result.questions, result.answers) : null
   const startQuiz = () => {
-    const questions = generateQuizQuestions(kanaData, quizSetup)
-    if (!questions.length) {
-      setSetupError("No kana are available for this quiz. Choose another script.")
-      return
-    }
-    setSetupError("")
-    setQuizQuestions(questions)
-    setCurrentQuestionIndex(0)
-    setQuizAnswers([])
-    setQuizAnswer("")
-    setQuizResult(null)
-    setQuizResults(null)
-    submitted.current = false
-    completed.current = false
-    setQuizState("playing")
+    setResultId(null)
+    if (!store.start(quizSetup, revision)) setSetupError("No kana are available for this quiz. Choose another script.")
+    else setSetupError("")
   }
-
   const handleQuizAnswer = (answer: string) => {
-    const question = quizQuestions[currentQuestionIndex]
-    if (quizState !== "playing" || submitted.current || !question?.options.includes(answer)) return
-    submitted.current = true
-    setQuizAnswer(answer)
-    const correct = answer === question.correctAnswer
-    setQuizResult(correct ? "correct" : "incorrect")
-    setQuizAnswers((previous) => [...previous, answer])
-    if (correct && !isLearned(question.character.id)) onMarkAsLearned(question.character.id)
+    if (!active || !store.answer(active.id, active.position, answer)) return
+    const question = active.questions[active.position]
+    if (answer === question.correctAnswer && !isLearned(question.character.id)) onMarkAsLearned(question.character.id)
   }
-
   const advanceQuiz = () => {
-    if (!submitted.current || completed.current) return
-    if (currentQuestionIndex === quizQuestions.length - 1) {
-      completed.current = true
-      const results = calculateQuizResults(quizQuestions, quizAnswers)
-      setQuizResults(results)
-      setQuizState("results")
-      onUpdateScore(results.score, results.total)
-    } else {
-      submitted.current = false
-      setCurrentQuestionIndex((previous) => previous + 1)
-      setQuizAnswer("")
-      setQuizResult(null)
+    if (!active) return
+    const finished = store.advance(active.id, active.position)
+    if (finished) {
+      setResultId(finished.id)
     }
   }
-
-  const resetQuiz = () => {
-    submitted.current = false
-    completed.current = false
-    setQuizState("setup")
-    setQuizQuestions([])
-    setQuizResults(null)
-    setCurrentQuestionIndex(0)
-    setQuizAnswers([])
-    setQuizAnswer("")
-    setQuizResult(null)
-    setSetupError("")
-  }
+  const resetQuiz = () => { store.cancel(); setResultId(null); setSetupError("") }
 
   return (
     <Card>
       <CardContent className="pt-6">
+        <p role="status" className="text-sm mb-3">{saved.message} History keeps the last {MAX_HISTORY} completed quizzes.</p>
+        {active && active.contentRevision !== revision && <p>Resuming with the original question and answer revision.</p>}
         {quizState === "setup" && (
           <div className="text-center space-y-6">
             <div className="space-y-2">
@@ -156,9 +126,9 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
               </Badge>
               <div className="flex gap-2">
                 <Badge variant="secondary">
-                  {quizSetup.type === "all"
+                  {activeType === "all"
                     ? "All Types"
-                    : quizSetup.type.charAt(0).toUpperCase() + quizSetup.type.slice(1)}
+                    : activeType.charAt(0).toUpperCase() + activeType.slice(1)}
                 </Badge>
                 {isLearned(quizQuestions[currentQuestionIndex].character.id) && (
                   <Badge variant="secondary" className="bg-green-100 text-green-800">
@@ -280,6 +250,17 @@ export function QuizMode({ kanaData, onMarkAsLearned, onUpdateScore, onSwitchToF
             </div>
           </div>
         )}
+        {saved.data.history.length > 0 && <section className="mt-6 space-y-2" aria-label="Quiz history">
+          <h3 className="text-lg font-semibold">Quiz history (this device)</h3>
+          {saved.data.history.map((entry) => {
+            const result = calculateQuizResults(entry.questions, entry.answers)
+            return <div key={entry.id} className="flex items-center gap-3">
+              <span>{result.score}/{result.total} · {new Date(entry.completedAt!).toLocaleString()}</span>
+              <Button variant="outline" disabled={!!active} onClick={() => setResultId(entry.id)}>Review result</Button>
+            </div>
+          })}
+          <Button variant="outline" onClick={() => { store.clearHistory(); setResultId(null) }}>Clear quiz history</Button>
+        </section>}
       </CardContent>
     </Card>
   )

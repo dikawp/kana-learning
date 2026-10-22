@@ -143,7 +143,7 @@ export function ProgressCard({
             <Badge variant="secondary">Familiar Entries: {progress.learnedCharacters.size}</Badge>
             {score.total > 0 && (
               <Badge variant="secondary">
-                Last Quiz (this session): {score.correct}/{score.total} ({Math.round((score.correct / score.total) * 100)}%)
+                Last Quiz (this device): {score.correct}/{score.total} ({Math.round((score.correct / score.total) * 100)}%)
               </Badge>
             )}
           </div>

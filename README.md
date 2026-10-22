@@ -1,57 +1,61 @@
 # Kana Learning
 
-Practice 208 kana entries (104 Hiragana and 104 Katakana) with flashcards, quizzes and reference tables.
+Practice 208 kana (104 Hiragana and 104 Katakana) through one public Flashcard, Quiz and Table interface. No learner registration or login.
 
-## Product direction and implementation status
+## Current implementation
 
-The agreed target is one public study interface without learner registration/login. Supabase PostgreSQL supplies published materials through Next/Elysia; familiarity, quiz history, goals and later review schedules are device-local. Admin Auth may be added only when content management needs it.
+- Materials load from the public Next/Elysia API backed by Supabase PostgreSQL. Search glyphs/Romaji and filter script/category; all modes share the same material contract.
+- Flashcards reveal answers and mark familiarity. Familiarity persists on this device when browser storage is available; it is not mastery.
+- Quizzes choose their own script/count, capped by available entries. Answers are checked locally; one answer/question and one completion are accepted.
+- Active quiz questions, answers and position survive refresh, including submitted-answer feedback. Completed quizzes retain original answer snapshots and mistake review; history keeps the last 20 sessions.
+- The progress summary shows the last completed quiz on this device. Clearing quiz history does not reset familiarity; familiarity resets do not erase quiz history.
+- Invalid/blocked/quota storage permits clearly labelled memory-only practice. There is no cloud learner progress or cross-device synchronization.
+- System/light/dark theme and keyboard-accessible controls. No learner account routes or Auth SDK.
 
-The runtime has not yet been converted: C1 kana practice works at /, and the old C2 account UI/backend still exists at /account. The required C2-R cleanup is planned before C3; do not mistake the plan revision for removal of those files/features. See [implementation-plan.md](implementation-plan.md) for the precise deletion/replacement inventory.
+Kanji, vocabulary, lessons, goals and spaced repetition remain later checkpoints. Admin Auth may be introduced for real content management needs only.
 
 ## Development
 
-Use Node >=22.13 <23 and npm 10.9.4 (last verified Node 22.22.0). Keep the committed npm lockfile. Existing Next/React/Elysia/Drizzle stack is reused.
+Use Node >=22.13 <23 and npm 10.9.4 (verified Node 22.22.0). The committed npm lockfile is authoritative; no framework upgrade was needed in C2-R.
 
     npm ci
     npm run dev
 
-Local app: http://localhost:3000. No Docker is needed to run it with hosted Supabase. Existing environment configuration and its planned removal are explained in [backend setup](docs/backend-setup.md); secrets belong only in ignored .env.local.
-
-## Current functionality
-
-- Root kana practice: glyph/Romaji search, script/category filters, Flashcard/Quiz/Table modes, answer reveal, familiar marking, explicit quiz feedback/results and system/light/dark theme.
-- Familiarity is saved locally when storage works; it is not mastery/SRS. Root last score is currently session-only.
-- The separate C2 account implementation still supports Auth, SQL progress and server quiz/history. This learner-account direction is superseded and will be removed by C2-R.
-- Target local quiz resume/history, shared database content UI, kanji/vocabulary and lessons/SRS are not implemented by the documentation revision.
+App: http://localhost:3000. Copy .env.example to ignored .env.local and provide real PostgreSQL configuration as described in [backend setup](docs/backend-setup.md). No Supabase Auth URL/key or Docker is required. If material storage is unavailable, the UI shows loading/error/retry rather than switching to a bundled fallback.
 
 ## Automated verification
 
     npm run check
 
-Current aggregate: native/frontend/backend tests, lint, strict typecheck, production build and isolated loopback HTTP. A failed step stops the gate. Automated accessibility is DOM-based, not visual/contrast validation.
+Runs frozen kana fixture, frontend/backend tests, lint, strict typecheck, production build and isolated loopback HTTP. Default checks never access hosted Supabase or require credentials.
 
-| Command | Current purpose |
+| Command | Purpose |
 | --- | --- |
-| npm test | Frozen 208-entry fixture plus frontend/backend suites |
-| npm run test:native | Stable kana IDs/glyphs/scripts/order |
-| npm run test:frontend | Domain/storage/interaction/theme/accessibility and current account contracts |
-| npm run test:backend | Isolated SQL/API/Auth fixtures and CLI guards |
-| npm run test:production | Isolated Next/Elysia HTTP after build |
-| npm run verify:supabase | Opt-in hosted read-only verifier, still includes learner Auth settings until C2-R |
-| npm run test:postgres | Optional loopback-only account contention suite; planned removal with old CI job |
+| npm run test:native | Frozen 208-ID/glyph/script/order contract |
+| npm run test:frontend | Search/filter/quiz/storage/resume/history/theme/accessibility |
+| npm run test:backend | Isolated SQL/migrations/grants/API/CLI/persistence |
+| npm run test:production | Public shell, removed routes404 and safe material outage after build |
+| npm run verify:supabase | Opt-in read-only hosted content/permissions/anonymous HTTP after build |
 | npm run lint / typecheck / build | Static checks and production compilation |
-| npm run start | Serve the built app locally |
+| npm run db:migrate / db:seed | Reviewed migrations/repeatable kana seed on explicitly authorized targets |
+| npm run db:generate | Generate reviewed migrations, retaining dormant declarations to avoid destructive drops |
 
-No manual QA, exploratory browser testing or visual inspection. Default checks need no real Supabase credentials. Historical 51-test/hosted-readiness results are prior evidence, not verification of the future redesign.
+No manual QA, exploratory browser testing or visual inspection. DOM accessibility tests do not prove visual layout/contrast. Docker/account-contention CI and test:postgres have been removed.
 
-## Local data and documentation
+## Local storage
 
-Existing familiarity key: kana-learning:guest:v1 with version and validated learnedIds. Reads do not overwrite initial state; duplicate/unknown IDs are excluded, blocked/invalid storage permits clearly labelled memory-only practice and storage events replace snapshots. C2-R reuses this reliability rather than maintaining legacy account adapters. No progress export/import, cloud sync or backup/restore features are planned.
+Familiarity uses the existing kana-learning:guest:v1 key with version/known learnedIds; this is a retained key, not a guest/account adapter. Quiz state uses kana-learning:study:v1: one active session and up to 20 completed sessions, maximum 262144 serialized characters before parsing/saving. Reads never automatically overwrite stored data. Snapshots retain original prompt/answer revision; historical scores are recalculated from those snapshots, not trusted persisted score fields.
 
-Read [workflow](docs/implementation-workflow.md) and [active progress](docs/implementation-progress.md) before implementation. [Historical evidence](docs/archive/implementation-history-pre-no-login.md) contains superseded tasks/results only.
+Storage events replace snapshots, including resets. localStorage multi-tab writes are best effort, not transactional synchronization. Browser clearing/eviction or another device does not preserve these records. Larger transactional review logs/IndexedDB are planned for C4. No export/import, offline delivery or backup/restore features.
 
-The platform remains English-meaning, N5-first and ready architecturally for N5–N1. AI companion, subscriptions, offline synchronization and handwriting recognition are excluded. No push/deployment is part of cleanup.
+## Documentation and scope
+
+Read [plan](implementation-plan.md), [workflow](docs/implementation-workflow.md) and [active progress](docs/implementation-progress.md) before a checkpoint. [Historical evidence](docs/archive/implementation-history-pre-no-login.md) is superseded execution context.
+
+C2-R removes learner account code/config while preserving applied migrations and dormant hosted records. Supabase content uses learning.kana, not public.kana. Existing hosted users/tables are not deleted; runtime permissions cannot access them.
+
+The platform remains English-meaning and N5-first, ready architecturally for N5–N1. AI companion, subscriptions, offline synchronization and handwriting recognition are excluded. No push/deployment performed.
 
 ## License
 
-Repository software is MIT licensed. Imported dictionary/media content retains its original attribution and reuse requirements.
+Software is MIT licensed. Dictionary/media imports retain their original attribution and reuse terms.

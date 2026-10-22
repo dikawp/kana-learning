@@ -1,13 +1,9 @@
 import "server-only"
 import { createApi } from "./app"
-import { authConfig, isAuthConfigured } from "../config"
-import { createAuthGateway } from "../auth/supabase"
 import { getDatabase } from "../db/client"
-import { createLearningService } from "../services/learning"
+import { readKanaContent } from "../services/content"
 
 export const api = createApi({
-  auth: createAuthGateway,
-  learning: async () => createLearningService(await getDatabase()),
-  origin: () => authConfig().origin,
-  authConfigured: isAuthConfigured,
+  content: async () => readKanaContent(await getDatabase()),
+  configured: () => Boolean(process.env.DATABASE_URL?.trim()),
 })

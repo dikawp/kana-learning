@@ -1,8 +1,14 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { kanaData } from "@/lib/kana-data"
+import { loadKana } from "@/lib/content/client"
+import type { KanaContent } from "@/lib/content/contracts"
+import { createFamiliarityStore } from "@/lib/study/familiarity-store"
+import { createStudyStore } from "@/lib/study/local-store"
+import { useStudySession } from "@/hooks/use-study-session"
+import { calculateQuizResults } from "@/lib/kana/quiz"
+import { Button } from "@/components/ui/button"
 import { useKanaProgress } from "@/hooks/use-kana-progress"
 import { useKanaFilters } from "@/hooks/use-kana-filters"
 import { Header } from "@/components/layout/header"
@@ -13,19 +19,42 @@ import { QuizMode } from "@/components/kana/quiz-mode"
 import { TableView } from "@/components/kana/table-view"
 
 export default function KanaLearningApp() {
+  const [content, setContent] = useState<KanaContent | null>(null)
+  const [error, setError] = useState("")
+  const [request, retry] = useState(0)
+  useEffect(() => {
+    const controller = new AbortController()
+    loadKana(controller.signal).then((data) => {
+      if (!controller.signal.aborted) { setContent(data); setError("") }
+    }).catch((cause: unknown) => {
+      if (!controller.signal.aborted) setError(cause instanceof Error ? cause.message : "Learning material is unavailable.")
+    })
+    return () => controller.abort()
+  }, [request])
+  if (!content) return <><Header /><main className="container mx-auto p-6">
+    {error ? <div role="alert"><p>{error}</p><Button onClick={() => { setError(""); retry((n) => n + 1) }}>Retry material</Button></div> : <p role="status">Loading learning material…</p>}
+  </main></>
+  return <StudyPage content={content} />
+}
+
+function StudyPage({ content }: { content: KanaContent }) {
+  const kanaData = content.items
+  const [familiarity] = useState(() => createFamiliarityStore(kanaData))
+  const [quizzes] = useState(() => createStudyStore(kanaData))
+  const history = useStudySession(quizzes).data.history
+  const last = history[0] ? calculateQuizResults(history[0].questions, history[0].answers) : null
+  const score = { correct: last?.score ?? 0, total: last?.total ?? 0 }
   const [currentMode, setCurrentMode] = useState<"flashcard" | "quiz" | "table">("flashcard")
 
   const {
     progress,
     storageStatus,
-    score,
     markAsLearned,
     resetProgress,
     resetHiraganaProgress,
     resetKatakanaProgress,
-    updateScore,
     isLearned,
-  } = useKanaProgress()
+  } = useKanaProgress(familiarity, kanaData)
 
   const {
     selectedType,
@@ -74,11 +103,12 @@ export default function KanaLearningApp() {
             <FlashcardMode filteredKana={filteredKana} onMarkAsLearned={markAsLearned} isLearned={isLearned} />
           </TabsContent>
 
-          <TabsContent value="quiz" className="space-y-4">
+          <TabsContent value="quiz" className="space-y-4" forceMount hidden={currentMode !== "quiz"}>
             <QuizMode
               kanaData={kanaData}
               onMarkAsLearned={markAsLearned}
-              onUpdateScore={updateScore}
+              store={quizzes}
+              revision={content.revision}
               onSwitchToFlashcard={() => setCurrentMode("flashcard")}
               isLearned={isLearned}
             />

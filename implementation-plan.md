@@ -1,6 +1,6 @@
 # Kana Learning implementation plan
 
-Revised 18 October 2026 (Asia/Jakarta). Current direction: one public learning interface without learner accounts; device-local progress; Supabase for published materials. This revision supersedes the C2 learner Auth/cloud-progress design. C1 fixes and useful C2 content/backend infrastructure remain reusable.
+Revised 22 October 2026 (Asia/Jakarta). Current direction: one public learning interface without learner accounts; device-local progress; Supabase for published materials. This revision supersedes the C2 learner Auth/cloud-progress design. C1 fixes and useful C2 content/backend infrastructure remain reusable.
 
 ## 1. Scope and implementation authority
 
@@ -10,9 +10,9 @@ Learners use the same Flashcard/Quiz/Table interface without registration, login
 
 Excluded: learner accounts/cloud progress, guest/account adapters, old-origin migration, progress export/import, backup/restore rehearsals, offline synchronization/service-worker delivery, AI companion, subscriptions and handwriting recognition. Local persistence is not offline synchronization. Kanjiflash's export feature is not automatically in scope.
 
-This task changes planning/documentation only, consolidates active guides and archives historical progress. Runtime/dependency/env/SQL cleanup is the mandatory C2-R checkpoint below, to implement when explicitly requested before C3. No push, deployment, paid provisioning, manual QA, exploratory browser testing or visual inspection. No remote data/credential deletion is authorized by a request for a clean project folder.
+C2-R.0 planning and C2-R.1–R.2 implementation are complete. The public UI, local resume/history, content-only backend and cleanup below are implemented; future content/SRS remains proposed. Current evidence is in docs/implementation-progress.md. No push, deployment, paid provisioning, manual QA, exploratory browser testing or visual inspection. No remote data/credential deletion is authorized by a request for a clean project folder.
 
-## 2. Verified starting point and current behavior
+## 2. Verified pre-redesign starting point (historical)
 
 Starting commit: 3c12ca8; tracked tree clean at inspection. No applicable AGENTS.md previously found; recheck before implementation. Installed Next 16.4.2, React 19.3.1, Node >=22.13 <23, npm 10.9.4, Elysia 1.4.30, Drizzle/Postgres.js already support this redesign; no framework rewrite/upgrade is required.
 
@@ -33,7 +33,7 @@ Historical automated evidence at 3c12ca8: 51 tests plus lint/typecheck/build/loo
 | scripts/db/{run,targets,seed-kana,verify-development}.ts | Real CLI/seed/target guards useful; hosted verifier still assumes learner Auth and needs rewriting. |
 | tests/fixtures/kana-baseline-v1.json | Frozen 208 IDs/glyphs/scripts/order. Retain unchanged. |
 
-Current account flow: managed Auth -> Elysia -> PostgreSQL progress/quizzes. Target: public content -> shared UI -> validated browser learner state. Familiarity remains different from mastery.
+Former account flow: managed Auth -> Elysia -> PostgreSQL progress/quizzes. Implemented C2-R flow: public SQL content -> shared UI -> validated browser learner state. Familiarity remains different from mastery.
 
 Kanjiflash informed the experience, not a claim about its server stack. Its inspected public client used localStorage, embedded practice payloads and /api/dashboard-data. That does not prove a database/server runtime or a live third-party dictionary call on each practice request. References: [privacy](https://kanjiflash.com/privacy), [sources](https://kanjiflash.com/sources), [client](https://kanjiflash.com/static/client.js). Do not copy branding, teaching text or code.
 
@@ -57,7 +57,7 @@ Technical references: [Elysia Next](https://elysiajs.com/integrations/nextjs), [
 
 Existing kana IDs such as h-a remain canonical. Local state references stable material/card keys plus content revision, never array offsets or IDs regenerated on fetch.
 
-C2-R retains the validated localStorage familiarity/settings store and adds bounded, validated quiz resume/history records. Specify session-count/size limits in implementation/tests; do not silently clear saved data on reads. Proposed new modules: lib/content/{client,contracts}.ts, lib/study/{contracts,local-store,quiz-history}.ts and hooks/use-study-session.ts.
+C2-R retains validated localStorage familiarity and adds bounded quiz resume/history: one active session, last20 completed sessions, maximum262144 serialized characters; no initial overwrite. Implemented modules: lib/content/{client,contracts}.ts, lib/study/{contracts,local-store,familiarity-store}.ts and hooks/use-study-session.ts. History transitions are consolidated in local-store.ts; no separate unused quiz-history module.
 
 C4 uses IndexedDB for larger indexed review logs and atomic writes: settings/target level/goals/timezone, lesson resume, per-skill schedules, review/mistake events and quiz sessions are separate stores. Proposed lib/study/{indexeddb-store,scheduler,review-queue}.ts. New schema contracts may start fresh with a clear reset notice; no legacy/dual-write adapter. Stable content IDs and compatible review state must survive normal content corrections; do not blindly reset schedules on every release.
 
@@ -188,7 +188,7 @@ Remove /api/v1/auth/*, /me/progress*, learner /quiz-sessions* and old /me/review
 
 ## 9. Explicit repository cleanup inventory
 
-Runtime removals below are planned C2-R implementation, not completed by this planning edit. Check actual imports/consumers before deletion. Replace relevant coverage when deleting superseded contracts; preserve unrelated code/secrets.
+Completed C2-R cleanup inventory, retained as an audit/design record: old paths below were deleted or rewritten as specified. The public runtime has no learner Auth dependencies; migration-only dormant declarations are retained in drizzle/preserved-schema.ts. Applied 0003_content_read_only on the designated development target without data deletion. Future checkpoints must preserve these boundaries.
 
 | Existing files/config | Action and dependency |
 | --- | --- |
@@ -216,7 +216,7 @@ Clean means no orphaned learner route/import/dependency/env requirement, duplica
 
 P0-A/P0-S and C1 remain historical completed evidence. Old C2 learner Auth/cloud-progress requirements and pending hosted-account acceptance are superseded; do not continue them. Useful public content work remains. C3–C6 are provisional allocation pending their corresponding prompts.
 
-### C2-R.0 — Plan/documentation consolidation (this task)
+### C2-R.0 — Plan/documentation consolidation (completed 18 October)
 
 - Goal/dependencies: resolve architecture using current repository evidence, no runtime changes.
 - Deliverables/files: this plan, workflow, README/setup, concise active progress and one historical archive.
@@ -224,7 +224,7 @@ P0-A/P0-S and C1 remain historical completed evidence. Old C2 learner Auth/cloud
 - Acceptance/tests: exact existing removal paths verified; proposed paths labelled; active relative Markdown links resolve; only docs changed; no runtime-clean claim or fabricated application check.
 - Next: explicitly request C2-R implementation before C3.
 
-### C2-R.1 — One public UI and local exercise state
+### C2-R.1 — One public UI and local exercise state (implemented and automated-tested)
 
 - Goal/dependencies: R.0 plus C1 UI/C2 public kana API.
 - Deliverables: shared Flashcard/Quiz/Table, filters/loading/error/retry, familiarity and bounded refresh-safe local quiz resume/history/answer review; no Account navigation.
@@ -233,7 +233,7 @@ P0-A/P0-S and C1 remain historical completed evidence. Old C2 learner Auth/cloud
 - Acceptance: 208 stable IDs, mode/filter/search parity, no duplicate answer/completion, refresh resume/history, corrupt/quota/blocked-storage disclosure.
 - Automated tests: retained fixture/domain/interaction/storage/theme/a11y plus proposed tests/frontend/local-history.test.tsx, content loading/retry; lint/typecheck/build.
 
-### C2-R.2 — Content-only backend and complete cleanup
+### C2-R.2 — Content-only backend and complete cleanup (implemented and automated-tested)
 
 - Goal/dependencies: R.1 and inventory; complete before checkpoint handoff.
 - Deliverables: delete learner routes/Auth/services/contracts/packages/env templates/tests/CI jobs; narrow runtime SQL grants; content-only verifier; no stale docs/empty directories/admin placeholders.
@@ -283,7 +283,7 @@ Mandatory cleanup evidence: 208 fixture unchanged; public content with Auth env 
 
 Before local commits inspect exact diff/staged paths, docs links, dead imports/scripts, actual automated results and unrelated changes. No push/deploy. Revert source with Git; applied SQL requires a reviewed forward change rather than local-history deletion/reset. No backup/restore rehearsal. Content rollback switches to a prior validated manifest/cache key, preserving stable local learning identity.
 
-This planning task does not query/migrate/delete hosted data. A cleanup implementation may test proposed privilege SQL locally; applying it must name the designated target. Destructive tables/users/project cleanup needs separate explicit authorization. Never delete .env.local to make Git appear clean.
+C2-R applied only additive privilege migration0003 to the explicitly designated development target; aggregate Auth/dormant-table record counts before/after matched. It did not delete data/users or rotate credentials. Future schema/privilege operations must name the authorized target. Destructive tables/users/project cleanup needs separate explicit authorization. Never delete .env.local to make Git appear clean.
 
 ## 12. Risks and prioritized handoff
 
@@ -296,10 +296,12 @@ This planning task does not query/migrate/delete hosted data. A cleanup implemen
 
 - [x] Inspect current code/history and adopt the user-approved no-login direction.
 - [x] C2-R.0: revise plan and consolidate active docs/history (actual checks in progress log).
-- [ ] C2-R.1: shared public interface, local quiz resume/history.
-- [ ] C2-R.2: remove obsolete code/config/dependencies/tests/jobs; content-only API/permissions; automated gates and clean local commit.
+- [x] C2-R.1: shared public interface, local quiz resume/history.
+- [x] C2-R.2: remove obsolete code/config/dependencies/tests/jobs; content-only API/permissions; automated gates and clean local commit.
 - [ ] Review any hosted privilege/data operations against explicit scope, no automatic deletion.
 - [ ] Only after C2-R completion, start authorized C3 N5 content.
 - [ ] C4–C6 follow corresponding user prompts.
 
-Exact next implementation task: C2-R. Read plan/workflow/progress/git state; begin R.1 from the verified kana UI and complete R.2 before C3. Do not remove only documentation and claim runtime cleanup, continue learner Auth QA or implement later modules during cleanup.
+C2-R verification on22 October: 50 automated tests plus lint/typecheck/build/HTTP passed, full-scope npm audit --package-lock-only0 (standard audit endpoint failed; see progress), Drizzle generation consistency no schema changes, hosted content-only read-only verifier passed. Fixture/old migrations unchanged.
+
+Exact next implementation task: C3 after its explicit prompt. Read current plan/workflow/progress and git status, reuse completed C2-R, then build N5 source ingestion/curation. No further learner Auth QA or cloud personal-data cleanup is required for the clean-repository gate.

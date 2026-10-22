@@ -1,34 +1,37 @@
-import { kanaData } from "../kana-data"
+import type { KanaCharacter } from "../../types/kana"
 
-export const GUEST_STORAGE_KEY = "kana-learning:guest:v1"
-const knownIds = new Set<string>(kanaData.map((kana) => kana.id))
-export type GuestSnapshot = { learnedIds: string[]; status: "loading" | "saved" | "memory"; message: string }
-const serverSnapshot: GuestSnapshot = { learnedIds: [], status: "loading", message: "Loading local progress…" }
+export const FAMILIARITY_KEY = "kana-learning:guest:v1"
+export type FamiliaritySnapshot = { learnedIds: string[]; status: "loading" | "saved" | "memory"; message: string }
+const serverSnapshot: FamiliaritySnapshot = { learnedIds: [], status: "loading", message: "Loading local progress…" }
 type StorageAccess = Pick<Storage, "getItem" | "setItem">
 type StorageChange = { key: string | null; newValue: string | null }
 
-export function parseGuestProgress(raw: string | null): string[] {
+export function parseFamiliarity(raw: string | null, data: KanaCharacter[]): string[] {
+  const knownIds = new Set(data.map((entry) => entry.id))
   if (raw === null) return []
+  if (raw.length > 65536) throw Error("Invalid progress size")
   const value: unknown = JSON.parse(raw)
   if (typeof value !== "object" || value === null || !("version" in value) || value.version !== 1 ||
     !("learnedIds" in value) || !Array.isArray(value.learnedIds) || value.learnedIds.length > 10000 ||
     !value.learnedIds.every((id: unknown) => typeof id === "string")) {
-    throw new Error("Invalid guest progress")
+    throw new Error("Invalid local familiarity")
   }
   return [...new Set<string>(value.learnedIds)].filter((id) => knownIds.has(id))
 }
 
-export function createGuestStore(
+export function createFamiliarityStore(
+  kanaData: KanaCharacter[],
   storage: () => StorageAccess = () => window.localStorage,
   listen: (callback: (event: StorageChange) => void) => () => void = (callback) => {
     const handler = (event: StorageEvent) => {
-      // sessionStorage events must never overwrite guest progress.
+      // sessionStorage events must never overwrite local familiarity.
       try { if (event.storageArea === window.localStorage) callback(event) } catch { /* unavailable storage has no usable event */ }
     }
     window.addEventListener("storage", handler)
     return () => window.removeEventListener("storage", handler)
   },
 ) {
+  const knownIds = new Set(kanaData.map((entry) => entry.id))
   let snapshot = serverSnapshot
   let initialized = false
   let stop: (() => void) | undefined
@@ -36,7 +39,7 @@ export function createGuestStore(
   const notify = () => listeners.forEach((listener) => listener())
   const read = (raw: string | null) => {
     try {
-      snapshot = { learnedIds: parseGuestProgress(raw), status: "saved", message: "Progress is stored on this device only." }
+      snapshot = { learnedIds: parseFamiliarity(raw, kanaData), status: "saved", message: "Progress is stored on this device only." }
     } catch {
       snapshot = { learnedIds: [], status: "memory", message: "Saved progress is invalid. Practice works in memory; your next change will start a new local record." }
     }
@@ -44,7 +47,7 @@ export function createGuestStore(
   const initialize = () => {
     if (initialized) return
     initialized = true
-    try { read(storage().getItem(GUEST_STORAGE_KEY)) } catch {
+    try { read(storage().getItem(FAMILIARITY_KEY)) } catch {
       snapshot = { learnedIds: [], status: "memory", message: "Storage is unavailable. Progress will last only for this open page." }
     }
   }
@@ -52,7 +55,7 @@ export function createGuestStore(
     initialize()
     const learnedIds = [...new Set(ids)].filter((id) => knownIds.has(id))
     snapshot = { learnedIds, status: "saved", message: "Progress is stored on this device only." }
-    try { storage().setItem(GUEST_STORAGE_KEY, JSON.stringify({ version: 1, learnedIds })) } catch {
+    try { storage().setItem(FAMILIARITY_KEY, JSON.stringify({ version: 1, learnedIds })) } catch {
       snapshot = { learnedIds, status: "memory", message: "Progress could not be saved. Changes will last only for this open page." }
     }
     notify()
@@ -67,7 +70,7 @@ export function createGuestStore(
         if (snapshot.status !== "memory") initialized = false
         initialize()
         stop = listen((event) => {
-          if (event.key === GUEST_STORAGE_KEY || event.key === null) {
+          if (event.key === FAMILIARITY_KEY || event.key === null) {
             read(event.newValue)
             notify()
           }
@@ -86,5 +89,3 @@ export function createGuestStore(
     },
   }
 }
-
-export const guestStore = createGuestStore()

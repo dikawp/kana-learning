@@ -1,9 +1,9 @@
 # Implementation workflow
 
-Revised 18 October 2026 (Asia/Jakarta). Current target: one public learner UI, no learner login/cloud progress, device-local study state, Supabase PostgreSQL content. C2 learner-account scope and unfinished hosted-account acceptance are superseded. C1 fixes/useful public C2 infrastructure remain. The prior claim that no user activity exists is no longer an assumption.
+Revised 22 October 2026 (Asia/Jakarta). Current target: one public learner UI, no learner login/cloud progress, device-local study state, Supabase PostgreSQL content. C2 learner-account scope and unfinished hosted-account acceptance are superseded. C1 fixes/useful public C2 infrastructure remain. The prior claim that no user activity exists is no longer an assumption.
 
 1. Read implementation-plan.md, this workflow, active progress, applicable instructions, git status (including unrelated/untracked changes) and recent commits before every checkpoint. Record starting commit and actual baseline.
-2. Implement only the requested task. This revision is documentation-only C2-R.0; runtime cleanup is C2-R.1–R.2, to request before C3. Later C3–C6 remain provisional until their prompts.
+2. Implement only the requested task. C2-R.0–R.2 is implemented; keep its public/local contracts intact. C3 starts only under its corresponding prompt. Later C3–C6 remain provisional until their prompts.
 3. Reuse verified existing code and complete work; no framework rewrite/upgrade or repeated provisioning without need. Follow checkpoint dependencies/acceptance. Mark replaced scope superseded, never rewrite historical outcomes as new results.
 4. After meaningful subtasks update docs/implementation-progress.md with paths, decisions, automated results/failures, blockers and the exact next step. Historical records are in docs/archive/implementation-history-pre-no-login.md; they are evidence, not current execution instructions.
 5. Distinguish planned, implemented, automatically tested, unavailable external checks and superseded work. No fabricated credentials, approval, provenance or test success.
@@ -20,8 +20,8 @@ Revised 18 October 2026 (Asia/Jakarta). Current target: one public learner UI, n
 
 - implementation-plan.md: target design, cleanup inventory and acceptance.
 - docs/implementation-progress.md: current work/handoff, concise.
-- docs/backend-setup.md: actual current setup vs planned content-only configuration.
+- docs/backend-setup.md: current content-only setup and explicit hosted verification boundaries.
 - README.md: entry point and runnable commands.
 - docs/archive/implementation-history-pre-no-login.md: dated prior outcomes only. Do not create parallel active account/no-login guides.
 
-Current npm run check runs native/frontend/backend tests, lint, typecheck, production build and loopback HTTP smoke. Until runtime C2-R, it still tests learner accounts. test:postgres remains the old optional loopback account-concurrency suite; it is not a Supabase-hosted command or mandatory Docker prerequisite. C2-R removes it and its obsolete CI service after replacement content coverage. verify:supabase currently checks learner Auth settings as well as SQL/public HTTP; C2-R must rewrite it before claiming no-login readiness. Default checks never require genuine external credentials.
+Current npm run check runs native/frontend/backend tests, lint, typecheck, production build and loopback HTTP smoke. Backend tests use isolated PGlite and historical migration fixtures, not hosted users. verify:supabase is opt-in, read-only, content/grants/public HTTP verification on an explicitly designated development target. No learner Auth configuration, optional account-contention suite or Docker CI service remains. Default checks never require genuine external credentials. Applied migration history and dormant declarations used only by Drizzle generation must remain immutable.

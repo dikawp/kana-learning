@@ -1,53 +1,65 @@
-# Backend setup and transition status
+# Content backend setup
 
-Revised 18 October 2026. The new target is public content with device-local learner progress. Runtime C2-R is planned, not implemented by this documentation update. Do not follow historical account setup as a prerequisite for the new product.
+Updated 22 October 2026 (Asia/Jakarta). C2-R implemented: one anonymous learning UI, public Elysia content API, local learner state. Supabase provides PostgreSQL content; no learner Supabase Auth SDK, session cookies, anonymous users or cloud progress writes.
 
-## What exists today
+## Local configuration
 
-At commit 3c12ca8 the repository still contains Next/Elysia learner Auth, /account and /account/password, session refresh/callbacks, account progress/quizzes and a public /api/v1/content/kana GET. The root kana page still uses bundled data/local familiarity. The two interfaces are not yet unified.
+Use .env.example as the template; keep genuine values only in ignored .env.local.
 
-The user-designated Supabase development project has three applied C2 migrations and 208 seeded kana under the private learning schema, not public. Its database region is Tokyo/ap-northeast-1. Auth users and account learning activity may exist. Keep those data and credentials intact during planning; do not reset the project or repeat provisioning.
+| Variable | Responsibility |
+| --- | --- |
+| APP_ENV | development/test/preview classification for guarded scripts |
+| DATABASE_URL | Dedicated non-owner SELECT-only LOGIN through Supabase transaction pooler; never admin credentials |
+| MIGRATION_DATABASE_URL | Privileged direct/session connection for explicitly authorized reviewed migrations/seed, not ordinary requests |
+| DATABASE_CHANGE_TARGET | disposable-development or isolated-preview guard; does not authorize destructive resets |
 
-## Existing local configuration (until C2-R)
+No SUPABASE_URL, publishable key, APP_ORIGIN or C2_TEST_* field is consumed by the application. Obsolete learner-only fields were removed from the local file without changing unrelated lines or exposing credentials. No provider keys, dashboard callbacks or Auth users were revoked/deleted. Future admin/storage variables are added only when needed.
 
-Actual values belong only in ignored .env.local; never send or commit passwords/URLs. No credentials are provided here.
+Runtime uses Postgres.js with max1, prepare:false, TLS, bounded timeouts/lifetime. A SQL preflight rejects superuser/BYPASSRLS, schema CREATE, table/column write grants and any dormant learner-table reads. Safe failures return503 without SQL/credentials. Existing development region is Tokyo/ap-northeast-1; choose a nearby Vercel region only in a later deployment task. No Docker, Bun listener, separate backend project, Redis or worker is required.
 
-| Variable | Current consumer | Target after C2-R |
-| --- | --- | --- |
-| APP_ENV | Guarded development/preview scripts | Keep. |
-| DATABASE_URL | Dedicated kana_app LOGIN via transaction pooler, inheriting learning_runtime | Keep, narrow role grants to published SELECT only through reviewed SQL. Never use administrator credentials for runtime. |
-| MIGRATION_DATABASE_URL | Privileged direct/session connection for reviewed scripts | Keep separate from runtime; never browser-exposed or used on ordinary requests. |
-| DATABASE_CHANGE_TARGET | Explicit disposable-development or isolated-preview designation | Keep fail-closed target guard; designation alone never grants permission to erase data. |
-| SUPABASE_URL; SUPABASE_PUBLISHABLE_KEY | Current learner Auth and hosted verifier | Remove after their consumers are removed; future admin configuration is separately scoped. |
-| APP_ORIGIN | Current learner Auth/Origin/redirect checks | Remove when no concrete consumer remains. |
-| C2_TEST_DATABASE_URL; C2_TEST_DATABASE_DISPOSABLE | Optional empty-loopback account contention test | Remove with obsolete suite/CI job. Do not use a hosted Supabase URL here. |
+## Database and migration history
 
-The current SQL role is non-owner/non-BYPASSRLS, Postgres.js uses bounded pooling/TLS/prepare:false, and personal queries use transaction-local profile claims. Those personal-query responsibilities will disappear; preserve pooling/security and tighten privileges rather than assume RLS protects admin SQL.
+Public kana is stored in learning.kana (208 stable text IDs). RLS remains active; only the restricted runtime role reads it. The schema is not exposed through Supabase Data API anonymous roles.
 
-No automatic changes to .env.local, provider keys, dashboard callbacks, Auth users or remote data happen in this planning task. Supabase's main-branch production badge does not authorize production operations; use the specifically designated environment and inspect actual state.
+Applied 0000–0002 SQL/snapshots are immutable. drizzle/preserved-schema.ts declares dormant tables for migration generation only; it is not imported by runtime and is included by drizzle.config.ts to prevent an accidental generated DROP. 0003_content_read_only revokes table privileges and the historical column-level UPDATE grants, retaining SELECT on kana. Table-level REVOKE alone does not remove column grants.
 
-## Commands available today
+The new migration was applied to the previously user-designated Kana-learn development target on 22 October 2026. Aggregate counts in auth.users and all six dormant learner tables were equal before/after. Data/users/tables remain intact; runtime reads and writes are denied. Deletion of those resources requires separate authorization and is not part of repository cleanup.
 
-- npm run dev: local Next/Elysia; Docker not required.
-- npm run check: current application tests/lint/typecheck/build/isolated HTTP. It still includes learner-account contracts until implementation cleanup.
-- npm run db:migrate and npm run db:seed: current reviewed C2 journal and idempotent 208-kana seed, only on an authorized explicitly designated target. No migration at build/startup.
-- npm run verify:supabase (after build): opt-in hosted read-only SQL/role/RLS/content/Auth-settings/Next HTTP checks. It currently requires learner Auth configuration and is not proof of the future content-only architecture.
-- npm run test:postgres: old optional new-empty-loopback learner mutation suite; do not point it at Supabase. C2-R removes it and its CI service after replacing relevant coverage.
+    npm run db:migrate
+    npm run db:seed
 
-Default verification uses isolated PGlite/fixture transport. Normal filesystem permissions may be needed for disk-backed PGlite; initial sandbox Aborted failures and unchanged passing reruns are historical evidence in the archive. Do not hide a failed check or report synthetic Auth transport as hosted account verification.
+Use only explicitly authorized non-production targets; no runtime credential fallback, migrations during build/startup, drizzle-kit push or destructive schema reconciliation. Default isolated tests supply a minimal auth.users fixture solely for historical migration dependencies; no production Auth data is imported.
 
-## Planned content-only responsibilities (not implemented yet)
+## Public API
 
-Keep Elysia in app/api/[[...slugs]]/route.ts with Node runtime, Supabase PostgreSQL and Drizzle, current SQL client/CLI/seed guards and stable kana IDs. Rewrite runtime to public published GETs with validation, bounded pagination/cache keys and consistent safe errors. Remove learner /auth/*, /me/* and /quiz-sessions*; removed paths return404, no redirects/adapters.
+| Request | Result |
+| --- | --- |
+| GET /api/v1/health | contentConfigured flag and liveDependencyCheck:false; does not claim real SQL readiness |
+| GET /api/v1/content/kana | Validated items + SHA-256 content revision, ordered by seed position; ETag and must-revalidate caching |
+| Conditional same GET | 304 for exact unchanged revision |
+| Unknown queries | 422 safe validation error |
+| Missing/failed content database | 503 safe envelope, private/no-store, no bundled material fallback |
+| Former learner /auth/*, /me/*, /quiz-sessions* | 404, no compatibility stubs |
+| Former /account, /account/password, /auth/callback pages | 404 |
 
-The public UI loads one shared published-content contract and grades/saves practice locally. No learner session cookies, anonymous Auth user or SQL progress rows. Existing account tables can remain dormant and inaccessible to runtime pending explicit retirement authorization. Keep applied SQL files/journal/snapshots immutable; use reviewed forward migrations, never drizzle-kit push or a destructive reset to match shortened types.
+Public reads require no cookies or identity and issue no session cookies. Error envelopes have code/message/requestId, no raw SQL or stack. Currently the only published material is kana, so all valid kana rows form the published payload; staged dictionary/release publication is C3.
 
-Admin Auth is optional future work when actual content management needs it; do not retain learner routes/packages as placeholders. Supabase Storage is optional for licensed media. No Redis/queue/worker or separate Elysia deployment is needed now.
+## Automated checks
 
-C2-R must rewrite the hosted verifier to check only public content/read-only grants/anonymous HTTP, replace account tests with content/local-state coverage, and document actual final environment fields here. Until then, do not claim project cleanup or no-login runtime completion.
+    npm run check
 
-See [the plan](../implementation-plan.md), [workflow](implementation-workflow.md) and [current progress](implementation-progress.md).
+Default native/frontend/backend/static/build/HTTP gates use local fixtures, PGlite SQL and credential-disabled loopback HTTP. Actual RLS/grants, migration/seed repeatability, dormant-record preservation and disk reopen are checked. Auth suites/SDKs and the obsolete account-contention network suite/CI service are removed.
 
-## Technical references
+After build, with explicit development configuration:
 
-[Elysia Next](https://elysiajs.com/integrations/nextjs), [Supabase connections](https://supabase.com/docs/guides/database/connecting-to-postgres), [Drizzle migrations](https://orm.drizzle.team/docs/migrations), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), [PGlite](https://pglite.dev/).
+    npm run verify:supabase
+
+The opt-in verifier checks matching administrative/session and runtime/transaction-pooler target metadata locally; only runtime credentials connect. SQL uses explicit READ ONLY transactions because transaction pooling does not preserve startup/session settings reliably. It validates exact 208 content, RLS, table/column permissions, denied dormant-table access and concurrent reads; then starts/stops its own random-port production server to verify public content/ETag and removed paths404. It does not send emails, create users, read personal records, mutate rows or apply migrations.
+
+This hosted verifier passed on the designated development project on 22 October 2026. No remote CI/Vercel deployment, visual QA, cross-browser eviction guarantee or future SRS behavior is claimed. Active existing dev processes are not terminated by the verifier.
+
+See [plan](../implementation-plan.md), [workflow](implementation-workflow.md) and [progress](implementation-progress.md).
+
+## References
+
+[Elysia Next](https://elysiajs.com/integrations/nextjs), [Supabase pooling](https://supabase.com/docs/guides/database/connecting-to-postgres), [Drizzle migrations](https://orm.drizzle.team/docs/migrations), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), [PGlite](https://pglite.dev/).

@@ -6,6 +6,7 @@ import { FlashcardMode } from "@/components/kana/flashcard-mode"
 import { QuizMode } from "@/components/kana/quiz-mode"
 import { TableView } from "@/components/kana/table-view"
 import { kanaData } from "@/lib/kana-data"
+import { createStudyStore } from "@/lib/study/local-store"
 import KanaLearningApp from "@/app/page"
 
 describe("flashcard pool lifecycle", () => {
@@ -38,15 +39,15 @@ describe("flashcard pool lifecycle", () => {
 describe("quiz lifecycle", () => {
   function mount(data = kanaData.slice(0, 2)) {
     const mark = vi.fn()
-    const score = vi.fn()
+    const store = createStudyStore(data)
     const switchMode = vi.fn()
     vi.spyOn(Math, "random").mockReturnValue(0)
-    return { ...render(<QuizMode kanaData={data} onMarkAsLearned={mark} onUpdateScore={score} isLearned={() => false} onSwitchToFlashcard={switchMode} />), mark, score, switchMode }
+    return { ...render(<QuizMode kanaData={data} onMarkAsLearned={mark} store={store} isLearned={() => false} onSwitchToFlashcard={switchMode} />), mark, store, switchMode }
   }
 
   it("accepts one answer, provides untimed feedback, scores once and reviews correct/incorrect items", async () => {
     const user = userEvent.setup()
-    const { mark, score, switchMode } = mount()
+    const { mark, store, switchMode } = mount()
     await user.click(screen.getByRole("button", { name: "Start Quiz" }))
     expect(screen.getByText("い")).toHaveAttribute("lang", "ja")
     const wrong = screen.getByRole("button", { name: "a" })
@@ -61,7 +62,8 @@ describe("quiz lifecycle", () => {
     expect(mark).toHaveBeenCalledExactlyOnceWith("h-a")
     const finish = screen.getByRole("button", { name: "See Results" })
     act(() => { finish.click(); finish.click() })
-    expect(score).toHaveBeenCalledExactlyOnceWith(1, 2)
+    expect(store.getSnapshot().data.history).toHaveLength(1)
+    expect(store.getSnapshot().data.history[0].answers).toEqual(["a", "a"])
     expect(screen.getByText("50%")).toBeInTheDocument()
     expect(screen.getByText("Your: a")).toBeInTheDocument()
     expect(screen.getByText("Correct: i")).toBeInTheDocument()
@@ -81,13 +83,13 @@ describe("quiz lifecycle", () => {
       fireEvent.click(screen.getByRole("button", { name: "Cancel Quiz" }))
       act(() => vi.runAllTimers())
       expect(screen.getByText("Quiz Setup")).toBeInTheDocument()
-      expect(view.score).not.toHaveBeenCalled()
+      expect(view.store.getSnapshot().data.history).toHaveLength(0)
       fireEvent.click(screen.getByRole("button", { name: "Start Quiz" }))
       expect(screen.getByRole("button", { name: "i" })).toBeEnabled()
       fireEvent.click(screen.getByRole("button", { name: "i" }))
       view.unmount()
       act(() => vi.runAllTimers())
-      expect(view.score).not.toHaveBeenCalled()
+      expect(view.store.getSnapshot().data.history).toHaveLength(0)
     } finally { vi.useRealTimers() }
   })
 
@@ -105,6 +107,7 @@ describe("application semantics and regression integration", () => {
   it("supports search, empty results, table mode, quiz scope and reset cancellation through the actual page", async () => {
     const user = userEvent.setup()
     render(<KanaLearningApp />)
+    await screen.findByRole("textbox", { name: "Search kana or Romaji" })
     expect(screen.getByRole("main")).toBeInTheDocument()
     expect(screen.getByRole("button", { name: "Toggle color theme" })).toBeInTheDocument()
     expect(screen.getByRole("progressbar", { name: "Overall familiarity" })).toBeInTheDocument()
@@ -145,6 +148,7 @@ describe("application semantics and regression integration", () => {
 
   it("passes automated control/ARIA/table semantic rules on the page and all 208 table entries", async () => {
     const page = render(<KanaLearningApp />)
+    await screen.findByRole("textbox", { name: "Search kana or Romaji" })
     // jsdom has no layout engine. These rules check semantics; no visual/contrast claim is made.
     const rules = ["button-name", "label", "select-name", "aria-valid-attr-value", "aria-required-attr", "aria-progressbar-name", "td-headers-attr", "th-has-data-cells"]
     expect((await axe.run(page.container, { runOnly: { type: "rule", values: rules } })).violations).toEqual([])

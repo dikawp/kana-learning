@@ -1,8 +1,13 @@
 import { Elysia, t } from "elysia"
 import { ApiError } from "./errors"
 import type { KanaContent } from "../../lib/content/contracts"
+import type { DictionaryService } from "../services/dictionary"
+import { validateDictionaryQuery } from "../services/dictionary"
 
-export function createApi(deps: { content: () => Promise<KanaContent>; configured: () => boolean }) {
+export function createApi(deps: { content: () => Promise<KanaContent>; configured: () => boolean; dictionary: () => Promise<DictionaryService> }) {
+  const query = t.Object({ q: t.Optional(t.String({ maxLength: 100 })), level: t.Optional(t.String({ pattern: "^[0-9]+$", maxLength: 2 })),
+    limit: t.Optional(t.String({ pattern: "^[0-9]+$", maxLength: 3 })), cursor: t.Optional(t.String({ maxLength: 1024 })) }, { additionalProperties: false })
+  const params = t.Object({ key: t.String({ minLength: 1, maxLength: 120 }) }, { additionalProperties: false })
   return new Elysia({ prefix: "/api/v1", normalize: false })
     .onRequest(({ set }) => {
       set.headers["cache-control"] = "private, no-store"
@@ -24,4 +29,14 @@ export function createApi(deps: { content: () => Promise<KanaContent>; configure
       if (request.headers.get("if-none-match") === etag) return new Response(null, { status: 304, headers: { etag, "cache-control": "public, max-age=0, must-revalidate" } })
       return content
     }, { query: t.Object({}, { additionalProperties: false }) })
+    .get("/content/kanji", async ({ query }) => {
+      const validated = validateDictionaryQuery(query, "kanji")
+      return (await deps.dictionary()).list("kanji", validated)
+    }, { query })
+    .get("/content/kanji/:key", async ({ params }) => (await deps.dictionary()).detail("kanji", params.key), { params })
+    .get("/content/vocabulary", async ({ query }) => {
+      const validated = validateDictionaryQuery(query, "vocabulary")
+      return (await deps.dictionary()).list("vocabulary", validated)
+    }, { query })
+    .get("/content/vocabulary/:key", async ({ params }) => (await deps.dictionary()).detail("vocabulary", params.key), { params })
 }

@@ -6,7 +6,7 @@ export const runtimeAccessSql = `select r.rolsuper, r.rolbypassrls,
     where n.nspname='learning' and c.relkind='r' and
       (has_table_privilege(current_user,c.oid,'INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER') or
        has_any_column_privilege(current_user,c.oid,'INSERT,UPDATE,REFERENCES') or
-       (c.relname in ('profiles','kana_familiarity','quiz_sessions','quiz_questions','quiz_answers','mutation_receipts') and has_any_column_privilege(current_user,c.oid,'SELECT')))) as unsafe_grants
+       (c.relname <> 'kana' and has_any_column_privilege(current_user,c.oid,'SELECT')))) as unsafe_grants
   from pg_roles r where r.rolname=current_user`
 
 export function assertContentRole(rows: { rolsuper: boolean; rolbypassrls: boolean; ddl: boolean; unsafe_grants: boolean }[]) {

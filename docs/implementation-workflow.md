@@ -3,7 +3,7 @@
 Revised 22 October 2026 (Asia/Jakarta). Current target: one public learner UI, no learner login/cloud progress, device-local study state, Supabase PostgreSQL content. C2 learner-account scope and unfinished hosted-account acceptance are superseded. C1 fixes/useful public C2 infrastructure remain. The prior claim that no user activity exists is no longer an assumption.
 
 1. Read implementation-plan.md, this workflow, active progress, applicable instructions, git status (including unrelated/untracked changes) and recent commits before every checkpoint. Record starting commit and actual baseline.
-2. Implement only the requested task. C2-R.0–R.2 is implemented; keep its public/local contracts intact. C3 starts only under its corresponding prompt. Later C3–C6 remain provisional until their prompts.
+2. Implement only the requested task. C2-R.0–R.2 is implemented; keep its public/local contracts intact. C3 is authorized and split into A–F in the plan. C3-A is complete; continue with C3-B without repeating its migrations/foundation. C4–C6 await their prompts.
 3. Reuse verified existing code and complete work; no framework rewrite/upgrade or repeated provisioning without need. Follow checkpoint dependencies/acceptance. Mark replaced scope superseded, never rewrite historical outcomes as new results.
 4. After meaningful subtasks update docs/implementation-progress.md with paths, decisions, automated results/failures, blockers and the exact next step. Historical records are in docs/archive/implementation-history-pre-no-login.md; they are evidence, not current execution instructions.
 5. Distinguish planned, implemented, automatically tested, unavailable external checks and superseded work. No fabricated credentials, approval, provenance or test success.

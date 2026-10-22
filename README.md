@@ -12,7 +12,7 @@ Practice 208 kana (104 Hiragana and 104 Katakana) through one public Flashcard, 
 - Invalid/blocked/quota storage permits clearly labelled memory-only practice. There is no cloud learner progress or cross-device synchronization.
 - System/light/dark theme and keyboard-accessible controls. No learner account routes or Auth SDK.
 
-Kanji, vocabulary, lessons, goals and spaced repetition remain later checkpoints. Admin Auth may be introduced for real content management needs only.
+C3-A adds private dictionary/source/revision tables and public published-only kanji/vocabulary APIs. No real dictionary release is imported or published yet; the kana learning UI is unchanged. Kanji/vocabulary learning screens, lessons, goals and spaced repetition remain later checkpoints. Admin Auth may be introduced for real content management needs only. See [content sources and publication](docs/content-sources.md).
 
 ## Development
 

@@ -10,7 +10,7 @@ Learners use the same Flashcard/Quiz/Table interface without registration, login
 
 Excluded: learner accounts/cloud progress, guest/account adapters, old-origin migration, progress export/import, backup/restore rehearsals, offline synchronization/service-worker delivery, AI companion, subscriptions and handwriting recognition. Local persistence is not offline synchronization. Kanjiflash's export feature is not automatically in scope.
 
-C2-R.0 planning and C2-R.1–R.2 implementation are complete. The public UI, local resume/history, content-only backend and cleanup below are implemented; future content/SRS remains proposed. Current evidence is in docs/implementation-progress.md. No push, deployment, paid provisioning, manual QA, exploratory browser testing or visual inspection. No remote data/credential deletion is authorized by a request for a clean project folder.
+C2-R.0 planning and C2-R.1–R.2 implementation are complete. The public UI, local resume/history, content-only backend and cleanup below are implemented; C3-A dictionary/publication foundation is implemented; import/curation/learning UI and SRS remain pending. Current evidence is in docs/implementation-progress.md. No push, deployment, paid provisioning, manual QA, exploratory browser testing or visual inspection. No remote data/credential deletion is authorized by a request for a clean project folder.
 
 ## 2. Verified pre-redesign starting point (historical)
 
@@ -84,7 +84,7 @@ N5 MVP: public kana/kanji/vocabulary, curated lesson -> practice -> feedback -> 
 
 ## 6. Content sources and ingestion
 
-Retained from the prior source investigation. Revalidate pinned payload/schema/licenses during C3; this planning edit did not perform a new ingestion/freshness check.
+Original source contracts were rechecked for C3-A on22 October2026; current acquisition metadata and source links are in docs/content-sources.md and content/sources/manifest.json. C3-B must still validate actual downloaded bytes and formats; metadata checks are not ingestion or rights approval.
 
 ### 6.1 Source decisions and verified formats
 
@@ -107,7 +107,7 @@ Vocabulary level acquisition is a release gate: evaluate [Waller's original JLPT
 
 **JSON adapter contract.** Inspected [JMdict root types](https://scriptin.github.io/jmdict-simplified/interfaces/JMdict.html) include `version` (converter format), `dictDate`, `dictRevisions`, `languages`, `commonOnly`, `tags`, and `words`. [Entries](https://scriptin.github.io/jmdict-simplified/types/JMdictWord.html) have string `id`, `kanji[]`, `kana[]`, and `sense[]`; kana-only words can have no kanji forms. [Readings](https://scriptin.github.io/jmdict-simplified/types/JMdictKana.html) have `text`, `common`, `tags`, and `appliesToKanji`: `['*']` means all, `[]` means none, and named spellings restrict applicability. [Senses](https://scriptin.github.io/jmdict-simplified/types/JMdictSense.html) include glosses, POS, form/reading applicability, cross-references and usage metadata. Normalize allowed relationships explicitly; do not produce a Cartesian product of all forms/readings/senses.
 
-The inspected [release snapshot](https://github.com/scriptin/jmdict-simplified/releases/tag/3.6.2+20261012204142) is converter 3.6.2 dated 2026-10-12. Its Kanjidic counts differ between all-language and English-only distributions (13,108 versus 10,384), so do not assume the English subset covers every character. Pin an immutable release and asset checksum during implementation; select all-language kanji input with English gloss filtering if coverage requires it. “Common” is a useful candidate filter, not a JLPT level, and the common-only vocabulary distribution must not silently omit curated course entries.
+The C3-A inspected [release snapshot](https://github.com/scriptin/jmdict-simplified/releases/tag/3.6.2%2B20261019180022) is converter3.6.2 published19 October2026. The earlier12 October investigation found differing language-subset coverage; those historical counts are not the current import validation. Its Kanjidic counts differ between all-language and English-only distributions (13,108 versus 10,384), so do not assume the English subset covers every character. Pin an immutable release and asset checksum during implementation; select all-language kanji input with English gloss filtering if coverage requires it. “Common” is a useful candidate filter, not a JLPT level, and the common-only vocabulary distribution must not silently omit curated course entries.
 
 Original KANJIDIC2/XML is the fallback when a JSON converter lacks needed fields. Download the published XML/DTD from the original project links, record header versions and checksums, stream-parse with trusted bundled entity definitions and external network entity resolution disabled. Accept multiple/empty on/kun/nanori readings, default-language English meanings, alternate strokes, variants and missing JLPT. Pin supported schemas and quarantine unsupported revisions instead of silently flattening them. Exact archive payload validation awaits an authorized content checkpoint.
 
@@ -123,7 +123,7 @@ Furigana is a **separate form–reading alignment** problem. Store reviewed segm
 
 ### 6.3 Import and publication workflow
 
-All modules in this workflow are **proposed**, not current repository paths: `scripts/imports/{kana,kanjidic,jmdict,kanjivg,tatoeba}.ts`, `scripts/imports/runner.ts`, `server/content/adapters/`, `server/content/validation.ts`, `server/content/publish.ts`, `content/curricula/n5.json`, and `tests/fixtures/content/`.
+Import runner/adapters/curriculum modules below remain **proposed**; implemented C3-A revision/publication modules are listed in section10: `scripts/imports/{kana,kanjidic,jmdict,kanjivg,tatoeba}.ts`, `scripts/imports/runner.ts`, `server/content/adapters/`, `content/curricula/n5.json`, and `tests/fixtures/content/`.
 
 1. **Register source and snapshot.** Record original creator/URL, transport URL, dataset/converter versions, license/attribution, source date, fetch time, checksum, adapter revision and intended scope. Pin URLs/release identifiers; do not run a moving `latest` URL blindly in production. Save immutable compressed raw snapshots in administrative object storage outside the application bundle.
 2. **Initial bulk acquisition.** Seed all existing 208 kana with their existing IDs. Bulk-stream a pinned English vocabulary distribution and KANJIDIC2 source; select curated N5 entries and required relations for publication. It is acceptable to stage the reference archive broadly, but loading every kanji into the public course/database is not an MVP gate. Import reference stubs for non-course kanji required by vocabulary relations without assigning them lessons or review cards.
@@ -137,7 +137,7 @@ All modules in this workflow are **proposed**, not current repository paths: `sc
 
 ### 6.4 Reuse and attribution
 
-Maintain proposed `docs/content-sources.md`, packaged license notices, a public `/sources` screen, per-material provenance links and a visible attribution footer on dictionary displays. The repository's MIT `LICENSE` covers its software; it does not replace imported data/media obligations.
+Maintain implemented `docs/content-sources.md`, then add packaged license notices, a public `/sources` screen, per-material provenance links and a visible attribution footer on dictionary displays. The repository's MIT `LICENSE` covers its software; it does not replace imported data/media obligations.
 
 - **EDRDG JMdict/KANJIDIC2:** [CC BY-SA 4.0 and the original reuse statement](https://www.edrdg.org/edrdg/licence.html). Attribute EDRDG/Jim Breen and contributors as specified, link documentation/licenses, identify modifications, preserve required notices and apply appropriate share-alike terms to distributed adapted dictionary data. Review special field notices before importing extra dictionary indices. Avoid claiming copyright over original dictionary data. Software using the files need not itself be open source under those terms.
 - **jmdict-simplified:** conversion does not remove dictionary rights. Its helper npm packages have MIT software licensing; generated dictionaries retain the applicable source license. Keep source and converter attribution separately.
@@ -178,8 +178,8 @@ Retire active runtime use of existing profiles, kana_familiarity, quiz_sessions,
 | --- | --- |
 | GET /api/v1/health | Honest configuration/readiness distinction; no learner Auth dependency/secrets. |
 | GET /api/v1/content/kana | Existing route retained; stable 208 entries through published material contract. |
-| GET /api/v1/content/kanji and /kanji/:key (proposed) | Published level/search/cursor-limited list and readings/meanings/assets/related words. |
-| GET /api/v1/content/vocabulary and /vocabulary/:key (proposed) | Published explicit form/reading/sense relationships. |
+| GET /api/v1/content/kanji and /kanji/:key (C3-A implemented) | Published level/search/cursor-limited list and readings/meanings. Assets/related-word presentation remains proposed. |
+| GET /api/v1/content/vocabulary and /vocabulary/:key (C3-A implemented) | Published explicit form/reading/sense relationships. |
 | GET /api/v1/content/lessons and /lessons/:slug (proposed) | Revision-pinned curated lessons/reference cards; progress calculated locally. |
 | GET /api/v1/content/releases/current (proposed) | Manifest/revision for cache/session compatibility, not offline synchronization. |
 | Later /api/v1/admin/* (proposed only when needed) | Verified admin-only curation/import status/publication; long imports remain outside HTTP handlers. |
@@ -214,7 +214,7 @@ Clean means no orphaned learner route/import/dependency/env requirement, duplica
 
 ## 10. Checkpoints and acceptance
 
-P0-A/P0-S and C1 remain historical completed evidence. Old C2 learner Auth/cloud-progress requirements and pending hosted-account acceptance are superseded; do not continue them. Useful public content work remains. C3–C6 are provisional allocation pending their corresponding prompts.
+P0-A/P0-S and C1 remain historical completed evidence. Old C2 learner Auth/cloud-progress requirements and pending hosted-account acceptance are superseded; do not continue them. Useful public content work remains. C3 is authorized; C3-A foundation is implemented. C3-B–F remain ordered follow-up slices below. C4–C6 await their corresponding prompts.
 
 ### C2-R.0 — Plan/documentation consolidation (completed 18 October)
 
@@ -242,14 +242,20 @@ P0-A/P0-S and C1 remain historical completed evidence. Old C2 learner Auth/cloud
 - Acceptance: anonymous content works without learner Auth env/cookies; removed routes404; runtime cannot write content/dormant account tables; no orphaned imports/config/scripts; dependencies coherent.
 - Automated tests: actual PGlite grants/FKs/migrate/seed repeatability, CLI guards, anonymous validation/errors, production HTTP, npm run check and unfiltered npm audit. Hosted read-only verifier remains opt-in on designated development. No manual QA or reset.
 
-### C3 — N5 content/ingestion (provisional)
+### C3 — N5 content/ingestion (authorized; A complete, B–F pending)
 
-- Goal/dependencies: C2-R clean gate; complete curated N5 kanji/vocabulary/course data.
-- Deliverables: pinned licensed dictionaries, source-backed approximate levels, valid strokes/components/examples, staged/resumable imports, curriculum and attribution.
-- Reuse seed/content/SQL modules; proposed scripts/imports/*, server/content/*, content/curricula/n5.json, docs/content-sources.md and /sources; shared kanji/vocabulary UI primitives.
-- DB/API: section7 source/reference/revision/curriculum tables, paginated published content GETs. Operator CLI publication first; no external dictionary call per learning request.
-- Acceptance: complete reviewed N5 manifest, English glosses and correct multiple form/reading/sense relations, source/license metadata, unknown fields handled honestly.
-- Automated tests: pinned payload fixtures, idempotency/retries/resume/outages/editorial retention, publication atomicity, FKs/indexes/pagination/cache and full gates. Rights/editorial approval is real external publication responsibility, not fabricated test evidence.
+The whole C3 acceptance boundary remains a complete reviewed N5 manifest and usable kana/kanji/vocabulary experience. C3-A alone does not meet it. Source dictionaries are reference material, not an approved curriculum. No C4 scheduling is included.
+
+| Slice | Goal/dependencies and concrete deliverables | Files and DB/API scope | Acceptance and automated verification |
+| --- | --- | --- | --- |
+| C3-A foundation — implemented | C2-R baseline; stable material identity, relational dictionaries, source rights/snapshots/import metadata, explicit modern/legacy levels, immutable revisions, recorded reviews and atomic publication. | Existing server/db/schema.ts, server/api/{app,runtime}.ts, runtime access guard extended. New server/db/content-schema.ts, lib/content/dictionary.ts, server/content/{revisions,publication}.ts, server/services/dictionary.ts, migrations0004/0005, content/sources/manifest.json and docs/content-sources.md. 23 new tables plus published_materials view; public kanji/vocabulary list/detail routes. | Synthetic SQL constraints, same-entry FKs, revision idempotency, draft isolation, immutable releases, rights/review/checksum gates, release-bound pagination, validation before SQL. Full61-test/static/build/HTTP gate and hosted empty-catalog/read-only verification; no real import/review/publication claimed. |
+| C3-B acquisition and import | A; download pinned archives, verify actual bytes/schema/licenses, normalize English data, resumable/idempotent staging preserving source IDs and corrections. | Reuse manifest/schema/prepareRevision. Proposed scripts/imports/{runner,kanjidic,jmdict}.ts, server/content/adapters/* and tests/fixtures/content/*. Existing import_runs/source_records store checkpoints; no public write endpoint. | Real pinned payload fixtures; hash mismatch/missing/null/restriction cases; rerun/resume/retry/outage and correction retention. No all-kanji MVP requirement or fabricated level-list rights. |
+| C3-C N5 selection/curation | B; explicit sourced approximate kanji/vocabulary levels, curated coverage manifest and contextual examples where licensed. | Proposed content/curricula/n5.json, curriculum validator/CLI and forward curriculum/sentence schema only when used. Reuse revision/review gates. | Every course item resolved, English meanings, valid reading/sense relationships and recorded editorial evidence. Vocabulary level cannot derive from component kanji. Coverage tests distinguish unresolved rights/editorial approval from passing synthetic tests. |
+| C3-D kanji learning/strokes | C; public N5 kanji browsing/detail/practice and licensed stroke assets/components. | Reuse components/kana patterns, shared filters/theme and dictionary APIs; proposed components/kanji/*, scripts/imports/kanjivg.ts and media schema/storage metadata. | Sanitized SVG/path fixture tests, missing-asset states, original attribution and shared navigation tests; no browser visual/manual QA. |
+| C3-E vocabulary learning | C and shared navigation from D; forms/readings/senses, optional generated romaji and reviewed furigana, meaning/reading/context exercises. | Proposed components/vocabulary/* and lib/content/{romaji,furigana}.ts. Reuse dictionaries/local study contracts; forward alignment schema and relation endpoints only as needed. | Kana-only/restricted/irregular examples, ruby reconstruction, canonical kana, exercise/empty/error/accessibility tests; no naive character-reading concatenation. |
+| C3-F publication/update completion | B–E; operator import/review/publish commands, source attribution UI, reproducible update cadence and N5 release evidence. | Reuse internal publication function; proposed scripts/content/*, app/sources/page.tsx and release manifest endpoint/cache. No admin dashboard or learner Auth prerequisite. | Failed update preserves current release; prior validated release activation; stable local identities; public attribution tests, full gates, real rights/review evidence before publishing. Concurrent SQL publication logic requires isolated real-PostgreSQL verification before claiming multi-client contention proof. |
+
+C3-A migration0004/0005 was applied only to the previously designated Supabase development target. Existing kana and dormant user/progress counts were unchanged; published dictionary catalog remains empty. Acquisition metadata is not downloaded content or rights approval. See docs/content-sources.md for current contracts and original sources. Proposed components/variants/media/lessons/furigana remain future schema, not claimed in the 23-table foundation.
 
 ### C4 — Local lessons/SRS/progress (provisional)
 
@@ -299,9 +305,10 @@ C2-R applied only additive privilege migration0003 to the explicitly designated 
 - [x] C2-R.1: shared public interface, local quiz resume/history.
 - [x] C2-R.2: remove obsolete code/config/dependencies/tests/jobs; content-only API/permissions; automated gates and clean local commit.
 - [ ] Review any hosted privilege/data operations against explicit scope, no automatic deletion.
-- [ ] Only after C2-R completion, start authorized C3 N5 content.
+- [x] C3-A: implement/test content identity, provenance, relational dictionaries and publication foundation.
+- [ ] C3-B–F: acquire/import, curate N5, build kanji/vocabulary UI and complete real publication evidence.
 - [ ] C4–C6 follow corresponding user prompts.
 
 C2-R verification on22 October: 50 automated tests plus lint/typecheck/build/HTTP passed, full-scope npm audit --package-lock-only0 (standard audit endpoint failed; see progress), Drizzle generation consistency no schema changes, hosted content-only read-only verifier passed. Fixture/old migrations unchanged.
 
-Exact next implementation task: C3 after its explicit prompt. Read current plan/workflow/progress and git status, reuse completed C2-R, then build N5 source ingestion/curation. No further learner Auth QA or cloud personal-data cleanup is required for the clean-repository gate.
+Exact next implementation task: C3-B pinned acquisition and resumable imports. Read current plan/workflow/progress and git status; reuse completed C3-A rather than regenerating its applied migrations or inventing approvals. No further learner Auth QA or cloud personal-data cleanup is required for the clean-repository gate.

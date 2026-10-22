@@ -38,6 +38,14 @@ try {
   assert.equal((await missingContent.json()).error.code, "DATABASE_UNAVAILABLE")
   assert.match(missingContent.headers.get("cache-control"), /no-store/)
   assert.equal(missingContent.headers.get("set-cookie"), null)
+  for (const path of ["/api/v1/content/kanji", "/api/v1/content/vocabulary"]) {
+    const response = await fetch(base + path)
+    assert.equal(response.status, 503)
+    assert.equal((await response.json()).error.code, "DATABASE_UNAVAILABLE")
+    assert.equal(response.headers.get("set-cookie"), null)
+    assert.equal((await fetch(base + path + "?level=6")).status, 422)
+  }
+  assert.equal((await fetch(base + "/api/v1/admin/releases/publish", { method: "POST" })).status, 404)
   for (const path of ["/account", "/account/password", "/auth/callback", "/api/v1/auth/session", "/api/v1/me/progress", "/api/v1/quiz-sessions"]) {
     assert.equal((await fetch(base + path)).status, 404, path)
   }

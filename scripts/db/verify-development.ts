@@ -10,6 +10,7 @@ import { migrationTarget } from "./targets"
 import { assertContentRole, runtimeAccessSql } from "../../server/db/access"
 import { contentSchema } from "../../lib/content/contracts"
 import { kanaData } from "../../lib/kana-data"
+import { dictionaryDocument } from "../../lib/content/dictionary"
 
 async function verifyHttp() {
   const reservation = createServer()
@@ -43,6 +44,18 @@ async function verifyHttp() {
     assert.match(response.headers.get("cache-control") ?? "", /public.*must-revalidate/)
     const cached = await fetch(origin + "/api/v1/content/kana", { headers: { "if-none-match": response.headers.get("etag")! } })
     assert.equal(cached.status, 304)
+    for (const kind of ["kanji", "vocabulary"]) {
+      const list = await fetch(origin + "/api/v1/content/" + kind + "?level=5&limit=1", { signal: AbortSignal.timeout(15000) })
+      assert.equal(list.status, 200)
+      const page = await list.json()
+      assert.ok(Array.isArray(page.items) && page.items.length <= 1)
+      for (const entry of page.items) {
+        const { id, revisionId, checksum, ...document } = entry
+        assert.ok(id && revisionId && /^[a-f0-9]{64}$/.test(checksum))
+        assert.equal(dictionaryDocument.parse(document).kind, kind)
+      }
+      assert.equal(list.headers.get("set-cookie"), null)
+    }
     for (const path of ["/account", "/account/password", "/auth/callback", "/api/v1/auth/session", "/api/v1/me/progress", "/api/v1/quiz-sessions"]) {
       assert.equal((await fetch(origin + path)).status, 404)
     }
@@ -76,7 +89,7 @@ async function main() {
       assert.equal(policies.length, 1)
       assert.ok(policies[0].relrowsecurity && policies[0].relforcerowsecurity)
     })
-    for (const table of ["profiles", "kana_familiarity", "quiz_sessions", "quiz_questions", "quiz_answers", "mutation_receipts"]) {
+    for (const table of ["profiles", "kana_familiarity", "quiz_sessions", "quiz_questions", "quiz_answers", "mutation_receipts", "materials", "material_revisions", "source_snapshots", "content_sources"]) {
       await assert.rejects(pool.begin("read only", (connection) => connection.unsafe("select * from learning." + table + " limit 0")),
         (error: unknown) => typeof error === "object" && error !== null && "code" in error && error.code === "42501")
     }

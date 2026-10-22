@@ -1,3 +1,4 @@
+import { createDictionaryService } from "../../server/services/dictionary"
 import { PGlite } from "@electric-sql/pglite"
 import { drizzle } from "drizzle-orm/pglite"
 import { migrate } from "drizzle-orm/pglite/migrator"
@@ -27,7 +28,7 @@ describe("published content and restricted SQL", () => {
   it("seeds exactly 208 stable records repeatably and records all forward migrations", async () => {
     expect((await readKanaContent(db)).items).toEqual(kanaData)
     await pg.exec("reset role")
-    expect((await pg.query("select * from drizzle.__drizzle_migrations")).rows).toHaveLength(4)
+    expect((await pg.query("select * from drizzle.__drizzle_migrations")).rows).toHaveLength(6)
     await pg.exec("set role learning_runtime")
   })
   it("checks actual runtime role including column privileges and denies all learner access", async () => {
@@ -59,7 +60,7 @@ describe("published content and restricted SQL", () => {
 })
 
 describe("anonymous Elysia content contract", () => {
-  const api = createApi({ content: () => readKanaContent(db), configured: () => true })
+  const api = createApi({ dictionary: async () => createDictionaryService(db), content: () => readKanaContent(db), configured: () => true })
   it("serves ordered content without cookies and revalidates its exact revision", async () => {
     const response = await api.handle(request("/content/kana"))
     expect(response.status).toBe(200)
@@ -88,12 +89,20 @@ describe("anonymous Elysia content contract", () => {
     }
   })
   it("never returns SQL details or cached outages", async () => {
-    const failing = createApi({ configured: () => false, content: async () => { throw Error("secret SQL details") } })
+    const failing = createApi({ dictionary: async () => createDictionaryService(db), configured: () => false, content: async () => { throw Error("secret SQL details") } })
     const response = await failing.handle(request("/content/kana"))
     expect(response.status).toBe(503)
     expect(await response.text()).not.toContain("secret")
     expect(response.headers.get("cache-control")).toBe("private, no-store")
-    const absent = createApi({ configured: () => false, content: async () => { throw new ApiError(503, "DATABASE_UNAVAILABLE", "Material storage is not configured.") } })
+    const absent = createApi({ dictionary: async () => createDictionaryService(db), configured: () => false, content: async () => { throw new ApiError(503, "DATABASE_UNAVAILABLE", "Material storage is not configured.") } })
     expect((await (await absent.handle(request("/content/kana"))).json()).error.code).toBe("DATABASE_UNAVAILABLE")
+  })
+  it("validates dictionary limits before resolving an unavailable SQL dependency", async () => {
+    let connections = 0
+    const offline = createApi({ configured: () => false, content: async () => { throw Error("offline") }, dictionary: async () => { connections++; throw Error("offline") } })
+    for (const path of ["/content/kanji?level=6", "/content/vocabulary?limit=100", "/content/kanji?level=0", "/content/kanji?level=4.5", "/content/kanji?cursor=bad-cursor"]) {
+      expect((await offline.handle(request(path))).status).toBe(422)
+    }
+    expect(connections).toBe(0)
   })
 })

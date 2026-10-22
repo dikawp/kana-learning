@@ -1,6 +1,6 @@
 # Implementation progress
 
-Current authority: public learning without learner accounts. One shared UI, device-local study state, Supabase PostgreSQL content and Elysia public read APIs. C2 learner Auth/cloud-progress scope is superseded. C3–C6 await their prompts; no automatic hosted user/table deletion.
+Current authority: public learning without learner accounts. One shared UI, device-local study state, Supabase PostgreSQL content and Elysia public read APIs. C2 learner Auth/cloud-progress scope is superseded. C3-A is complete, C3-B–F are next; C4–C6 await their prompts; no automatic hosted user/table deletion.
 
 ## Prior evidence
 
@@ -46,7 +46,16 @@ Starting commit: d019fa0; tracked tree clean. Read current plan/workflow/progres
 - Final cleanup assertions passed:21 learner-only files removed; no stale Auth SDK/import/env/test:postgres references in runtime/config, no bundled seed-data import in the client, root package/lock dependencies match,9 local docs links resolve. Frozen208 fixture plus all three old SQL migrations and their snapshots are byte-identical. .env.local remains ignored/untracked. No framework upgrade, user/table deletion or deployment. Focused commit hash is reported in the final response after staged review.
 - Exact next step: await the user's C3 prompt for N5 ingestion/curation. C2-R is complete; do not repeat account QA or delete dormant hosted data as a prerequisite.
 
-## Checkpoint status
+## C3-A — Content foundation (22 October 2026, implemented and automatically verified)
+
+- Starting commit 9884f4e; tracked tree clean. User requested continuation to C3; following the previously proposed order, this implementation slice is C3-A (schema/provenance/level/revisions/publication). C3-B import execution and C3-D/E learning UI are subsequent slices, not claimed complete here. Read current plan/workflow/progress, repository state and source contracts; no applicable AGENTS.md found previously.
+- Source verification: jmdict-simplified release3.6.2+20261019180022 dated19 October; exact asset SHA-256 metadata available. Current kanjiapi /jlpt-5 lists79 characters and /kanji/日 returns detail fields, not a list. Confirmed KANJIDIC2 readingMeaning can be null; JMdict preserves form/reading/sense restrictions. Rechecked EDRDG attribution/share-alike/update conditions and KanjiVG license from original documentation. Modern JLPT labels remain approximations; no vocabulary level inferred from kanji or unsupported rights approval.
+- Baseline completed:50 tests, lint/typecheck/build and isolated HTTP passed. Implemented23 new reference/editorial tables, subtype/same-entry foreign keys, explicit modern/legacy level evidence, immutable source/revision identities, guarded manifests and active publication. Canonical revision building is idempotent and preserves original annotations/nulls/restrictions. No source acquisition or real review rows inserted.
+- Added internal prepareRevision/publishRelease functions and a security-barrier published_materials view. Runtime SELECT is limited to published snapshots; it cannot access base editorial/draft data. Owner-readable base RLS and view execution are intentional, documented boundaries; not a claim that privileged SQL is automatically protected. Source rights/review/checksum failures leave the active release unchanged. Publication is not an HTTP write endpoint.
+- Added anonymous bounded kanji/vocabulary list/detail APIs with modern approximate-level filtering, literal search and release/query-bound cursors. Repeatable-read transactions prevent mixed-release pagination. Queries do not derive vocabulary levels from kanji and no dictionary HTTP request happens at learning time.
+- The61-test aggregate passed after a prior60-test run passed tests/lint/typecheck/build but failed production HTTP: out-of-range numeric query decoded before range enforcement and reached unavailable SQL. Replaced query coercion at the boundary with explicit validation before dependency resolution, added an unavailable-SQL regression and retained the production422 assertion. Malformed cursors also validate before SQL; no assertion weakened.
+- Local SQL suites pass22 backend tests including10 new synthetic foundation contracts; no real approval implied by fixtures. Drizzle consistency generation reports no schema changes. A custom migration scaffold initially overwrote the un-applied0005 draft SQL; restored the actual security SQL before any migration test, and full migration/view/immutable-trigger tests passed. Previous0000–0003 files/snapshots remain unchanged.
+- Added acquisition manifest with observed GitHub release SHA-256/size and docs/content-sources.md. Manifest is metadata, not completed byte-download validation, redistribution permission for level lists or N5 curriculum approval. The manifest remains an acquisition plan; C3-B must verify downloaded bytes, source schemas and reuse conditions before imports.
 
 | Work | Status |
 | --- | --- |
@@ -56,4 +65,17 @@ Starting commit: d019fa0; tracked tree clean. Read current plan/workflow/progres
 | Development runtime-grant migration | Applied, record counts unchanged |
 | Hosted read-only content verifier | Passed against final build |
 | Hosted user/table deletion | Not authorized or performed |
-| C3–C6 | Not started; await prompts |
+| C3-A foundation | Implemented; automated and designated-development checks passed |
+| C3-B–F | Pending: pinned import, N5 curation, kanji/vocabulary UI, publication completion |
+| C4–C6 | Await corresponding prompts |
+
+### C3-A final evidence and handoff
+
+- Applied additive migrations0004/0005 through guarded db:migrate to the previously designated development target after metadata matching. No schema reset, content import, approval insertion or deletion. Aggregate counts for auth.users, six dormant learner tables and kana matched before/after exactly.
+- Hosted verify:supabase passed: exact208 kana, read-only runtime/grants, forbidden dormant/editorial base reads, concurrent reads, anonymous Next/Elysia kanji/vocabulary empty catalogs and removed routes404/no cookies. This is not publication-contention testing or evidence of approved N5 content.
+- npm audit --package-lock-only passed:0 vulnerabilities. No package/dependency/framework/env changes. Drizzle consistency generation returned no schema changes. Final npm run check passed: native1 + frontend38 + backend22 =61 distinct tests, no skips/failures; lint, strict typecheck, production build and isolated HTTP passed. Focused local commit is reported at handoff.
+- Next: C3-B. Download pinned assets to an appropriate ignored cache, validate actual SHA-256/schema/license conditions, add fixture-backed KANJIDIC/JMdict adapters and resumable/idempotent staging. Do not publish merely because dictionary import succeeds; real level-source rights and editorial review remain unresolved. No C4 work, push, deployment or manual QA performed.
+
+- Final rerun inside the restricted filesystem sandbox failed the historical disk-reopen PGlite test with WASM Aborted(), also reproducible alone. The identical isolated test passed without source/assertion changes using elevated temporary-filesystem access. Full gate rerun uses the same permission boundary; no test skips or weaker assertions were introduced.
+
+- Final review:25 focused paths, staged whitespace and credential-pattern guards passed; active documentation links resolve. All nine protected historical SQL/snapshot/fixture files match HEAD, .env.local remains ignored/untracked and package/lock unchanged. Whole C3 is not complete; C3-A only is complete.

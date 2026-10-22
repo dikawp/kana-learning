@@ -2,6 +2,7 @@ import { sql } from "drizzle-orm"
 import type { KanaCharacter } from "../../types/kana"
 import { pgSchema, text, integer, unique, check } from "drizzle-orm/pg-core"
 const learning = pgSchema("learning")
+export * from "./content-schema"
 export const kana = learning.table("kana", {
   id: text("id").primaryKey(),
   character: text("character").notNull(),

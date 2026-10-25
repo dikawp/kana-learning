@@ -1,61 +1,63 @@
-# Kana Learning
+# Kana-Learn — A Japanese Study Notebook
 
-Practice 208 kana (104 Hiragana and 104 Katakana) through one public Flashcard, Quiz and Table interface. No learner registration or login.
+A public, account-free Japanese learning platform: **208 kana + 2,759 kanji**, **19 notebooks**, **162 study decks**. English UI and dictionary meanings, warm paper and sakura-pink design, self-hosted Japanese fonts, light/dark mode.
 
-## Current implementation
+## Architecture
 
-- Materials load from the public Next/Elysia API backed by Supabase PostgreSQL. Search glyphs/Romaji and filter script/category; all modes share the same material contract.
-- Flashcards reveal answers and mark familiarity. Familiarity persists on this device when browser storage is available; it is not mastery.
-- Quizzes choose their own script/count, capped by available entries. Answers are checked locally; one answer/question and one completion are accepted.
-- Active quiz questions, answers and position survive refresh, including submitted-answer feedback. Completed quizzes retain original answer snapshots and mistake review; history keeps the last 20 sessions.
-- The progress summary shows the last completed quiz on this device. Clearing quiz history does not reset familiarity; familiarity resets do not erase quiz history.
-- Invalid/blocked/quota storage permits clearly labelled memory-only practice. There is no cloud learner progress or cross-device synchronization.
-- System/light/dark theme and keyboard-accessible controls. No learner account routes or Auth SDK.
+Pinned kanji-data1.0.0 + local kana JSON + original curriculum → checked-in versioned content snapshots → Next.js Server Components / native Route Handlers → browser-owned learning and localStorage saves.
 
-C3-A adds private dictionary/source/revision tables and public published-only kanji/vocabulary APIs. No real dictionary release is imported or published yet; the kana learning UI is unchanged. Kanji/vocabulary learning screens, lessons, goals and spaced repetition remain later checkpoints. Admin Auth may be introduced for real content management needs only. See [content sources and publication](docs/content-sources.md).
+No Supabase, Elysia, PostgreSQL, Drizzle, runtime credentials or remote dictionary requests are required. Retired backend, UI, tests and migration files were removed during the pre-push cleanup. No remote Supabase resources were changed.
+
+## Features
+
+- Home, archive, notebook/set, deck, character detail, searchable catalog and printable notes.
+- Hiragana/Katakana tables; kanji readings, meanings, available metadata, up to six dictionary word examples and explained related characters.
+- Dedicated Flashcards/Quiz/Review rooms; three ratings; fixed10-minute/1-day/3-day review schedule.
+- Mixed prompt quiz, up to20 unique questions, non-ambiguous distractors, immediate feedback and results.
+- Refresh-safe active practice; one accepted response per position; last20 completed sessions.
+- Local save slots, level/EXP, seen/known/mastered/accuracy, due cards, per-deck statistics, export/import previews and confirmed reset/delete.
+- No learner accounts, cloud sync, service worker, audio, handwriting recognition or payment features.
 
 ## Development
 
-Use Node >=22.13 <23 and npm 10.9.4 (verified Node 22.22.0). The committed npm lockfile is authoritative; no framework upgrade was needed in C2-R.
+Node22.13+ through24.x, npm. CI uses22.22.0. Dependencies and resource package integrity are locked.
 
     npm ci
     npm run dev
 
-App: http://localhost:3000. Copy .env.example to ignored .env.local and provide real PostgreSQL configuration as described in [backend setup](docs/backend-setup.md). No Supabase Auth URL/key or Docker is required. If material storage is unavailable, the UI shows loading/error/retry rather than switching to a bundled fallback.
+Open http://localhost:3000. No environment file is needed.
 
-## Automated verification
+    npm run resources:prepare
+    npm run resources:check
+
+Resource preparation is an explicit maintenance action. Normal build reads checked-in snapshots without accessing a dictionary service. See [resource updates](docs/resource-updates.md).
+
+## Verification
 
     npm run check
+    npm run test:browser
+    npm run format:check
 
-Runs frozen kana fixture, frontend/backend tests, lint, strict typecheck, production build and isolated loopback HTTP. Default checks never access hosted Supabase or require credentials.
+Check covers resources, frozen kana, learning/save contracts, APIs, frontend interactions/accessibility, lint, TypeScript, production build and HTTP smoke. Browser tests run against a production server on3210 and verify external-request absence, practice/resume, quiz/review, export/import, mobile navigation and theme screenshots. On Windows they use installed Chrome; elsewhere run npx playwright install --with-deps chromium first. PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH optionally selects a browser executable.
 
-| Command | Purpose |
-| --- | --- |
-| npm run test:native | Frozen 208-ID/glyph/script/order contract |
-| npm run test:frontend | Search/filter/quiz/storage/resume/history/theme/accessibility |
-| npm run test:backend | Isolated SQL/migrations/grants/API/CLI/persistence |
-| npm run test:production | Public shell, removed routes404 and safe material outage after build |
-| npm run verify:supabase | Opt-in read-only hosted content/permissions/anonymous HTTP after build |
-| npm run lint / typecheck / build | Static checks and production compilation |
-| npm run db:migrate / db:seed | Reviewed migrations/repeatable kana seed on explicitly authorized targets |
-| npm run db:generate | Generate reviewed migrations, retaining dormant declarations to avoid destructive drops |
+## Data and privacy
 
-No manual QA, exploratory browser testing or visual inspection. DOM accessibility tests do not prove visual layout/contrast. Docker/account-contention CI and test:postgres have been removed.
+Material IDs are stable. Progres­s uses the new kana-learn:sakura:v1 localStorage namespace; old keys are untouched and not migrated. Saves can be exported as versioned JSON; imports always create a new slot after validation/preview. Eight slots maximum;4MB overall serialized storage and2MB import limit. Browser quota/blocked/corrupt storage permits disclosed in-memory practice without overwriting existing invalid data. Export a backup before closing the page. Tabs synchronize best effort through storage events.
 
-## Local storage
+Correct responses and Almost/Got It ratings give1EXP. Mastered means100 correct responses per card, an app metric. Review uses the device clock. Offline resource preparation does not imply full offline browsing.
 
-Familiarity uses the existing kana-learning:guest:v1 key with version/known learnedIds; this is a retained key, not a guest/account adapter. Quiz state uses kana-learning:study:v1: one active session and up to 20 completed sessions, maximum 262144 serialized characters before parsing/saving. Reads never automatically overwrite stored data. Snapshots retain original prompt/answer revision; historical scores are recalculated from those snapshots, not trusted persisted score fields.
+## Public content APIs
 
-Storage events replace snapshots, including resets. localStorage multi-tab writes are best effort, not transactional synchronization. Browser clearing/eviction or another device does not preserve these records. Larger transactional review logs/IndexedDB are planned for C4. No export/import, offline delivery or backup/restore features.
+GET /api/catalog — revision, card summaries, sets, decks.
+GET /api/cards/[id] — revision + detailed card.
+GET /api/decks/[slug] — revision + deck + practice cards.
 
-## Documentation and scope
+They are read-only and share the server repository with rendered pages. Unknown IDs return404. There are no progress-upload endpoints. The former /api/v1 routes are retired.
 
-Read [plan](implementation-plan.md), [workflow](docs/implementation-workflow.md) and [active progress](docs/implementation-progress.md) before a checkpoint. [Historical evidence](docs/archive/implementation-history-pre-no-login.md) is superseded execution context.
+## Sources
 
-C2-R removes learner account code/config while preserving applied migrations and dormant hosted records. Supabase content uses learning.kana, not public.kana. Existing hosted users/tables are not deleted; runtime permissions cannot access them.
+Dictionary facts: James William Breen/EDRDG, kanjiapi.dev, kanji-data by Septian Ganendra S. K.; data attribution under CC BY-SA4.0/source terms, distinct from MIT software. Source revision/checksum and selection methodology appear on /sources. Original kana and curriculum are retained separately. The learning map uses48 source-matched topic introductions and66 clearly labelled reading trails, plus8 kana decks and40 JLPT decks. It is not an official JLPT syllabus.
 
-The platform remains English-meaning and N5-first, ready architecturally for N5–N1. AI companion, subscriptions, offline synchronization and handwriting recognition are excluded. No push/deployment performed.
+[Implementation](implementation-plan.md) · [Design](design-system.md) · [Progress/evidence](docs/implementation-progress.md) · [REA comparison](docs/analysis/2026-10-25-kanjiflash/comparison.md)
 
-## License
-
-Software is MIT licensed. Dictionary/media imports retain their original attribution and reuse terms.
+JLPT follow-up: all2,211 source-listed N5–N1 kanji are included, with548 additional unassigned kanji. Explore `/jlpt`, card badges/detail links and the search level filter. The original cards, decks and saves remain compatible. See [card mapping](docs/jlpt-mapping.md).

@@ -1,0 +1,238 @@
+{
+  "locale": "en",
+  "initialMode": "flashcards",
+  "deckHref": "/deck/first-10-kanji",
+  "practiceHref": "/deck/first-10-kanji/practice",
+  "deck": {
+    "id": "hajime",
+    "title": "First 10 Kanji",
+    "cardIds": [
+      "一",
+      "二",
+      "三",
+      "人",
+      "日",
+      "月",
+      "火",
+      "水",
+      "木",
+      "山"
+    ],
+    "estimatedMinutes": 15,
+    "quickRunMinutes": 5,
+    "difficultyLabel": "Beginner"
+  },
+  "cards": [
+    {
+      "id": "一",
+      "kanji": "一",
+      "href": "/card/%E4%B8%80",
+      "meanings": [
+        "one",
+        "one radical (no.1)"
+      ],
+      "onyomi": [
+        "イチ",
+        "イツ"
+      ],
+      "kunyomi": [
+        "ひと-",
+        "ひと.つ"
+      ]
+    },
+    {
+      "id": "二",
+      "kanji": "二",
+      "href": "/card/%E4%BA%8C",
+      "meanings": [
+        "two",
+        "two radical (no. 7)"
+      ],
+      "onyomi": [
+        "ニ",
+        "ジ"
+      ],
+      "kunyomi": [
+        "ふた",
+        "ふた.つ",
+        "ふたたび"
+      ]
+    },
+    {
+      "id": "三",
+      "kanji": "三",
+      "href": "/card/%E4%B8%89",
+      "meanings": [
+        "three"
+      ],
+      "onyomi": [
+        "サン",
+        "ゾウ"
+      ],
+      "kunyomi": [
+        "み",
+        "み.つ",
+        "みっ.つ"
+      ]
+    },
+    {
+      "id": "人",
+      "kanji": "人",
+      "href": "/card/%E4%BA%BA",
+      "meanings": [
+        "person"
+      ],
+      "onyomi": [
+        "ジン",
+        "ニン"
+      ],
+      "kunyomi": [
+        "ひと",
+        "-り",
+        "-と"
+      ]
+    },
+    {
+      "id": "日",
+      "kanji": "日",
+      "href": "/card/%E6%97%A5",
+      "meanings": [
+        "day",
+        "sun",
+        "Japan",
+        "counter for days"
+      ],
+      "onyomi": [
+        "ニチ",
+        "ジツ"
+      ],
+      "kunyomi": [
+        "ひ",
+        "-び",
+        "-か"
+      ]
+    },
+    {
+      "id": "月",
+      "kanji": "月",
+      "href": "/card/%E6%9C%88",
+      "meanings": [
+        "month",
+        "moon"
+      ],
+      "onyomi": [
+        "ゲツ",
+        "ガツ"
+      ],
+      "kunyomi": [
+        "つき"
+      ]
+    },
+    {
+      "id": "火",
+      "kanji": "火",
+      "href": "/card/%E7%81%AB",
+      "meanings": [
+        "fire"
+      ],
+      "onyomi": [
+        "カ"
+      ],
+      "kunyomi": [
+        "ひ",
+        "-び",
+        "ほ-"
+      ]
+    },
+    {
+      "id": "水",
+      "kanji": "水",
+      "href": "/card/%E6%B0%B4",
+      "meanings": [
+        "water"
+      ],
+      "onyomi": [
+        "スイ"
+      ],
+      "kunyomi": [
+        "みず",
+        "みず-"
+      ]
+    },
+    {
+      "id": "木",
+      "kanji": "木",
+      "href": "/card/%E6%9C%A8",
+      "meanings": [
+        "tree",
+        "wood"
+      ],
+      "onyomi": [
+        "ボク",
+        "モク"
+      ],
+      "kunyomi": [
+        "き",
+        "こ-"
+      ]
+    },
+    {
+      "id": "山",
+      "kanji": "山",
+      "href": "/card/%E5%B1%B1",
+      "meanings": [
+        "mountain"
+      ],
+      "onyomi": [
+        "サン",
+        "セン"
+      ],
+      "kunyomi": [
+        "やま"
+      ]
+    }
+  ],
+  "labels": {
+    "heading": "Practice This Deck",
+    "intro": "Choose a mode and keep progress in this browser.",
+    "start": "Start Practice",
+    "flashcards": "Flashcards",
+    "quiz": "Quiz",
+    "review": "Review",
+    "showAnswer": "Show Answer",
+    "again": "Missed",
+    "againDesc": "Try soon",
+    "learning": "Almost",
+    "learningDesc": "Still shaky",
+    "known": "Got It",
+    "knownDesc": "Lock it in",
+    "openCard": "Open Card Details",
+    "correct": "Correct",
+    "wrong": "Needs Practice",
+    "complete": "Session Complete",
+    "due": "Due Now",
+    "newCards": "New Cards",
+    "accuracy": "Accuracy",
+    "fallbackTitle": "Practice loads when JavaScript is available.",
+    "fallbackBody": "All cards stay available below as normal links.",
+    "cardsInDeck": "Cards in This Deck",
+    "readiness": "Deck readiness",
+    "recommendedNow": "Good next deck: start with a quick flashcard run.",
+    "deckSize": "Deck Size",
+    "quickRun": "Quick Run",
+    "fullPass": "Full Pass",
+    "localProgress": "Local Progress",
+    "progressFallback": "Progress appears here when JavaScript is available.",
+    "progressEmpty": "No local practice yet. Train this card from one of its Decks.",
+    "ready": "Ready",
+    "later": "Later",
+    "practiceLink": "Practice in Deck",
+    "practicePageIntro": "Open the dedicated practice room for flashcards, quiz, and review.",
+    "practicePageCta": "Open Practice Page",
+    "practiceNeedsJs": "Practice starts when JavaScript is available. The deck cards remain on the deck page.",
+    "backToDeck": "Back to Deck",
+    "railRun": "Kanji rail run",
+    "minutes": "min",
+    "difficulty": "Difficulty"
+  }
+}

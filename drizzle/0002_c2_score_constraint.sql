@@ -1,2 +1,0 @@
-ALTER TABLE "learning"."quiz_sessions" DROP CONSTRAINT "session_state";--> statement-breakpoint
-ALTER TABLE "learning"."quiz_sessions" ADD CONSTRAINT "session_state" CHECK (("learning"."quiz_sessions"."status" = 'active' and "learning"."quiz_sessions"."score" is null and "learning"."quiz_sessions"."completed_at" is null) or ("learning"."quiz_sessions"."status" = 'completed' and "learning"."quiz_sessions"."score" is not null and "learning"."quiz_sessions"."score" between 0 and "learning"."quiz_sessions"."total" and "learning"."quiz_sessions"."completed_at" is not null));

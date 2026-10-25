@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+build/
+content/
+package-lock.json
+docs/analysis/
+public/
+test-results/
+playwright-report/
+next-env.d.ts
+docs/archive/

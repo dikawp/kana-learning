@@ -1,0 +1,1458 @@
+[
+  {
+    "id": "h-a",
+    "character": "あ",
+    "romaji": "a",
+    "type": "hiragana",
+    "category": "vowels"
+  },
+  {
+    "id": "h-i",
+    "character": "い",
+    "romaji": "i",
+    "type": "hiragana",
+    "category": "vowels"
+  },
+  {
+    "id": "h-u",
+    "character": "う",
+    "romaji": "u",
+    "type": "hiragana",
+    "category": "vowels"
+  },
+  {
+    "id": "h-e",
+    "character": "え",
+    "romaji": "e",
+    "type": "hiragana",
+    "category": "vowels"
+  },
+  {
+    "id": "h-o",
+    "character": "お",
+    "romaji": "o",
+    "type": "hiragana",
+    "category": "vowels"
+  },
+  {
+    "id": "h-ka",
+    "character": "か",
+    "romaji": "ka",
+    "type": "hiragana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "h-ki",
+    "character": "き",
+    "romaji": "ki",
+    "type": "hiragana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "h-ku",
+    "character": "く",
+    "romaji": "ku",
+    "type": "hiragana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "h-ke",
+    "character": "け",
+    "romaji": "ke",
+    "type": "hiragana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "h-ko",
+    "character": "こ",
+    "romaji": "ko",
+    "type": "hiragana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "h-sa",
+    "character": "さ",
+    "romaji": "sa",
+    "type": "hiragana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "h-shi",
+    "character": "し",
+    "romaji": "shi",
+    "type": "hiragana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "h-su",
+    "character": "す",
+    "romaji": "su",
+    "type": "hiragana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "h-se",
+    "character": "せ",
+    "romaji": "se",
+    "type": "hiragana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "h-so",
+    "character": "そ",
+    "romaji": "so",
+    "type": "hiragana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "h-ta",
+    "character": "た",
+    "romaji": "ta",
+    "type": "hiragana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "h-chi",
+    "character": "ち",
+    "romaji": "chi",
+    "type": "hiragana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "h-tsu",
+    "character": "つ",
+    "romaji": "tsu",
+    "type": "hiragana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "h-te",
+    "character": "て",
+    "romaji": "te",
+    "type": "hiragana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "h-to",
+    "character": "と",
+    "romaji": "to",
+    "type": "hiragana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "h-na",
+    "character": "な",
+    "romaji": "na",
+    "type": "hiragana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "h-ni",
+    "character": "に",
+    "romaji": "ni",
+    "type": "hiragana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "h-nu",
+    "character": "ぬ",
+    "romaji": "nu",
+    "type": "hiragana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "h-ne",
+    "character": "ね",
+    "romaji": "ne",
+    "type": "hiragana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "h-no",
+    "character": "の",
+    "romaji": "no",
+    "type": "hiragana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "h-ha",
+    "character": "は",
+    "romaji": "ha",
+    "type": "hiragana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "h-hi",
+    "character": "ひ",
+    "romaji": "hi",
+    "type": "hiragana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "h-fu",
+    "character": "ふ",
+    "romaji": "fu",
+    "type": "hiragana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "h-he",
+    "character": "へ",
+    "romaji": "he",
+    "type": "hiragana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "h-ho",
+    "character": "ほ",
+    "romaji": "ho",
+    "type": "hiragana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "h-ma",
+    "character": "ま",
+    "romaji": "ma",
+    "type": "hiragana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "h-mi",
+    "character": "み",
+    "romaji": "mi",
+    "type": "hiragana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "h-mu",
+    "character": "む",
+    "romaji": "mu",
+    "type": "hiragana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "h-me",
+    "character": "め",
+    "romaji": "me",
+    "type": "hiragana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "h-mo",
+    "character": "も",
+    "romaji": "mo",
+    "type": "hiragana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "h-ya",
+    "character": "や",
+    "romaji": "ya",
+    "type": "hiragana",
+    "category": "y-sounds"
+  },
+  {
+    "id": "h-yu",
+    "character": "ゆ",
+    "romaji": "yu",
+    "type": "hiragana",
+    "category": "y-sounds"
+  },
+  {
+    "id": "h-yo",
+    "character": "よ",
+    "romaji": "yo",
+    "type": "hiragana",
+    "category": "y-sounds"
+  },
+  {
+    "id": "h-ra",
+    "character": "ら",
+    "romaji": "ra",
+    "type": "hiragana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "h-ri",
+    "character": "り",
+    "romaji": "ri",
+    "type": "hiragana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "h-ru",
+    "character": "る",
+    "romaji": "ru",
+    "type": "hiragana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "h-re",
+    "character": "れ",
+    "romaji": "re",
+    "type": "hiragana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "h-ro",
+    "character": "ろ",
+    "romaji": "ro",
+    "type": "hiragana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "h-wa",
+    "character": "わ",
+    "romaji": "wa",
+    "type": "hiragana",
+    "category": "w-sounds"
+  },
+  {
+    "id": "h-wo",
+    "character": "を",
+    "romaji": "wo",
+    "type": "hiragana",
+    "category": "w-sounds"
+  },
+  {
+    "id": "h-n",
+    "character": "ん",
+    "romaji": "n",
+    "type": "hiragana",
+    "category": "n-sound"
+  },
+  {
+    "id": "h-ga",
+    "character": "が",
+    "romaji": "ga",
+    "type": "hiragana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "h-gi",
+    "character": "ぎ",
+    "romaji": "gi",
+    "type": "hiragana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "h-gu",
+    "character": "ぐ",
+    "romaji": "gu",
+    "type": "hiragana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "h-ge",
+    "character": "げ",
+    "romaji": "ge",
+    "type": "hiragana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "h-go",
+    "character": "ご",
+    "romaji": "go",
+    "type": "hiragana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "h-za",
+    "character": "ざ",
+    "romaji": "za",
+    "type": "hiragana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "h-ji",
+    "character": "じ",
+    "romaji": "ji",
+    "type": "hiragana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "h-zu",
+    "character": "ず",
+    "romaji": "zu",
+    "type": "hiragana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "h-ze",
+    "character": "ぜ",
+    "romaji": "ze",
+    "type": "hiragana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "h-zo",
+    "character": "ぞ",
+    "romaji": "zo",
+    "type": "hiragana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "h-da",
+    "character": "だ",
+    "romaji": "da",
+    "type": "hiragana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "h-dji",
+    "character": "ぢ",
+    "romaji": "dji",
+    "type": "hiragana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "h-dzu",
+    "character": "づ",
+    "romaji": "dzu",
+    "type": "hiragana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "h-de",
+    "character": "で",
+    "romaji": "de",
+    "type": "hiragana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "h-do",
+    "character": "ど",
+    "romaji": "do",
+    "type": "hiragana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "h-ba",
+    "character": "ば",
+    "romaji": "ba",
+    "type": "hiragana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "h-bi",
+    "character": "び",
+    "romaji": "bi",
+    "type": "hiragana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "h-bu",
+    "character": "ぶ",
+    "romaji": "bu",
+    "type": "hiragana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "h-be",
+    "character": "べ",
+    "romaji": "be",
+    "type": "hiragana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "h-bo",
+    "character": "ぼ",
+    "romaji": "bo",
+    "type": "hiragana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "h-pa",
+    "character": "ぱ",
+    "romaji": "pa",
+    "type": "hiragana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "h-pi",
+    "character": "ぴ",
+    "romaji": "pi",
+    "type": "hiragana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "h-pu",
+    "character": "ぷ",
+    "romaji": "pu",
+    "type": "hiragana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "h-pe",
+    "character": "ぺ",
+    "romaji": "pe",
+    "type": "hiragana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "h-po",
+    "character": "ぽ",
+    "romaji": "po",
+    "type": "hiragana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "h-kya",
+    "character": "きゃ",
+    "romaji": "kya",
+    "type": "hiragana",
+    "category": "k-combinations"
+  },
+  {
+    "id": "h-kyu",
+    "character": "きゅ",
+    "romaji": "kyu",
+    "type": "hiragana",
+    "category": "k-combinations"
+  },
+  {
+    "id": "h-kyo",
+    "character": "きょ",
+    "romaji": "kyo",
+    "type": "hiragana",
+    "category": "k-combinations"
+  },
+  {
+    "id": "h-sha",
+    "character": "しゃ",
+    "romaji": "sha",
+    "type": "hiragana",
+    "category": "s-combinations"
+  },
+  {
+    "id": "h-shu",
+    "character": "しゅ",
+    "romaji": "shu",
+    "type": "hiragana",
+    "category": "s-combinations"
+  },
+  {
+    "id": "h-sho",
+    "character": "しょ",
+    "romaji": "sho",
+    "type": "hiragana",
+    "category": "s-combinations"
+  },
+  {
+    "id": "h-cha",
+    "character": "ちゃ",
+    "romaji": "cha",
+    "type": "hiragana",
+    "category": "t-combinations"
+  },
+  {
+    "id": "h-chu",
+    "character": "ちゅ",
+    "romaji": "chu",
+    "type": "hiragana",
+    "category": "t-combinations"
+  },
+  {
+    "id": "h-cho",
+    "character": "ちょ",
+    "romaji": "cho",
+    "type": "hiragana",
+    "category": "t-combinations"
+  },
+  {
+    "id": "h-nya",
+    "character": "にゃ",
+    "romaji": "nya",
+    "type": "hiragana",
+    "category": "n-combinations"
+  },
+  {
+    "id": "h-nyu",
+    "character": "にゅ",
+    "romaji": "nyu",
+    "type": "hiragana",
+    "category": "n-combinations"
+  },
+  {
+    "id": "h-nyo",
+    "character": "にょ",
+    "romaji": "nyo",
+    "type": "hiragana",
+    "category": "n-combinations"
+  },
+  {
+    "id": "h-hya",
+    "character": "ひゃ",
+    "romaji": "hya",
+    "type": "hiragana",
+    "category": "h-combinations"
+  },
+  {
+    "id": "h-hyu",
+    "character": "ひゅ",
+    "romaji": "hyu",
+    "type": "hiragana",
+    "category": "h-combinations"
+  },
+  {
+    "id": "h-hyo",
+    "character": "ひょ",
+    "romaji": "hyo",
+    "type": "hiragana",
+    "category": "h-combinations"
+  },
+  {
+    "id": "h-mya",
+    "character": "みゃ",
+    "romaji": "mya",
+    "type": "hiragana",
+    "category": "m-combinations"
+  },
+  {
+    "id": "h-myu",
+    "character": "みゅ",
+    "romaji": "myu",
+    "type": "hiragana",
+    "category": "m-combinations"
+  },
+  {
+    "id": "h-myo",
+    "character": "みょ",
+    "romaji": "myo",
+    "type": "hiragana",
+    "category": "m-combinations"
+  },
+  {
+    "id": "h-rya",
+    "character": "りゃ",
+    "romaji": "rya",
+    "type": "hiragana",
+    "category": "r-combinations"
+  },
+  {
+    "id": "h-ryu",
+    "character": "りゅ",
+    "romaji": "ryu",
+    "type": "hiragana",
+    "category": "r-combinations"
+  },
+  {
+    "id": "h-ryo",
+    "character": "りょ",
+    "romaji": "ryo",
+    "type": "hiragana",
+    "category": "r-combinations"
+  },
+  {
+    "id": "h-gya",
+    "character": "ぎゃ",
+    "romaji": "gya",
+    "type": "hiragana",
+    "category": "g-combinations"
+  },
+  {
+    "id": "h-gyu",
+    "character": "ぎゅ",
+    "romaji": "gyu",
+    "type": "hiragana",
+    "category": "g-combinations"
+  },
+  {
+    "id": "h-gyo",
+    "character": "ぎょ",
+    "romaji": "gyo",
+    "type": "hiragana",
+    "category": "g-combinations"
+  },
+  {
+    "id": "h-ja",
+    "character": "じゃ",
+    "romaji": "ja",
+    "type": "hiragana",
+    "category": "j-combinations"
+  },
+  {
+    "id": "h-ju",
+    "character": "じゅ",
+    "romaji": "ju",
+    "type": "hiragana",
+    "category": "j-combinations"
+  },
+  {
+    "id": "h-jo",
+    "character": "じょ",
+    "romaji": "jo",
+    "type": "hiragana",
+    "category": "j-combinations"
+  },
+  {
+    "id": "h-bya",
+    "character": "びゃ",
+    "romaji": "bya",
+    "type": "hiragana",
+    "category": "b-combinations"
+  },
+  {
+    "id": "h-byu",
+    "character": "びゅ",
+    "romaji": "byu",
+    "type": "hiragana",
+    "category": "b-combinations"
+  },
+  {
+    "id": "h-byo",
+    "character": "びょ",
+    "romaji": "byo",
+    "type": "hiragana",
+    "category": "b-combinations"
+  },
+  {
+    "id": "h-pya",
+    "character": "ぴゃ",
+    "romaji": "pya",
+    "type": "hiragana",
+    "category": "p-combinations"
+  },
+  {
+    "id": "h-pyu",
+    "character": "ぴゅ",
+    "romaji": "pyu",
+    "type": "hiragana",
+    "category": "p-combinations"
+  },
+  {
+    "id": "h-pyo",
+    "character": "ぴょ",
+    "romaji": "pyo",
+    "type": "hiragana",
+    "category": "p-combinations"
+  },
+  {
+    "id": "k-a",
+    "character": "ア",
+    "romaji": "a",
+    "type": "katakana",
+    "category": "vowels"
+  },
+  {
+    "id": "k-i",
+    "character": "イ",
+    "romaji": "i",
+    "type": "katakana",
+    "category": "vowels"
+  },
+  {
+    "id": "k-u",
+    "character": "ウ",
+    "romaji": "u",
+    "type": "katakana",
+    "category": "vowels"
+  },
+  {
+    "id": "k-e",
+    "character": "エ",
+    "romaji": "e",
+    "type": "katakana",
+    "category": "vowels"
+  },
+  {
+    "id": "k-o",
+    "character": "オ",
+    "romaji": "o",
+    "type": "katakana",
+    "category": "vowels"
+  },
+  {
+    "id": "k-ka",
+    "character": "カ",
+    "romaji": "ka",
+    "type": "katakana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "k-ki",
+    "character": "キ",
+    "romaji": "ki",
+    "type": "katakana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "k-ku",
+    "character": "ク",
+    "romaji": "ku",
+    "type": "katakana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "k-ke",
+    "character": "ケ",
+    "romaji": "ke",
+    "type": "katakana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "k-ko",
+    "character": "コ",
+    "romaji": "ko",
+    "type": "katakana",
+    "category": "k-sounds"
+  },
+  {
+    "id": "k-sa",
+    "character": "サ",
+    "romaji": "sa",
+    "type": "katakana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "k-shi",
+    "character": "シ",
+    "romaji": "shi",
+    "type": "katakana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "k-su",
+    "character": "ス",
+    "romaji": "su",
+    "type": "katakana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "k-se",
+    "character": "セ",
+    "romaji": "se",
+    "type": "katakana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "k-so",
+    "character": "ソ",
+    "romaji": "so",
+    "type": "katakana",
+    "category": "s-sounds"
+  },
+  {
+    "id": "k-ta",
+    "character": "タ",
+    "romaji": "ta",
+    "type": "katakana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "k-chi",
+    "character": "チ",
+    "romaji": "chi",
+    "type": "katakana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "k-tsu",
+    "character": "ツ",
+    "romaji": "tsu",
+    "type": "katakana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "k-te",
+    "character": "テ",
+    "romaji": "te",
+    "type": "katakana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "k-to",
+    "character": "ト",
+    "romaji": "to",
+    "type": "katakana",
+    "category": "t-sounds"
+  },
+  {
+    "id": "k-na",
+    "character": "ナ",
+    "romaji": "na",
+    "type": "katakana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "k-ni",
+    "character": "ニ",
+    "romaji": "ni",
+    "type": "katakana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "k-nu",
+    "character": "ヌ",
+    "romaji": "nu",
+    "type": "katakana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "k-ne",
+    "character": "ネ",
+    "romaji": "ne",
+    "type": "katakana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "k-no",
+    "character": "ノ",
+    "romaji": "no",
+    "type": "katakana",
+    "category": "n-sounds"
+  },
+  {
+    "id": "k-ha",
+    "character": "ハ",
+    "romaji": "ha",
+    "type": "katakana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "k-hi",
+    "character": "ヒ",
+    "romaji": "hi",
+    "type": "katakana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "k-fu",
+    "character": "フ",
+    "romaji": "fu",
+    "type": "katakana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "k-he",
+    "character": "ヘ",
+    "romaji": "he",
+    "type": "katakana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "k-ho",
+    "character": "ホ",
+    "romaji": "ho",
+    "type": "katakana",
+    "category": "h-sounds"
+  },
+  {
+    "id": "k-ma",
+    "character": "マ",
+    "romaji": "ma",
+    "type": "katakana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "k-mi",
+    "character": "ミ",
+    "romaji": "mi",
+    "type": "katakana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "k-mu",
+    "character": "ム",
+    "romaji": "mu",
+    "type": "katakana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "k-me",
+    "character": "メ",
+    "romaji": "me",
+    "type": "katakana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "k-mo",
+    "character": "モ",
+    "romaji": "mo",
+    "type": "katakana",
+    "category": "m-sounds"
+  },
+  {
+    "id": "k-ya",
+    "character": "ヤ",
+    "romaji": "ya",
+    "type": "katakana",
+    "category": "y-sounds"
+  },
+  {
+    "id": "k-yu",
+    "character": "ユ",
+    "romaji": "yu",
+    "type": "katakana",
+    "category": "y-sounds"
+  },
+  {
+    "id": "k-yo",
+    "character": "ヨ",
+    "romaji": "yo",
+    "type": "katakana",
+    "category": "y-sounds"
+  },
+  {
+    "id": "k-ra",
+    "character": "ラ",
+    "romaji": "ra",
+    "type": "katakana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "k-ri",
+    "character": "リ",
+    "romaji": "ri",
+    "type": "katakana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "k-ru",
+    "character": "ル",
+    "romaji": "ru",
+    "type": "katakana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "k-re",
+    "character": "レ",
+    "romaji": "re",
+    "type": "katakana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "k-ro",
+    "character": "ロ",
+    "romaji": "ro",
+    "type": "katakana",
+    "category": "r-sounds"
+  },
+  {
+    "id": "k-wa",
+    "character": "ワ",
+    "romaji": "wa",
+    "type": "katakana",
+    "category": "w-sounds"
+  },
+  {
+    "id": "k-wo",
+    "character": "ヲ",
+    "romaji": "wo",
+    "type": "katakana",
+    "category": "w-sounds"
+  },
+  {
+    "id": "k-n",
+    "character": "ン",
+    "romaji": "n",
+    "type": "katakana",
+    "category": "n-sound"
+  },
+  {
+    "id": "k-ga",
+    "character": "ガ",
+    "romaji": "ga",
+    "type": "katakana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "k-gi",
+    "character": "ギ",
+    "romaji": "gi",
+    "type": "katakana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "k-gu",
+    "character": "グ",
+    "romaji": "gu",
+    "type": "katakana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "k-ge",
+    "character": "ゲ",
+    "romaji": "ge",
+    "type": "katakana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "k-go",
+    "character": "ゴ",
+    "romaji": "go",
+    "type": "katakana",
+    "category": "dakuten-g"
+  },
+  {
+    "id": "k-za",
+    "character": "ザ",
+    "romaji": "za",
+    "type": "katakana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "k-ji",
+    "character": "ジ",
+    "romaji": "ji",
+    "type": "katakana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "k-zu",
+    "character": "ズ",
+    "romaji": "zu",
+    "type": "katakana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "k-ze",
+    "character": "ゼ",
+    "romaji": "ze",
+    "type": "katakana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "k-zo",
+    "character": "ゾ",
+    "romaji": "zo",
+    "type": "katakana",
+    "category": "dakuten-z"
+  },
+  {
+    "id": "k-da",
+    "character": "ダ",
+    "romaji": "da",
+    "type": "katakana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "k-dji",
+    "character": "ヂ",
+    "romaji": "dji",
+    "type": "katakana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "k-dzu",
+    "character": "ヅ",
+    "romaji": "dzu",
+    "type": "katakana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "k-de",
+    "character": "デ",
+    "romaji": "de",
+    "type": "katakana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "k-do",
+    "character": "ド",
+    "romaji": "do",
+    "type": "katakana",
+    "category": "dakuten-d"
+  },
+  {
+    "id": "k-ba",
+    "character": "バ",
+    "romaji": "ba",
+    "type": "katakana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "k-bi",
+    "character": "ビ",
+    "romaji": "bi",
+    "type": "katakana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "k-bu",
+    "character": "ブ",
+    "romaji": "bu",
+    "type": "katakana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "k-be",
+    "character": "ベ",
+    "romaji": "be",
+    "type": "katakana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "k-bo",
+    "character": "ボ",
+    "romaji": "bo",
+    "type": "katakana",
+    "category": "dakuten-b"
+  },
+  {
+    "id": "k-pa",
+    "character": "パ",
+    "romaji": "pa",
+    "type": "katakana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "k-pi",
+    "character": "ピ",
+    "romaji": "pi",
+    "type": "katakana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "k-pu",
+    "character": "プ",
+    "romaji": "pu",
+    "type": "katakana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "k-pe",
+    "character": "ペ",
+    "romaji": "pe",
+    "type": "katakana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "k-po",
+    "character": "ポ",
+    "romaji": "po",
+    "type": "katakana",
+    "category": "handakuten-p"
+  },
+  {
+    "id": "k-kya",
+    "character": "キャ",
+    "romaji": "kya",
+    "type": "katakana",
+    "category": "k-combinations"
+  },
+  {
+    "id": "k-kyu",
+    "character": "キュ",
+    "romaji": "kyu",
+    "type": "katakana",
+    "category": "k-combinations"
+  },
+  {
+    "id": "k-kyo",
+    "character": "キョ",
+    "romaji": "kyo",
+    "type": "katakana",
+    "category": "k-combinations"
+  },
+  {
+    "id": "k-sha",
+    "character": "シャ",
+    "romaji": "sha",
+    "type": "katakana",
+    "category": "s-combinations"
+  },
+  {
+    "id": "k-shu",
+    "character": "シュ",
+    "romaji": "shu",
+    "type": "katakana",
+    "category": "s-combinations"
+  },
+  {
+    "id": "k-sho",
+    "character": "ショ",
+    "romaji": "sho",
+    "type": "katakana",
+    "category": "s-combinations"
+  },
+  {
+    "id": "k-cha",
+    "character": "チャ",
+    "romaji": "cha",
+    "type": "katakana",
+    "category": "t-combinations"
+  },
+  {
+    "id": "k-chu",
+    "character": "チュ",
+    "romaji": "chu",
+    "type": "katakana",
+    "category": "t-combinations"
+  },
+  {
+    "id": "k-cho",
+    "character": "チョ",
+    "romaji": "cho",
+    "type": "katakana",
+    "category": "t-combinations"
+  },
+  {
+    "id": "k-nya",
+    "character": "ニャ",
+    "romaji": "nya",
+    "type": "katakana",
+    "category": "n-combinations"
+  },
+  {
+    "id": "k-nyu",
+    "character": "ニュ",
+    "romaji": "nyu",
+    "type": "katakana",
+    "category": "n-combinations"
+  },
+  {
+    "id": "k-nyo",
+    "character": "ニョ",
+    "romaji": "nyo",
+    "type": "katakana",
+    "category": "n-combinations"
+  },
+  {
+    "id": "k-hya",
+    "character": "ヒャ",
+    "romaji": "hya",
+    "type": "katakana",
+    "category": "h-combinations"
+  },
+  {
+    "id": "k-hyu",
+    "character": "ヒュ",
+    "romaji": "hyu",
+    "type": "katakana",
+    "category": "h-combinations"
+  },
+  {
+    "id": "k-hyo",
+    "character": "ヒョ",
+    "romaji": "hyo",
+    "type": "katakana",
+    "category": "h-combinations"
+  },
+  {
+    "id": "k-mya",
+    "character": "ミャ",
+    "romaji": "mya",
+    "type": "katakana",
+    "category": "m-combinations"
+  },
+  {
+    "id": "k-myu",
+    "character": "ミュ",
+    "romaji": "myu",
+    "type": "katakana",
+    "category": "m-combinations"
+  },
+  {
+    "id": "k-myo",
+    "character": "ミョ",
+    "romaji": "myo",
+    "type": "katakana",
+    "category": "m-combinations"
+  },
+  {
+    "id": "k-rya",
+    "character": "リャ",
+    "romaji": "rya",
+    "type": "katakana",
+    "category": "r-combinations"
+  },
+  {
+    "id": "k-ryu",
+    "character": "リュ",
+    "romaji": "ryu",
+    "type": "katakana",
+    "category": "r-combinations"
+  },
+  {
+    "id": "k-ryo",
+    "character": "リョ",
+    "romaji": "ryo",
+    "type": "katakana",
+    "category": "r-combinations"
+  },
+  {
+    "id": "k-gya",
+    "character": "ギャ",
+    "romaji": "gya",
+    "type": "katakana",
+    "category": "g-combinations"
+  },
+  {
+    "id": "k-gyu",
+    "character": "ギュ",
+    "romaji": "gyu",
+    "type": "katakana",
+    "category": "g-combinations"
+  },
+  {
+    "id": "k-gyo",
+    "character": "ギョ",
+    "romaji": "gyo",
+    "type": "katakana",
+    "category": "g-combinations"
+  },
+  {
+    "id": "k-ja",
+    "character": "ジャ",
+    "romaji": "ja",
+    "type": "katakana",
+    "category": "j-combinations"
+  },
+  {
+    "id": "k-ju",
+    "character": "ジュ",
+    "romaji": "ju",
+    "type": "katakana",
+    "category": "j-combinations"
+  },
+  {
+    "id": "k-jo",
+    "character": "ジョ",
+    "romaji": "jo",
+    "type": "katakana",
+    "category": "j-combinations"
+  },
+  {
+    "id": "k-bya",
+    "character": "ビャ",
+    "romaji": "bya",
+    "type": "katakana",
+    "category": "b-combinations"
+  },
+  {
+    "id": "k-byu",
+    "character": "ビュ",
+    "romaji": "byu",
+    "type": "katakana",
+    "category": "b-combinations"
+  },
+  {
+    "id": "k-byo",
+    "character": "ビョ",
+    "romaji": "byo",
+    "type": "katakana",
+    "category": "b-combinations"
+  },
+  {
+    "id": "k-pya",
+    "character": "ピャ",
+    "romaji": "pya",
+    "type": "katakana",
+    "category": "p-combinations"
+  },
+  {
+    "id": "k-pyu",
+    "character": "ピュ",
+    "romaji": "pyu",
+    "type": "katakana",
+    "category": "p-combinations"
+  },
+  {
+    "id": "k-pyo",
+    "character": "ピョ",
+    "romaji": "pyo",
+    "type": "katakana",
+    "category": "p-combinations"
+  }
+]

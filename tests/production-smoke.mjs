@@ -4,52 +4,80 @@ import { createServer } from "node:net"
 import { once } from "node:events"
 import { setTimeout as delay } from "node:timers/promises"
 
-// External credentials are explicitly disabled. This suite never contacts Supabase.
 const reservation = createServer()
 reservation.listen(0, "127.0.0.1")
 await once(reservation, "listening")
-const address = reservation.address()
-assert.ok(address && typeof address !== "string")
-const port = address.port
-await new Promise((resolve, reject) => reservation.close((error) => error ? reject(error) : resolve()))
-const child = spawn(process.execPath, ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)], {
-  stdio: ["ignore", "pipe", "pipe"], windowsHide: true,
-  env: { ...process.env, DATABASE_URL: "", MIGRATION_DATABASE_URL: "" },
-})
-child.stdout.resume(); child.stderr.resume()
-const exited = once(child, "exit")
-const base = "http://127.0.0.1:" + port
+const port = reservation.address().port
+await new Promise((resolve) => reservation.close(resolve))
+const server = spawn(
+  process.execPath,
+  ["node_modules/next/dist/bin/next", "start", "--hostname", "127.0.0.1", "--port", String(port)],
+  { env: { ...process.env, NODE_ENV: "production" }, stdio: ["ignore", "pipe", "pipe"] },
+)
+let output = ""
+for (const stream of [server.stdout, server.stderr])
+  stream.on("data", (chunk) => {
+    output += chunk.toString()
+  })
 try {
+  const origin = `http://127.0.0.1:${port}`
   let ready = false
-  for (let i = 0; i < 150; i++) {
-    if (child.exitCode !== null) throw Error("Production test server exited before readiness")
-    try { const response = await fetch(base + "/api/v1/health", { signal: AbortSignal.timeout(1000) }); if (response.ok) { ready = true; break } } catch { /* bounded startup retry */ }
-    await delay(100)
+  for (let i = 0; i < 100; i++) {
+    try {
+      if ((await fetch(origin)).ok) {
+        ready = true
+        break
+      }
+    } catch {
+      /* Wait for the owned production server. */
+    }
+    await delay(200)
   }
-  assert.ok(ready, "Production API did not become ready")
-  const page = await fetch(base)
-  assert.equal(page.status, 200)
-  const html = await page.text()
-  assert.match(html, /Kana Learning/)
-  assert.doesNotMatch(html, /href="\/account"/)
-  assert.deepEqual(await (await fetch(base + "/api/v1/health")).json(), { contentConfigured: false, liveDependencyCheck: false })
-  const missingContent = await fetch(base + "/api/v1/content/kana")
-  assert.equal(missingContent.status, 503)
-  assert.equal((await missingContent.json()).error.code, "DATABASE_UNAVAILABLE")
-  assert.match(missingContent.headers.get("cache-control"), /no-store/)
-  assert.equal(missingContent.headers.get("set-cookie"), null)
-  for (const path of ["/api/v1/content/kanji", "/api/v1/content/vocabulary"]) {
-    const response = await fetch(base + path)
-    assert.equal(response.status, 503)
-    assert.equal((await response.json()).error.code, "DATABASE_UNAVAILABLE")
-    assert.equal(response.headers.get("set-cookie"), null)
-    assert.equal((await fetch(base + path + "?level=6")).status, 422)
+  assert.ok(ready, output)
+  for (const route of [
+    "/",
+    "/archive",
+    "/jlpt",
+    "/set/jlpt-n1",
+    "/card/kanji-51ea",
+    "/set/hiragana",
+    "/deck/hiragana-basic",
+    "/deck/hiragana-basic/practice?mode=quiz",
+    "/card/h-a",
+    "/card/kanji-65e5",
+    "/search",
+    "/dashboard",
+    "/sources",
+    "/privacy",
+  ]) {
+    const r = await fetch(origin + route)
+    assert.equal(r.status, 200, route)
+    assert.match(await r.text(), /Kana-Learn/)
   }
-  assert.equal((await fetch(base + "/api/v1/admin/releases/publish", { method: "POST" })).status, 404)
-  for (const path of ["/account", "/account/password", "/auth/callback", "/api/v1/auth/session", "/api/v1/me/progress", "/api/v1/quiz-sessions"]) {
-    assert.equal((await fetch(base + path)).status, 404, path)
+  const c = await fetch(origin + "/api/catalog")
+  assert.equal(c.status, 200)
+  const catalog = await c.json()
+  assert.equal(catalog.cards.length, 2967)
+  assert.equal(catalog.decks.length, 162)
+  assert.equal(catalog.sets.length, 19)
+  const d = await (await fetch(origin + "/api/decks/hiragana-basic")).json()
+  assert.equal(d.cards.length, 46)
+  const k = await (await fetch(origin + "/api/cards/kanji-65e5")).json()
+  assert.equal(k.card.glyph, "日")
+  for (const route of [
+    "/card/not-real",
+    "/deck/not-real",
+    "/api/cards/not-real",
+    "/api/decks/not-real",
+    "/api/v1/content/kana",
+    "/account",
+  ]) {
+    assert.equal((await fetch(origin + route)).status, 404, route)
   }
-  const invalid = await fetch(base + "/api/v1/content/kana?unbounded=999")
-  assert.equal(invalid.status, 422)
-  console.info("Production HTTP passed: public shell, missing-content error, removed learner routes404, validation and no session cookies.")
-} finally { if (child.exitCode === null) child.kill(); await exited }
+  console.log(
+    "Production HTTP smoke passed: pages, versioned local APIs, unknown IDs and retired endpoints.",
+  )
+} finally {
+  server.kill()
+  await Promise.race([once(server, "exit"), delay(5000)])
+}

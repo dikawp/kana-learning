@@ -1,11 +1,12 @@
 "use client"
-
-import { Button } from "@/components/ui/button"
-
-export default function KanaError({ reset }: { reset: () => void }) {
-  return <main className="container mx-auto p-6" role="alert">
-    <h1 className="text-2xl font-bold">Unable to display this practice session</h1>
-    <p>Please try again.</p>
-    <Button onClick={reset}>Try again</Button>
-  </main>
+export default function ErrorPage({ reset }: { reset: () => void }) {
+  return (
+    <div className="empty-state" role="alert">
+      <h1>This page needs another moment.</h1>
+      <p>Your local saves are kept in your browser.</p>
+      <button className="primary-button" onClick={reset}>
+        Try again
+      </button>
+    </div>
+  )
 }

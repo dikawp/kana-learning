@@ -1,0 +1,42 @@
+[
+  {
+    "term": "var $r=",
+    "utf16Offset": 60509,
+    "text": "var $r=`kanjiflash.slots.v1`,ei=`kanjiflash.activeSlot.v1`,ti=`kanjiflash.progress.v1.`,ni=`kanjiflash-progress`;function ri(e){return`${ti}${e}`}function ii(e=new Date){let t=e.toISOString(),n=Di(e);return{version:1,activeSlotId:n,slots:[{id:n,name:`Player 1`,createdAt:t,updatedAt:t,lastPracticedAt:null,level:1,title:`Wakaba`,totalExp:0,masteredKanji:0}]}}function ai(e,t=new Date){return X({format:ni,version:1,exportedAt:t.toISOString(),site:`kanjiflash.com`,slot:e,profile:{totalExp:0,level:1,lastPracticedAt:null},cards:{},decks:{},sessions:[]})}function K(e=localStorage){let t=Ai(e.getItem($r));if(!ji(t)){let t=ii();return q(t,e),t}return t"
+  },
+  {
+    "term": "function K(",
+    "utf16Offset": 61062,
+    "text": "function K(e=localStorage){let t=Ai(e.getItem($r));if(!ji(t)){let t=ii();return q(t,e),t}return t}function q(e,t=localStorage){t.setItem($r,JSON.stringify(e)),t.setItem(ei,e.activeSlotId)}function J(e=localStorage){let t=K(e),n=t.slots.find(e=>e.id===t.activeSlotId)??t.slots[0],r=vi(Ai(e.getItem(ri(n.id))));if(r.ok)return X(r.payload);let i=ai(n);return Y(i,e),i}function Y(e,t=localStorage){t.setItem(ri(e.slot.id),JSON.stringify(X(e))),wi(e,t)}function oi(e,t=localStorage){let n=K(t);if(!n.slots.some(t=>t.id===e))return n;let r={...n,activeSlotId:e};return q(r,t),r}function si(e,t=localStorage,n=new Date){let r=K(t),i=Di(n),a=n.toISOString(),"
+  },
+  {
+    "term": "function Y(",
+    "utf16Offset": 61427,
+    "text": "function Y(e,t=localStorage){t.setItem(ri(e.slot.id),JSON.stringify(X(e))),wi(e,t)}function oi(e,t=localStorage){let n=K(t);if(!n.slots.some(t=>t.id===e))return n;let r={...n,activeSlotId:e};return q(r,t),r}function si(e,t=localStorage,n=new Date){let r=K(t),i=Di(n),a=n.toISOString(),o={id:i,name:ki(e||`Player`,r.slots.map(e=>e.name)),createdAt:a,updatedAt:a,lastPracticedAt:null,level:1,title:`Wakaba`,totalExp:0,masteredKanji:0},s=ai(o,n);return q({version:1,activeSlotId:o.id,slots:[...r.slots,o]},t),Y(s,t),s}function ci(e=localStorage,t=new Date){let n=K(e),r=J(e),i=Di(t),a=ki(`${r.slot.name} Copy`,n.slots.map(e=>e.name)),o=X({...r,exportedA"
+  },
+  {
+    "term": "function fi(",
+    "utf16Offset": 62803,
+    "text": "function fi(e){let t=e.now??new Date,n=t.toISOString(),r=e.payload.cards[e.kanji],i=+!!e.correct,a=+!e.correct,o={state:e.state,encounters:(r?.encounters??0)+1,correct:(r?.correct??0)+i,wrong:(r?.wrong??0)+a,firstEncounteredAt:r?.firstEncounteredAt??n,lastEncounteredAt:n,lastPracticedAt:n,nextReviewAt:Ei(e.state,t).toISOString()},s=(e.payload.profile.totalExp??0)+i;return X({...e.payload,exportedAt:n,profile:{totalExp:s,level:Xr(s).level,lastPracticedAt:n},cards:{...e.payload.cards,[e.kanji]:o},decks:{...e.payload.decks,[e.deckId]:{...e.payload.decks[e.deckId]??{seen:0,known:0,learning:0,mastered:0},lastPracticedAt:n}}})}function pi(e,t){let "
+  },
+  {
+    "term": "function Ei(",
+    "utf16Offset": 67904,
+    "text": "function Ei(e,t){let n=e===`again`?10:e===`learning`?1440:4320;return new Date(t.getTime()+n*6e4)}function Di(e){return`slot_${e.toISOString().slice(0,10).replace(/-/g,``)}_${Math.random().toString(36).slice(2,6)}`}function Oi(e){return[...e].sort((e,t)=>Pi(t.lastPracticedAt,e.lastPracticedAt))}function ki(e,t){let n=e.trim()||`Player`;if(!t.includes(n))return n;let r=2;for(;t.includes(`${n} ${r}`);)r+=1;return`${n} ${r}`}function Ai(e){if(e)try{return JSON.parse(e)}catch{return}}function Z(e){return!!e&&typeof e==`object`&&!Array.isArray(e)}function ji(e){return Z(e)&&e.version===1&&typeof e.activeSlotId==`string`&&Array.isArray(e.slots)&&e."
+  },
+  {
+    "term": "function Ri(",
+    "utf16Offset": 69875,
+    "text": "function Ri(){document.querySelectorAll(`[data-dashboard]`).forEach(e=>{let t=Qi(e.dataset.dashboardPayload);if(t){e.replaceChildren(),fe(Q(zi,{payload:t}),e);return}fetch(`/api/dashboard-data`).then(e=>e.ok?e.json():void 0).then(t=>{let n=$i(t)?t:void 0;n&&(e.replaceChildren(),fe(Q(zi,{payload:n}),e))})})}function zi({payload:e}){let t=Oe(()=>{let e=R(Kr);return e.start(),e},[]),[n,r]=P(t.getSnapshot()),[i,a]=P(()=>K()),[o,s]=P(()=>J()),[c,l]=P(o.slot.name),[u,d]=P(!1),f=De(null),p=hi(o,e.cards.length,e.decks.length),m=e.cards.filter(e=>{let t=o.cards[e.kanji];return t&&Date.parse(t.nextReviewAt)<=Date.now()}).slice(0,12),h=e.cards.filter(e="
+  },
+  {
+    "term": "function y(r)",
+    "utf16Offset": 83854,
+    "text": "function y(r){if(!p||f.lastCorrect!==null)return;let i=aa(r),o=fi({payload:t,deckId:e.deck.id,kanji:p.kanji,mode:f.mode,correct:i,state:ia(r)});Y(o),n(o),a.send({type:`RATE`,correct:i}),x()}function b(r){if(!p||f.lastCorrect!==null)return;let i=r===p.id,o=fi({payload:t,deckId:e.deck.id,kanji:p.kanji,mode:f.mode,correct:i,state:i?`known`:`again`});Y(o),n(o),a.send({type:`ANSWER`,selectedId:r,correct:i}),x()}function x(){l.current&&bt(l.current,{opacity:[.6,1],transform:[`translateY(6px)`,`translateY(0)`]},{duration:.22})}let C=d.accuracy===null?`--`:`${Math.round(d.accuracy*100)}%`;return Q(`section`,{class:`practice-run`,\"aria-labelledby\":`pr"
+  },
+  {
+    "term": "function Xi(",
+    "utf16Offset": 78894,
+    "text": "function Xi(e){let t=gi(e),n=new Blob([JSON.stringify(t,null,2)],{type:`application/json`}),r=URL.createObjectURL(n),i=document.createElement(`a`);i.href=r,i.download=_i(),i.click(),URL.revokeObjectURL(r)}function Zi(e){e&&bt(e,{opacity:[.86,1],transform:[`translateY(4px)`,`translateY(0)`]},{duration:.18})}function Qi(e){if(!e)return null;try{return JSON.parse(e)}catch{return null}}function $i(e){return!!e&&typeof e==`object`&&Array.isArray(e.cards)&&Array.isArray(e.decks)}function ea(e,t,n=new Date,r=Math.random){return sa(e,t,n,r)}function ta(e,t,n=new Date,r=Math.random){let i=e.filter(e=>{let r=t.cards[e.kanji];return r&&(r.state===`again"
+  }
+]

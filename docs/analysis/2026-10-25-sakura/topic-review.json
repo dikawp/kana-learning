@@ -1,0 +1,246 @@
+{
+  "revision": "f1e4c122396c5e6b701f1b3156c1f377128df876660373a166f2b4804b3f3d4d",
+  "method": "Editorial starting characters plus whole-word dictionary expansion; 66 explicitly labelled reading trails provide complete coverage.",
+  "samples": [
+    {
+      "deck": "A Small Beginning",
+      "count": 40,
+      "startingCharacters": "一二三人日月火水木山"
+    },
+    {
+      "deck": "Lines and Boundaries",
+      "count": 40,
+      "startingCharacters": "線境界辺限囲門区画端"
+    },
+    {
+      "deck": "Small and Large",
+      "count": 40,
+      "startingCharacters": "小大少多巨細微寸広狭"
+    },
+    {
+      "deck": "Pairs and Parts",
+      "count": 40,
+      "startingCharacters": "半分部片対双両組割別"
+    },
+    {
+      "deck": "Counting Things",
+      "count": 40,
+      "startingCharacters": "一二三四五六七八九十"
+    },
+    {
+      "deck": "Calendar Pages",
+      "count": 40,
+      "startingCharacters": "日月年週曜朝夕暦旬期"
+    },
+    {
+      "deck": "Moments and Seasons",
+      "count": 40,
+      "startingCharacters": "時分秒春夏秋冬季今昔"
+    },
+    {
+      "deck": "Before and After",
+      "count": 40,
+      "startingCharacters": "前後先次昨翌順序旧新"
+    },
+    {
+      "deck": "Waterways",
+      "count": 40,
+      "startingCharacters": "水川河海湖池雨波流泉"
+    },
+    {
+      "deck": "Woodland Walk",
+      "count": 40,
+      "startingCharacters": "木林森植草花葉根枝竹"
+    },
+    {
+      "deck": "Sky and Weather",
+      "count": 40,
+      "startingCharacters": "天地空雲雨風雪晴曇星"
+    },
+    {
+      "deck": "Creatures Around Us",
+      "count": 40,
+      "startingCharacters": "犬猫鳥魚虫馬牛羊豚鹿"
+    },
+    {
+      "deck": "Family Circle",
+      "count": 40,
+      "startingCharacters": "父母兄弟姉妹子親家族"
+    },
+    {
+      "deck": "Body and Senses",
+      "count": 40,
+      "startingCharacters": "身目耳口手足鼻舌顔頭"
+    },
+    {
+      "deck": "Growing Up",
+      "count": 40,
+      "startingCharacters": "生育成長若老幼童年齢"
+    },
+    {
+      "deck": "Care and Health",
+      "count": 40,
+      "startingCharacters": "医薬病健療治看護痛症"
+    },
+    {
+      "deck": "At the Table",
+      "count": 40,
+      "startingCharacters": "食飲飯米麦肉魚茶酒菜"
+    },
+    {
+      "deck": "Home and Hearth",
+      "count": 40,
+      "startingCharacters": "家室屋戸門床壁窓庭台"
+    },
+    {
+      "deck": "Cloth and Clothing",
+      "count": 40,
+      "startingCharacters": "衣服着糸布絹綿織縫帯"
+    },
+    {
+      "deck": "Tools in Hand",
+      "count": 40,
+      "startingCharacters": "器具工機械針刃皿鉢台"
+    },
+    {
+      "deck": "Finding Direction",
+      "count": 40,
+      "startingCharacters": "東西南北上下左右内外"
+    },
+    {
+      "deck": "Roads and Journeys",
+      "count": 40,
+      "startingCharacters": "道路旅駅車船橋港渡通"
+    },
+    {
+      "deck": "City Corners",
+      "count": 40,
+      "startingCharacters": "市町村街都京区郡県府"
+    },
+    {
+      "deck": "Across the World",
+      "count": 40,
+      "startingCharacters": "国界世邦州省島陸地境"
+    },
+    {
+      "deck": "Come and Go",
+      "count": 40,
+      "startingCharacters": "行来出入歩走動進退帰"
+    },
+    {
+      "deck": "Making Things",
+      "count": 40,
+      "startingCharacters": "作造建築製創工組立生"
+    },
+    {
+      "deck": "Give and Receive",
+      "count": 40,
+      "startingCharacters": "与授受取渡贈寄献供返"
+    },
+    {
+      "deck": "Daily Work",
+      "count": 40,
+      "startingCharacters": "働仕事務労勤職役業営"
+    },
+    {
+      "deck": "Heart Notes",
+      "count": 40,
+      "startingCharacters": "心情愛恋喜怒哀悲楽感"
+    },
+    {
+      "deck": "Thinking Clearly",
+      "count": 40,
+      "startingCharacters": "思考想念意知理慮悟覚"
+    },
+    {
+      "deck": "Learn and Remember",
+      "count": 40,
+      "startingCharacters": "学習覚憶研究読書教識"
+    },
+    {
+      "deck": "Wishes and Choices",
+      "count": 40,
+      "startingCharacters": "願望欲祈求志選択決定"
+    },
+    {
+      "deck": "School Days",
+      "count": 40,
+      "startingCharacters": "学校教室師徒級組育習"
+    },
+    {
+      "deck": "Trade and Money",
+      "count": 40,
+      "startingCharacters": "買売貿易金銭価値商販"
+    },
+    {
+      "deck": "Rules Together",
+      "count": 40,
+      "startingCharacters": "法則制令律規政公官司"
+    },
+    {
+      "deck": "Speaking Together",
+      "count": 40,
+      "startingCharacters": "言話語談説申告答聞問"
+    },
+    {
+      "deck": "Written Voices",
+      "count": 40,
+      "startingCharacters": "書読字文筆紙本冊記録"
+    },
+    {
+      "deck": "Names and Identity",
+      "count": 40,
+      "startingCharacters": "名氏姓我自己人者彼君"
+    },
+    {
+      "deck": "Sound and Silence",
+      "count": 40,
+      "startingCharacters": "音声響鳴聞聴静黙歌楽"
+    },
+    {
+      "deck": "Ways of Meaning",
+      "count": 40,
+      "startingCharacters": "意義語詞説解示表現符"
+    },
+    {
+      "deck": "Inside the Frame",
+      "count": 40,
+      "startingCharacters": "囲国園図回箱枠内包閉"
+    },
+    {
+      "deck": "Above and Below",
+      "count": 40,
+      "startingCharacters": "上下高低頂底登降浮沈"
+    },
+    {
+      "deck": "Light and Shade",
+      "count": 40,
+      "startingCharacters": "光明暗白黒灯影照輝陰"
+    },
+    {
+      "deck": "Same and Different",
+      "count": 40,
+      "startingCharacters": "同異変改換替移比較差"
+    },
+    {
+      "deck": "Arts and Craft",
+      "count": 40,
+      "startingCharacters": "美芸術画絵彫陶匠技工"
+    },
+    {
+      "deck": "Festival Lights",
+      "count": 40,
+      "startingCharacters": "祭祝礼式宴盆慶賀節舞"
+    },
+    {
+      "deck": "Stories and Belief",
+      "count": 40,
+      "startingCharacters": "神仏寺社霊魂信祈宗伝"
+    },
+    {
+      "deck": "Old and New",
+      "count": 40,
+      "startingCharacters": "古旧新昔今近現代歴故"
+    }
+  ]
+}

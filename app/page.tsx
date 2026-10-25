@@ -1,139 +1,158 @@
-"use client"
+import Link from "next/link"
+import { ArrowUpRight, Flower2 } from "lucide-react"
+import { catalog } from "@/lib/platform/repository"
+import { SetTile, DeckTile, Eyebrow } from "@/components/platform/catalog"
+import { HomeProgress } from "@/components/platform/home-progress"
 
-import { useEffect, useState } from "react"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { loadKana } from "@/lib/content/client"
-import type { KanaContent } from "@/lib/content/contracts"
-import { createFamiliarityStore } from "@/lib/study/familiarity-store"
-import { createStudyStore } from "@/lib/study/local-store"
-import { useStudySession } from "@/hooks/use-study-session"
-import { calculateQuizResults } from "@/lib/kana/quiz"
-import { Button } from "@/components/ui/button"
-import { useKanaProgress } from "@/hooks/use-kana-progress"
-import { useKanaFilters } from "@/hooks/use-kana-filters"
-import { Header } from "@/components/layout/header"
-import { ProgressCard } from "@/components/kana/progress-card"
-import { FiltersCard } from "@/components/kana/filters-card"
-import { FlashcardMode } from "@/components/kana/flashcard-mode"
-import { QuizMode } from "@/components/kana/quiz-mode"
-import { TableView } from "@/components/kana/table-view"
-
-export default function KanaLearningApp() {
-  const [content, setContent] = useState<KanaContent | null>(null)
-  const [error, setError] = useState("")
-  const [request, retry] = useState(0)
-  useEffect(() => {
-    const controller = new AbortController()
-    loadKana(controller.signal).then((data) => {
-      if (!controller.signal.aborted) { setContent(data); setError("") }
-    }).catch((cause: unknown) => {
-      if (!controller.signal.aborted) setError(cause instanceof Error ? cause.message : "Learning material is unavailable.")
-    })
-    return () => controller.abort()
-  }, [request])
-  if (!content) return <><Header /><main className="container mx-auto p-6">
-    {error ? <div role="alert"><p>{error}</p><Button onClick={() => { setError(""); retry((n) => n + 1) }}>Retry material</Button></div> : <p role="status">Loading learning material…</p>}
-  </main></>
-  return <StudyPage content={content} />
-}
-
-function StudyPage({ content }: { content: KanaContent }) {
-  const kanaData = content.items
-  const [familiarity] = useState(() => createFamiliarityStore(kanaData))
-  const [quizzes] = useState(() => createStudyStore(kanaData))
-  const history = useStudySession(quizzes).data.history
-  const last = history[0] ? calculateQuizResults(history[0].questions, history[0].answers) : null
-  const score = { correct: last?.score ?? 0, total: last?.total ?? 0 }
-  const [currentMode, setCurrentMode] = useState<"flashcard" | "quiz" | "table">("flashcard")
-
-  const {
-    progress,
-    storageStatus,
-    markAsLearned,
-    resetProgress,
-    resetHiraganaProgress,
-    resetKatakanaProgress,
-    isLearned,
-  } = useKanaProgress(familiarity, kanaData)
-
-  const {
-    selectedType,
-    setSelectedType,
-    selectedCategory,
-    setSelectedCategory,
-    searchTerm,
-    setSearchTerm,
-    filteredKana,
-    categories,
-  } = useKanaFilters(kanaData)
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-
-      <main className="container mx-auto px-4 py-6 max-w-6xl">
-        <p role="status" className="text-sm text-muted-foreground mb-3">{storageStatus} Familiarity is not long-term mastery.</p>
-        <ProgressCard
-          progress={progress}
-          score={score}
-          onResetProgress={resetProgress}
-          onResetHiraganaProgress={resetHiraganaProgress}
-          onResetKatakanaProgress={resetKatakanaProgress}
-        />
-
-        <FiltersCard
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          selectedType={selectedType}
-          onTypeChange={setSelectedType}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-          categories={categories}
-          filteredCount={filteredKana.length}
-        />
-
-        <Tabs value={currentMode} onValueChange={(value) => { if (value === "flashcard" || value === "quiz" || value === "table") setCurrentMode(value) }}>
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="flashcard">Flashcard Mode</TabsTrigger>
-            <TabsTrigger value="quiz">Quiz Mode</TabsTrigger>
-            <TabsTrigger value="table">Table View</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="flashcard" className="space-y-4">
-            <FlashcardMode filteredKana={filteredKana} onMarkAsLearned={markAsLearned} isLearned={isLearned} />
-          </TabsContent>
-
-          <TabsContent value="quiz" className="space-y-4" forceMount hidden={currentMode !== "quiz"}>
-            <QuizMode
-              kanaData={kanaData}
-              onMarkAsLearned={markAsLearned}
-              store={quizzes}
-              revision={content.revision}
-              onSwitchToFlashcard={() => setCurrentMode("flashcard")}
-              isLearned={isLearned}
-            />
-          </TabsContent>
-
-          <TabsContent value="table" className="space-y-6">
-            <TableView filteredKana={filteredKana} />
-          </TabsContent>
-        </Tabs>
-      </main>
-
-      <footer className="border-t bg-card py-4 text-center text-sm text-muted-foreground">
-        &copy; {new Date().getFullYear()} Dika-sama App. All rights reserved.
+    <>
+      <section className="home-hero">
+        <div className="hero-copy">
+          <Eyebrow>THE ART OF A LITTLE, EVERY DAY</Eyebrow>
+          <h1>
+            A character today.
+            <br />
+            <em>A world tomorrow.</em>
+          </h1>
+          <p>
+            Find your rhythm in Japanese. Start with the sounds, wander through kanji, and return to
+            what matters.
+          </p>
+          <HomeProgress />
+        </div>
+        <div className="hero-art" aria-label="Japanese characters for spring, flower, and learning">
+          <div className="sakura-ring" aria-hidden="true">
+            <Flower2 />
+          </div>
+          <span className="art-caption">A NOTEBOOK FOR NEW BEGINNINGS</span>
+          <div className="hero-kanji" lang="ja">
+            春
+          </div>
+          <div className="art-bottom">
+            <span lang="ja">はる</span>
+            <span>SPRING / A NEW START</span>
+          </div>
+          <span className="floating-petal petal-one" aria-hidden="true">
+            ✿
+          </span>
+          <span className="floating-petal petal-two" aria-hidden="true">
+            ✿
+          </span>
+        </div>
+      </section>
+      <div className="collection-strip">
+        <div>
+          <strong>208</strong>
+          <span>KANA CHARACTERS</span>
+        </div>
+        <span className="strip-divider">✿</span>
+        <div>
+          <strong>2,759</strong>
+          <span>KANJI TO DISCOVER</span>
+        </div>
+        <span className="strip-divider">✿</span>
+        <div>
+          <strong>{catalog.decks.length}</strong>
+          <span>SMALL STUDY DECKS</span>
+        </div>
         <p>
-          Found a bug or have a suggestion? Contact me on{" "}
-          <a
-            href="https://instagram.com/dikawp_16"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-primary hover:underline"
-          >
-            @dikawp_16
-          </a>
+          Yours to explore.
+          <br />
+          No account, no rush.
         </p>
-      </footer>
-    </div>
+      </div>
+      <section>
+        <div className="section-heading">
+          <div>
+            <Eyebrow>01 / FIND YOUR STARTING POINT</Eyebrow>
+            <h2>Three ways into Japanese.</h2>
+          </div>
+          <Link href="/archive" className="quiet-link">
+            View collection <ArrowUpRight size={16} />
+          </Link>
+        </div>
+        <div className="pathway-grid">
+          {[
+            {
+              title: "Hiragana",
+              glyph: "あ",
+              text: "The soft shapes behind Japanese sounds.",
+              href: "/set/hiragana",
+              count: "104 CHARACTERS",
+            },
+            {
+              title: "Katakana",
+              glyph: "ア",
+              text: "A new script for familiar sounds.",
+              href: "/set/katakana",
+              count: "104 CHARACTERS",
+            },
+            {
+              title: "Kanji",
+              glyph: "学",
+              text: "Shapes that carry stories and meaning.",
+              href: "/archive#kanji",
+              count: "2,759 CHARACTERS",
+            },
+          ].map((p) => (
+            <Link key={p.title} href={p.href} className="pathway">
+              <div>
+                <span className="meta">{p.count}</span>
+                <h3>{p.title}</h3>
+                <p>{p.text}</p>
+                <span className="text-link">
+                  Step inside <ArrowUpRight size={16} />
+                </span>
+              </div>
+              <span lang="ja">{p.glyph}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+      <section>
+        <h2>Follow a JLPT study path.</h2>
+        <p className="muted">Explore all five source-mapped levels, from N5 to N1.</p>
+        <Link href="/jlpt" className="text-link">
+          Open the JLPT study map <ArrowUpRight size={16} />
+        </Link>
+      </section>
+      <section>
+        <div className="section-heading">
+          <div>
+            <Eyebrow>02 / FOLLOW YOUR CURIOSITY</Eyebrow>
+            <h2>Notebooks worth opening.</h2>
+          </div>
+          <Link href="/archive" className="quiet-link">
+            All {catalog.sets.length} notebooks ↗
+          </Link>
+        </div>
+        <div className="set-grid">
+          {catalog.sets
+            .filter((s) => s.kind === "kanji")
+            .slice(0, 6)
+            .map((s) => (
+              <SetTile key={s.slug} set={s} count={s.decks.length} />
+            ))}
+        </div>
+      </section>
+      <section>
+        <div className="section-heading">
+          <div>
+            <Eyebrow>03 / FIVE MINUTES CAN BE ENOUGH</Eyebrow>
+            <h2>A small deck, a fresh page.</h2>
+          </div>
+        </div>
+        <div className="deck-grid">
+          {["hiragana-basic", "katakana-basic", "first-marks-a-small-beginning"].map((slug) => (
+            <DeckTile
+              key={slug}
+              deck={catalog.decks.find((d) => d.slug === slug)!}
+              cards={catalog.cards}
+            />
+          ))}
+        </div>
+      </section>
+    </>
   )
 }

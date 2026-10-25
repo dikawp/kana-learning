@@ -1,0 +1,633 @@
+[
+  {
+    "slug": "first-marks",
+    "title": "First Marks",
+    "symbol": "一",
+    "description": "Meet simple shapes and build a visual foundation, followed by graded reading trails.",
+    "trails": 6,
+    "topics": [
+      {
+        "title": "A Small Beginning",
+        "keywords": [
+          "one",
+          "two",
+          "three",
+          "person",
+          "sun"
+        ],
+        "glyphs": "一二三人日月火水木山"
+      },
+      {
+        "title": "Lines and Boundaries",
+        "keywords": [
+          "line",
+          "boundary",
+          "edge",
+          "limit"
+        ],
+        "glyphs": "線境界辺限囲門区画端"
+      },
+      {
+        "title": "Small and Large",
+        "keywords": [
+          "small",
+          "large",
+          "little",
+          "great"
+        ],
+        "glyphs": "小大少多巨細微寸広狭"
+      },
+      {
+        "title": "Pairs and Parts",
+        "keywords": [
+          "part",
+          "half",
+          "pair",
+          "divide"
+        ],
+        "glyphs": "半分部片対双両組割別"
+      }
+    ]
+  },
+  {
+    "slug": "counting-days",
+    "title": "Counting Days",
+    "symbol": "時",
+    "description": "Numbers, calendars and the language of change over time.",
+    "trails": 5,
+    "topics": [
+      {
+        "title": "Counting Things",
+        "keywords": [
+          "number",
+          "count",
+          "hundred",
+          "thousand",
+          "ten"
+        ],
+        "glyphs": "一二三四五六七八九十"
+      },
+      {
+        "title": "Calendar Pages",
+        "keywords": [
+          "day",
+          "month",
+          "year",
+          "calendar"
+        ],
+        "glyphs": "日月年週曜朝夕暦旬期"
+      },
+      {
+        "title": "Moments and Seasons",
+        "keywords": [
+          "time",
+          "hour",
+          "season",
+          "spring",
+          "winter"
+        ],
+        "glyphs": "時分秒春夏秋冬季今昔"
+      },
+      {
+        "title": "Before and After",
+        "keywords": [
+          "before",
+          "after",
+          "past",
+          "future",
+          "order"
+        ],
+        "glyphs": "前後先次昨翌順序旧新"
+      }
+    ]
+  },
+  {
+    "slug": "wild-landscapes",
+    "title": "Wild Landscapes",
+    "symbol": "森",
+    "description": "Explore land, water, living things and the changing sky.",
+    "trails": 6,
+    "topics": [
+      {
+        "title": "Waterways",
+        "keywords": [
+          "water",
+          "river",
+          "sea",
+          "rain",
+          "lake"
+        ],
+        "glyphs": "水川河海湖池雨波流泉"
+      },
+      {
+        "title": "Woodland Walk",
+        "keywords": [
+          "tree",
+          "wood",
+          "forest",
+          "plant",
+          "flower"
+        ],
+        "glyphs": "木林森植草花葉根枝竹"
+      },
+      {
+        "title": "Sky and Weather",
+        "keywords": [
+          "sky",
+          "weather",
+          "cloud",
+          "wind",
+          "sun"
+        ],
+        "glyphs": "天地空雲雨風雪晴曇星"
+      },
+      {
+        "title": "Creatures Around Us",
+        "keywords": [
+          "animal",
+          "bird",
+          "fish",
+          "dog",
+          "insect"
+        ],
+        "glyphs": "犬猫鳥魚虫馬牛羊豚鹿"
+      }
+    ]
+  },
+  {
+    "slug": "human-stories",
+    "title": "Human Stories",
+    "symbol": "人",
+    "description": "People, bodies, family and the relationships between them.",
+    "trails": 6,
+    "topics": [
+      {
+        "title": "Family Circle",
+        "keywords": [
+          "family",
+          "father",
+          "mother",
+          "child",
+          "parent"
+        ],
+        "glyphs": "父母兄弟姉妹子親家族"
+      },
+      {
+        "title": "Body and Senses",
+        "keywords": [
+          "body",
+          "hand",
+          "eye",
+          "ear",
+          "mouth"
+        ],
+        "glyphs": "身目耳口手足鼻舌顔頭"
+      },
+      {
+        "title": "Growing Up",
+        "keywords": [
+          "birth",
+          "grow",
+          "young",
+          "old",
+          "age"
+        ],
+        "glyphs": "生育成長若老幼童年齢"
+      },
+      {
+        "title": "Care and Health",
+        "keywords": [
+          "health",
+          "ill",
+          "sick",
+          "medicine",
+          "care"
+        ],
+        "glyphs": "医薬病健療治看護痛症"
+      }
+    ]
+  },
+  {
+    "slug": "everyday-rituals",
+    "title": "Everyday Rituals",
+    "symbol": "食",
+    "description": "Food, homes and the ordinary things that give words context.",
+    "trails": 6,
+    "topics": [
+      {
+        "title": "At the Table",
+        "keywords": [
+          "food",
+          "eat",
+          "rice",
+          "meal",
+          "cook"
+        ],
+        "glyphs": "食飲飯米麦肉魚茶酒菜"
+      },
+      {
+        "title": "Home and Hearth",
+        "keywords": [
+          "house",
+          "home",
+          "room",
+          "door",
+          "roof"
+        ],
+        "glyphs": "家室屋戸門床壁窓庭台"
+      },
+      {
+        "title": "Cloth and Clothing",
+        "keywords": [
+          "cloth",
+          "clothes",
+          "wear",
+          "silk",
+          "thread"
+        ],
+        "glyphs": "衣服着糸布絹綿織縫帯"
+      },
+      {
+        "title": "Tools in Hand",
+        "keywords": [
+          "tool",
+          "implement",
+          "vessel",
+          "utensil",
+          "machine"
+        ],
+        "glyphs": "器具工具機械針刃皿鉢"
+      }
+    ]
+  },
+  {
+    "slug": "places-to-go",
+    "title": "Places to Go",
+    "symbol": "道",
+    "description": "Directions, journeys and the places where life happens.",
+    "trails": 5,
+    "topics": [
+      {
+        "title": "Finding Direction",
+        "keywords": [
+          "north",
+          "south",
+          "east",
+          "west",
+          "direction"
+        ],
+        "glyphs": "東西南北上下左右内外"
+      },
+      {
+        "title": "Roads and Journeys",
+        "keywords": [
+          "road",
+          "travel",
+          "journey",
+          "path",
+          "way"
+        ],
+        "glyphs": "道路旅駅車船橋港渡通"
+      },
+      {
+        "title": "City Corners",
+        "keywords": [
+          "city",
+          "town",
+          "village",
+          "street",
+          "building"
+        ],
+        "glyphs": "市町村街都京区郡県府"
+      },
+      {
+        "title": "Across the World",
+        "keywords": [
+          "country",
+          "world",
+          "land",
+          "province",
+          "region"
+        ],
+        "glyphs": "国界世邦州省島陸地境"
+      }
+    ]
+  },
+  {
+    "slug": "in-motion",
+    "title": "In Motion",
+    "symbol": "行",
+    "description": "Verbs of movement, work, making and exchange.",
+    "trails": 6,
+    "topics": [
+      {
+        "title": "Come and Go",
+        "keywords": [
+          "come",
+          "go",
+          "move",
+          "walk",
+          "run"
+        ],
+        "glyphs": "行来出入歩走動進退帰"
+      },
+      {
+        "title": "Making Things",
+        "keywords": [
+          "make",
+          "build",
+          "create",
+          "produce",
+          "form"
+        ],
+        "glyphs": "作造建築製創工組立生"
+      },
+      {
+        "title": "Give and Receive",
+        "keywords": [
+          "give",
+          "receive",
+          "take",
+          "bring",
+          "offer"
+        ],
+        "glyphs": "与授受取渡贈寄献供返"
+      },
+      {
+        "title": "Daily Work",
+        "keywords": [
+          "work",
+          "labor",
+          "task",
+          "do",
+          "act"
+        ],
+        "glyphs": "働仕事務労勤職役業営"
+      }
+    ]
+  },
+  {
+    "slug": "inner-worlds",
+    "title": "Inner Worlds",
+    "symbol": "心",
+    "description": "Thought, emotion, learning and the ideas we cannot touch.",
+    "trails": 5,
+    "topics": [
+      {
+        "title": "Heart Notes",
+        "keywords": [
+          "heart",
+          "feel",
+          "love",
+          "emotion",
+          "happy"
+        ],
+        "glyphs": "心情愛恋喜怒哀悲楽感"
+      },
+      {
+        "title": "Thinking Clearly",
+        "keywords": [
+          "think",
+          "thought",
+          "mind",
+          "idea",
+          "reason"
+        ],
+        "glyphs": "思考想念意知理慮悟覚"
+      },
+      {
+        "title": "Learn and Remember",
+        "keywords": [
+          "learn",
+          "study",
+          "know",
+          "memory",
+          "remember"
+        ],
+        "glyphs": "学習覚憶研究読書教識"
+      },
+      {
+        "title": "Wishes and Choices",
+        "keywords": [
+          "wish",
+          "desire",
+          "choose",
+          "decide",
+          "will"
+        ],
+        "glyphs": "願望欲祈求志選択決定"
+      }
+    ]
+  },
+  {
+    "slug": "shared-worlds",
+    "title": "Shared Worlds",
+    "symbol": "社",
+    "description": "Public life, institutions, money and the exchange of ideas.",
+    "trails": 6,
+    "topics": [
+      {
+        "title": "School Days",
+        "keywords": [
+          "school",
+          "teach",
+          "student",
+          "education",
+          "class"
+        ],
+        "glyphs": "学校教室師徒級組育習"
+      },
+      {
+        "title": "Trade and Money",
+        "keywords": [
+          "money",
+          "buy",
+          "sell",
+          "trade",
+          "price"
+        ],
+        "glyphs": "買売貿易金銭価値商販"
+      },
+      {
+        "title": "Rules Together",
+        "keywords": [
+          "law",
+          "rule",
+          "govern",
+          "public",
+          "official"
+        ],
+        "glyphs": "法則制令律規政公官司"
+      },
+      {
+        "title": "Speaking Together",
+        "keywords": [
+          "speak",
+          "talk",
+          "say",
+          "language",
+          "communicat"
+        ],
+        "glyphs": "言話語談説申告答聞問"
+      }
+    ]
+  },
+  {
+    "slug": "word-weaving",
+    "title": "Word Weaving",
+    "symbol": "語",
+    "description": "Reading, expression and the small distinctions that build meaning.",
+    "trails": 5,
+    "topics": [
+      {
+        "title": "Written Voices",
+        "keywords": [
+          "write",
+          "letter",
+          "book",
+          "read",
+          "character"
+        ],
+        "glyphs": "書読字文筆紙本冊記録"
+      },
+      {
+        "title": "Names and Identity",
+        "keywords": [
+          "name",
+          "self",
+          "person",
+          "identity"
+        ],
+        "glyphs": "名氏姓我自己人者彼君"
+      },
+      {
+        "title": "Sound and Silence",
+        "keywords": [
+          "sound",
+          "voice",
+          "hear",
+          "quiet",
+          "music"
+        ],
+        "glyphs": "音声響鳴聞聴静黙歌楽"
+      },
+      {
+        "title": "Ways of Meaning",
+        "keywords": [
+          "meaning",
+          "word",
+          "express",
+          "explain",
+          "sign"
+        ],
+        "glyphs": "意義語詞説解示表現符"
+      }
+    ]
+  },
+  {
+    "slug": "shape-workshop",
+    "title": "Shape Workshop",
+    "symbol": "形",
+    "description": "Look closely at structures, spaces and visual contrasts.",
+    "trails": 5,
+    "topics": [
+      {
+        "title": "Inside the Frame",
+        "keywords": [
+          "inside",
+          "enclose",
+          "surround",
+          "box",
+          "frame"
+        ],
+        "glyphs": "囲国園図回箱枠内包閉"
+      },
+      {
+        "title": "Above and Below",
+        "keywords": [
+          "above",
+          "below",
+          "up",
+          "down",
+          "bottom"
+        ],
+        "glyphs": "上下高低頂底登降浮沈"
+      },
+      {
+        "title": "Light and Shade",
+        "keywords": [
+          "light",
+          "dark",
+          "bright",
+          "shadow",
+          "white"
+        ],
+        "glyphs": "光明暗白黒灯影照輝陰"
+      },
+      {
+        "title": "Same and Different",
+        "keywords": [
+          "same",
+          "different",
+          "similar",
+          "change",
+          "compare"
+        ],
+        "glyphs": "同異変改換替移比較差"
+      }
+    ]
+  },
+  {
+    "slug": "cultural-notebook",
+    "title": "Cultural Notebook",
+    "symbol": "和",
+    "description": "Tradition, art, celebrations and the objects that carry stories.",
+    "trails": 5,
+    "topics": [
+      {
+        "title": "Arts and Craft",
+        "keywords": [
+          "art",
+          "craft",
+          "paint",
+          "skill",
+          "beaut"
+        ],
+        "glyphs": "美芸術画絵彫陶匠技工"
+      },
+      {
+        "title": "Festival Lights",
+        "keywords": [
+          "festival",
+          "celebrat",
+          "ceremony",
+          "holiday",
+          "feast"
+        ],
+        "glyphs": "祭祝礼式宴盆慶賀節舞"
+      },
+      {
+        "title": "Stories and Belief",
+        "keywords": [
+          "spirit",
+          "god",
+          "temple",
+          "belief",
+          "story"
+        ],
+        "glyphs": "神仏寺社霊魂信祈宗伝"
+      },
+      {
+        "title": "Old and New",
+        "keywords": [
+          "old",
+          "ancient",
+          "tradition",
+          "new",
+          "modern"
+        ],
+        "glyphs": "古旧新昔今近現代歴故"
+      }
+    ]
+  }
+]

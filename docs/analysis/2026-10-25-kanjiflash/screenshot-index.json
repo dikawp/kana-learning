@@ -1,0 +1,86 @@
+[
+  {
+    "file": "kanjiflash-reveal-answer.png",
+    "evidence": "ev_2aaae5de2a8c4f459bd1644d85cc14a5d4a6ebaccb9e2a2214854f4fe3621937",
+    "step": "answer",
+    "url": "https://kanjiflash.com/deck/first-10-kanji/practice"
+  },
+  {
+    "file": "kana-interaction-scenario_start.png",
+    "evidence": "ev_5b2a85385c8119b7ebda5e72c693623048c6634d71b7c9143eab605482275866",
+    "step": "scenario_start",
+    "url": "http://127.0.0.1:3000/"
+  },
+  {
+    "file": "kana-interaction-ready.png",
+    "evidence": "ev_5b2a85385c8119b7ebda5e72c693623048c6634d71b7c9143eab605482275866",
+    "step": "ready",
+    "url": "http://127.0.0.1:3000/"
+  },
+  {
+    "file": "kana-interaction-local-answer.png",
+    "evidence": "ev_5b2a85385c8119b7ebda5e72c693623048c6634d71b7c9143eab605482275866",
+    "step": "local-answer",
+    "url": "http://127.0.0.1:3000/"
+  },
+  {
+    "file": "kana-interaction-quiz-setup.png",
+    "evidence": "ev_5b2a85385c8119b7ebda5e72c693623048c6634d71b7c9143eab605482275866",
+    "step": "quiz-setup",
+    "url": "http://127.0.0.1:3000/"
+  },
+  {
+    "file": "kanjiflash-desktop-home-home-ready.png",
+    "evidence": "ev_9f20f50551f612fffd0d8bc4933b10387dd8c3d3e3c9b062051ae6f075c1cdda",
+    "step": "home-ready",
+    "url": "https://kanjiflash.com/"
+  },
+  {
+    "file": "kana-mobile-home-mobile-ready.png",
+    "evidence": "ev_a18d8c1a3289681066fa8605e62e42b5f2ceddb1c3a53ab6ac62f52cb02437b4",
+    "step": "mobile-ready",
+    "url": "http://127.0.0.1:3000/"
+  },
+  {
+    "file": "kanjiflash-mobile-home-home.png",
+    "evidence": "ev_b548c7ae2bf43fcd926e14059ecbfaf3f7ae090aa2e1eb55ad2129071a3bc818",
+    "step": "home",
+    "url": "https://kanjiflash.com/"
+  },
+  {
+    "file": "kanjiflash-card-card.png",
+    "evidence": "ev_b89af47de6890055d80111fe3230f968bd47072788ca7d0ee5e935e7b9d65805",
+    "step": "card",
+    "url": "https://kanjiflash.com/card/%E6%97%A5"
+  },
+  {
+    "file": "kanjiflash-mobile-review-review.png",
+    "evidence": "ev_cfdfcc2ea937d48cfe3a5f3e5a3ceb83ab7e06b7c8f886cc2f0058562db58a61",
+    "step": "review",
+    "url": "https://kanjiflash.com/deck/first-10-kanji/practice"
+  },
+  {
+    "file": "kanjiflash-quiz-dashboard-scenario_start.png",
+    "evidence": "ev_d88ab5f80c596d5b89c93dac3d74bd63d8baa32262da482059e3af1b2dec3e7a",
+    "step": "scenario_start",
+    "url": "https://kanjiflash.com/deck/first-10-kanji/practice"
+  },
+  {
+    "file": "kanjiflash-quiz-dashboard-quiz.png",
+    "evidence": "ev_d88ab5f80c596d5b89c93dac3d74bd63d8baa32262da482059e3af1b2dec3e7a",
+    "step": "quiz",
+    "url": "https://kanjiflash.com/deck/first-10-kanji/practice"
+  },
+  {
+    "file": "kanjiflash-quiz-dashboard-dashboard.png",
+    "evidence": "ev_d88ab5f80c596d5b89c93dac3d74bd63d8baa32262da482059e3af1b2dec3e7a",
+    "step": "dashboard",
+    "url": "https://kanjiflash.com/dashboard"
+  },
+  {
+    "file": "kana-desktop-home-material-ready.png",
+    "evidence": "ev_f581befbc93905199c5c51ff0022c853cbad78792f029ae9d628f0c780723b0c",
+    "step": "material-ready",
+    "url": "http://127.0.0.1:3000/"
+  }
+]

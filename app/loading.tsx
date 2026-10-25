@@ -1,3 +1,8 @@
 export default function Loading() {
-  return <p role="status">Loading kana practice…</p>
+  return (
+    <div className="empty-state" role="status">
+      <span className="eyebrow">A FRESH PAGE</span>
+      <p>Opening your notebook…</p>
+    </div>
+  )
 }

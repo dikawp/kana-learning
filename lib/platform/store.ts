@@ -91,7 +91,7 @@ const session = z
     )
       ctx.addIssue({ code: "custom", message: "Invalid session lifecycle" })
   })
-const slotSchema = z
+export const slotSchema = z
   .object({
     id: z.string().uuid(),
     name: z.string().trim().min(1).max(60),
@@ -157,8 +157,11 @@ function initialize() {
   started = true
   try {
     const raw = localStorage.getItem(SAVE_KEY)
+    const data = raw ? parseSave(raw) : fresh()
+    // A JLPT-only visitor also needs a durable slot ID before IndexedDB writes.
+    if (!raw) localStorage.setItem(SAVE_KEY, JSON.stringify(data))
     snapshot = {
-      data: raw ? parseSave(raw) : fresh(),
+      data,
       status: "saved",
       message: "Progress stays in this browser. Export a save to keep a backup.",
     }
@@ -221,6 +224,10 @@ export function updateSlot(fn: (slot: Slot) => Slot) {
       ? s
       : { ...s, slots: s.slots.map((p) => (p.id === s.activeSlotId ? next : p)) }
   })
+}
+export function getSaveStatus() {
+  initialize()
+  return snapshot.status
 }
 const subscribe = (listener: () => void) => {
   listeners.add(listener)

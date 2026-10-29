@@ -18,6 +18,14 @@ No Supabase, Elysia, PostgreSQL, Drizzle, runtime credentials or remote dictiona
 - Local save slots, level/EXP, seen/known/mastered/accuracy, due cards, per-deck statistics, export/import previews and confirmed reset/delete.
 - No learner accounts, cloud sync, service worker, audio, handwriting recognition or payment features.
 
+## English JLPT resources
+
+The JLPT hub imports all **7,811 vocabulary entries and 526 grammar points** from a pinned, attributed OpenJLPT snapshot (CC BY-SA 4.0), with English meanings, notes, formation, source examples and on-demand recognition drills. Five original AI-assisted reading exercises remain separately labelled, with English translations and exact answer evidence. These are complete source-snapshot imports, not a complete official JLPT syllabus. Listening, audio and full mock exams are held.
+
+JLPT progress uses local IndexedDB under the existing learner slots. Version 2 backups include both character and JLPT progress (32 MiB import limit); version 1 character-only backups remain supported with their original 2 MB import limit. Historical question snapshots remain immutable. See [resource provenance](docs/jlpt-content.md) and [architecture](docs/jlpt-architecture.md).
+
+`npm run jlpt:fetch` explicitly downloads the pinned source data and legal notices. `npm run jlpt:prepare` rebuilds the checked-in resource files without network access; `npm run jlpt:check` validates source coverage, checksums, schemas, references and generated drills. Ordinary builds never download or translate resources.
+
 ## Development
 
 Node22.13+ through24.x, npm. CI uses22.22.0. Dependencies and resource package integrity are locked.

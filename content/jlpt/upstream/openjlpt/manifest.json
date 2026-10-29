@@ -1,0 +1,99 @@
+{
+  "dataset": "OpenJLPT",
+  "revision": "0d1d3410bec90bd4098a7c72de820543cb4f707c",
+  "license": "CC-BY-SA-4.0",
+  "acquiredAt": "2026-10-28",
+  "files": [
+    {
+      "file": "NOTICE.md",
+      "upstreamPath": "NOTICE.md",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/NOTICE.md",
+      "bytes": 3456,
+      "sha256": "a2e6f45517bb1a1c047628991832244916888a4ced3aa26adeafb89705588557"
+    },
+    {
+      "file": "LICENSE",
+      "upstreamPath": "LICENSE",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/LICENSE",
+      "bytes": 20138,
+      "sha256": "28a9529c7d0bb4dc51f4bf5c116a3d16ef247a052f7591466768ddf563fd1cf5"
+    },
+    {
+      "file": "data--json--meta.json",
+      "upstreamPath": "data/json/meta.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/meta.json",
+      "bytes": 951,
+      "sha256": "9d4cc0f17ed9ad6c3a1a10fdae19472f898f7b2a690c9962049657e49e2b64d2"
+    },
+    {
+      "file": "data--json--vocab--n5.json",
+      "upstreamPath": "data/json/vocab/n5.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/vocab/n5.json",
+      "bytes": 488242,
+      "sha256": "cbb221c9a3a92108fcd02fb088d9afacc70bc8c96570d5730425de0a49dad5f3"
+    },
+    {
+      "file": "data--json--grammar--n5.json",
+      "upstreamPath": "data/json/grammar/n5.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/grammar/n5.json",
+      "bytes": 87774,
+      "sha256": "fb8151594263f5e98372adc51d4498578bc198e22259b161fba524eea2faa0bd"
+    },
+    {
+      "file": "data--json--vocab--n4.json",
+      "upstreamPath": "data/json/vocab/n4.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/vocab/n4.json",
+      "bytes": 483651,
+      "sha256": "b38512a6dc1e06a3615f377b3e58184c4a85b6f769c2e3f58f2a4ef0e1810927"
+    },
+    {
+      "file": "data--json--grammar--n4.json",
+      "upstreamPath": "data/json/grammar/n4.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/grammar/n4.json",
+      "bytes": 120313,
+      "sha256": "7b388b8636ab7d9eaed02484d7d6be1c2468885f2354e28c02a29c2dfeb8d70d"
+    },
+    {
+      "file": "data--json--vocab--n3.json",
+      "upstreamPath": "data/json/vocab/n3.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/vocab/n3.json",
+      "bytes": 1306060,
+      "sha256": "17ca6bcbba9d212c3c9d38c38cecc2adef0fd8718cb7157bb48dd9d3a1724948"
+    },
+    {
+      "file": "data--json--grammar--n3.json",
+      "upstreamPath": "data/json/grammar/n3.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/grammar/n3.json",
+      "bytes": 147911,
+      "sha256": "a94fed69f213a0896a06e62d47c81b870c570ebc0ae5f01b971780f844a7b295"
+    },
+    {
+      "file": "data--json--vocab--n2.json",
+      "upstreamPath": "data/json/vocab/n2.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/vocab/n2.json",
+      "bytes": 1306964,
+      "sha256": "4c7053d1b61f71ca4004252cafdf89439c65531900e7bab6c53078802acf3c5b"
+    },
+    {
+      "file": "data--json--grammar--n2.json",
+      "upstreamPath": "data/json/grammar/n2.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/grammar/n2.json",
+      "bytes": 173687,
+      "sha256": "fc7a26fd991b80505480ca64f3fce03014a3f91f921045b9fb14bc63a31f3f95"
+    },
+    {
+      "file": "data--json--vocab--n1.json",
+      "upstreamPath": "data/json/vocab/n1.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/vocab/n1.json",
+      "bytes": 2156886,
+      "sha256": "09325eb676ec26044e9019afb5ddd460a394a0d8cb51b0b34d30d03124c131ff"
+    },
+    {
+      "file": "data--json--grammar--n1.json",
+      "upstreamPath": "data/json/grammar/n1.json",
+      "url": "https://raw.githubusercontent.com/evanclan/OpenJLPT/0d1d3410bec90bd4098a7c72de820543cb4f707c/data/json/grammar/n1.json",
+      "bytes": 202825,
+      "sha256": "b6df1691cf9441f044b18490e25eef02a5c93ad9c0d0d69d62eb889256e6708b"
+    }
+  ]
+}

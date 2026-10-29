@@ -24,6 +24,13 @@ export default async function SetPage({ params }: { params: Promise<{ slug: stri
       <Link className="primary-button" href={`/deck/${s.decks[0]}/practice`}>
         Start the first deck ↗
       </Link>
+      {s.slug.startsWith("jlpt-") && (
+        <p>
+          <Link href={`/jlpt/${s.slug.slice(5)}`}>
+            Open the full {s.slug.slice(5).toUpperCase()} learning notebook →
+          </Link>
+        </p>
+      )}
       <section>
         <div className="deck-grid">
           {s.decks.map((slug) => (

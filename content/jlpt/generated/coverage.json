@@ -1,0 +1,45 @@
+{
+  "revision": "0d1d3410bec90bd4098a7c72de820543cb4f707c",
+  "coverage": {
+    "n5": {
+      "vocabulary": 674,
+      "grammar": 81,
+      "readings": 1,
+      "vocabularyWithExamples": 664,
+      "vocabularyWithoutPartOfSpeech": 0
+    },
+    "n4": {
+      "vocabulary": 630,
+      "grammar": 98,
+      "readings": 1,
+      "vocabularyWithExamples": 624,
+      "vocabularyWithoutPartOfSpeech": 0
+    },
+    "n3": {
+      "vocabulary": 1659,
+      "grammar": 101,
+      "readings": 1,
+      "vocabularyWithExamples": 1624,
+      "vocabularyWithoutPartOfSpeech": 0
+    },
+    "n2": {
+      "vocabulary": 1778,
+      "grammar": 123,
+      "readings": 1,
+      "vocabularyWithExamples": 1663,
+      "vocabularyWithoutPartOfSpeech": 5
+    },
+    "n1": {
+      "vocabulary": 3070,
+      "grammar": 123,
+      "readings": 1,
+      "vocabularyWithExamples": 2670,
+      "vocabularyWithoutPartOfSpeech": 6
+    }
+  },
+  "materials": 8342,
+  "vocabulary": 7811,
+  "grammar": 526,
+  "readings": 5,
+  "units": 249
+}

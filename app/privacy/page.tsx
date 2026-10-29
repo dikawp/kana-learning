@@ -25,6 +25,15 @@ export default function Privacy() {
       </p>
       <h2>Storage failures and old saves</h2>
       <p>
+        JLPT text progress is stored separately in this browser using IndexedDB. It records studied
+        materials, review dates, question and answer snapshots, active practice and session history
+        under the selected local slot. The dashboard's default version 2 backup includes these
+        records; legacy version 1 character-only exports do not. Deleting or resetting a local slot
+        also clears its JLPT progress. Answers are stored locally without upload. Review questions
+        are requested using material IDs only; ratings, answers and review dates are not sent with
+        those resource requests.
+      </p>
+      <p>
         If storage is blocked, full, or corrupted, practice can continue in memory. A notice
         explains when data is not persisted. Existing invalid records are not silently overwritten.
         Export an in-memory backup before closing the page. Older pre-redesign keys are not migrated

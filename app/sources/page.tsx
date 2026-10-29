@@ -1,8 +1,11 @@
 import Link from "next/link"
 import source from "@/content/generated/source.json"
 import { PageHeading } from "@/components/platform/catalog"
+import { sources as jlptSources } from "@/lib/jlpt/content"
+import { getCoverage } from "@/lib/jlpt/repository"
 export const metadata = { title: "Sources & Methodology · Kana-Learn" }
 export default function Sources() {
+  const coverage = getCoverage()
   return (
     <article className="prose-page">
       <PageHeading
@@ -53,7 +56,39 @@ export default function Sources() {
         total. This map is original to Kana-Learn; it is not an official curriculum or a copy of
         KanjiFlash’s editorial content.
       </p>
-      <h2>JLPT coverage</h2>
+      <h2 id="jlpt-materials">JLPT text learning materials</h2>
+      <p>
+        The English JLPT hub imports all {coverage.vocabulary.toLocaleString("en-US")} vocabulary
+        entries and {coverage.grammar} grammar points from the pinned OpenJLPT snapshot across
+        N5–N1. Vocabulary combines Jonathan Waller's community level assignments and short glosses
+        with JMdict entry IDs/parts of speech and Tatoeba example pairs. Grammar explanations and
+        examples are original OpenJLPT contributions. KanaLearn does not claim independent human
+        language review of the imported content. The {coverage.readings} Japanese reading passages
+        remain original AI-assisted exercises with English translations, clearly separated from
+        imported content. This is complete coverage of that source snapshot, not a complete official
+        syllabus. Listening, audio and full mock simulations remain held.
+      </p>
+      <p>
+        Level and unit assignments are editorial estimates. Question feedback explains distractors
+        and reading evidence. Review schedules are simple learning aids: incorrect answers return
+        after 10 minutes; correct answers after 1, 3, then 7 days. Practice accuracy does not
+        predict an official scaled JLPT score.
+      </p>
+      <ul>
+        {jlptSources.map((s) => (
+          <li key={s.id}>
+            <a href={s.url}>{s.title}</a> — {s.license}. {s.attribution} Revision: {s.revision}.
+            Usage: {s.usage}.
+          </li>
+        ))}
+      </ul>
+      <p>
+        <a href="/licenses/openjlpt-notice.txt">OpenJLPT and upstream attribution notice</a> ·{" "}
+        <a href="/licenses/CC-BY-SA-4.0.txt">CC BY-SA 4.0 licence</a>. Imported/adapted data and
+        source-derived drills retain CC BY-SA 4.0; the application code's licence is unchanged. No
+        audio is imported.
+      </p>
+      <h2>JLPT kanji coverage</h2>
       <p>
         All 2,211 characters in the pinned source’s N5–N1 lists are included. Another 548 kanji have
         no JLPT label. Levels are separate, not cumulative.{" "}
@@ -63,9 +98,9 @@ export default function Sources() {
       <p>
         JLPT levels supplied by the upstream data are approximate study labels, not an official
         exhaustive exam specification. Kanjiapi.dev credits Jonathan Waller’s JLPT Resources for
-        this mapping. Word examples are dictionary entries, not vocabulary-level assignments.
-        Missing metadata is left missing. Connections between cards are explained by shared readings
-        or meanings, without invented similarity scores.
+        this mapping. Word examples on legacy kanji cards are dictionary entries, not
+        vocabulary-level assignments. Missing metadata is left missing. Connections between cards
+        are explained by shared readings or meanings, without invented similarity scores.
       </p>
       <p>
         Review uses simple fixed intervals: Missed 10 minutes, Almost 1 day, Got It 3 days.

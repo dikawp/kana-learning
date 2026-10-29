@@ -1,26 +1,48 @@
 import Link from "next/link"
-import { catalog } from "@/lib/platform/repository"
-import { PageHeading, SetTile } from "@/components/platform/catalog"
-export const metadata = { title: "JLPT Study Map · Kana-Learn" }
+import { PageHeading } from "@/components/platform/catalog"
+import { CoverageNote, LevelNav } from "@/components/jlpt/navigation"
+import { levels, skills, skillLabels } from "@/lib/jlpt/types"
+import { getCoverage, getProgressIndex } from "@/lib/jlpt/repository"
+import styles from "@/components/jlpt/jlpt.module.css"
+import { JlptOverview } from "@/components/jlpt/progress"
+export const metadata = { title: "JLPT Learning Hub · Kana-Learn" }
 export default function JlptPage() {
+  const coverage = getCoverage()
   return (
     <>
-      <PageHeading eyebrow="KANJI / FIVE STUDY PATHS" title="Your JLPT study map.">
-        All 2,211 kanji in the N5–N1 lists from kanji-data 1.0.0, with a place to practice each one.
+      <PageHeading
+        eyebrow="JLPT / YOUR STUDY NOTEBOOK"
+        title="Build your Japanese, one unit at a time."
+      >
+        Learn vocabulary, grammar and reading in English, with practice and review from N5 to N1.
       </PageHeading>
-      <p className="muted">
-        Approximate source labels, not an official exam syllabus. Each level contains only its
-        assigned cards; lower levels are separate. Vocabulary examples are not assigned vocabulary
-        levels.
-      </p>
+      <CoverageNote />
+      <LevelNav />
+      <JlptOverview materials={getProgressIndex()} />
       <section>
         <h2>From N5 to N1</h2>
-        <div className="set-grid">
-          {catalog.sets
-            .filter((s) => s.slug.startsWith("jlpt-"))
-            .map((s) => (
-              <SetTile key={s.slug} set={s} count={s.decks.length} />
-            ))}
+        <div className={styles.grid}>
+          {levels.map((level) => (
+            <article key={level} className={styles.card}>
+              <h3>
+                <Link href={`/jlpt/${level}`}>{level.toUpperCase()} study notebook →</Link>
+              </h3>
+              <p>
+                {coverage.coverage[level].vocabulary} vocabulary entries ·{" "}
+                {coverage.coverage[level].grammar} grammar points ·{" "}
+                {coverage.coverage[level].readings} original reading exercise
+              </p>
+              <nav className={styles.nav} aria-label={`${level.toUpperCase()} skills`}>
+                {skills.map((s) => (
+                  <Link href={`/jlpt/${level}/${s}`} key={s}>
+                    {skillLabels[s]}
+                    {s === "choukai" ? " · Held" : ""}
+                  </Link>
+                ))}
+              </nav>
+              <Link href={`/set/jlpt-${level}`}>Canonical kanji notebook →</Link>
+            </article>
+          ))}
         </div>
       </section>
       <section>

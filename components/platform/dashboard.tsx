@@ -6,24 +6,28 @@ import { Flower2, Download, Upload } from "lucide-react"
 import type { Catalog, Kind } from "@/lib/platform/types"
 import type { Slot } from "@/lib/platform/learning"
 import { stats, levelFor, result } from "@/lib/platform/learning"
-import {
-  useSave,
-  updateSave,
-  updateSlot,
-  emptySlot,
-  exportSlot,
-  parseImport,
-} from "@/lib/platform/store"
+import { useSave, updateSave, updateSlot, emptySlot, exportSlot } from "@/lib/platform/store"
 import { PageHeading } from "./catalog"
+import { exportBackup, parseBackup, stageBackup, type ImportedBackup } from "@/lib/jlpt/backup"
+import { readSettledJlpt, replaceJlpt, useJlpt } from "@/lib/jlpt/store"
+import { clearSlot, recoverSlotOperations } from "@/lib/jlpt/slot-operations"
 
 export function Dashboard({ catalog }: { catalog: Catalog }) {
   const { slot, data, status, message } = useSave(),
     [filter, setFilter] = useState<Kind | "all">("all"),
     [name, setName] = useState(""),
     [error, setError] = useState(""),
-    [preview, setPreview] = useState<Slot | null>(null),
+    [preview, setPreview] = useState<ImportedBackup | null>(null),
     [page, setPage] = useState(1)
+  const jlpt = useJlpt(slot?.id ?? null)
+  const [busy, setBusy] = useState(false)
   const [now, setNow] = useState(() => Date.now())
+  useEffect(() => {
+    if (data)
+      void recoverSlotOperations().catch((err: unknown) =>
+        setError(err instanceof Error ? err.message : "Could not recover a save operation."),
+      )
+  }, [data])
   useEffect(() => {
     const timer = setInterval(() => setNow(Date.now()), 60000)
     return () => clearInterval(timer)
@@ -50,8 +54,25 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
     updateSave((s) => ({ ...s, activeSlotId: next.id, slots: [...s.slots, next] }))
     setError("")
   }
-  const download = () => {
-    const url = URL.createObjectURL(new Blob([exportSlot(slot)], { type: "application/json" }))
+  const run = async (action: () => Promise<void>) => {
+    if (busy) return
+    setBusy(true)
+    try {
+      await action()
+      setError("")
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Save operation failed. Your current slot has been kept.",
+      )
+    } finally {
+      setBusy(false)
+    }
+  }
+  const download = async (legacy = false) => {
+    const raw = legacy ? exportSlot(slot) : await exportBackup(slot)
+    const url = URL.createObjectURL(new Blob([raw], { type: "application/json" }))
     const a = document.createElement("a")
     a.href = url
     a.download = `kana-learn-${slot.id}.json`
@@ -246,11 +267,20 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
           </button>
           <button
             className="secondary-button"
+            disabled={busy}
             onClick={() =>
-              add({
-                ...structuredClone(slot),
-                id: crypto.randomUUID(),
-                name: `${slot.name.slice(0, 50)} Copy`,
+              void run(async () => {
+                if (data.slots.length >= 8)
+                  throw Error(
+                    "You can keep up to eight save slots. Export and remove a slot first.",
+                  )
+                const next = {
+                  ...structuredClone(slot),
+                  id: crypto.randomUUID(),
+                  name: `${slot.name.slice(0, 50)} Copy`,
+                }
+                await replaceJlpt(next.id, await readSettledJlpt(slot.id))
+                add(next)
               })
             }
           >
@@ -281,7 +311,11 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
           </button>
         </form>
         <div className="save-controls">
-          <button className="primary-button" onClick={download}>
+          <button
+            className="primary-button"
+            disabled={busy}
+            onClick={() => void run(() => download())}
+          >
             <Download size={17} />
             Export save
           </button>
@@ -297,9 +331,9 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
                 e.target.value = ""
                 if (!file) return
                 try {
-                  if (file.size > 2 * 1024 * 1024) throw Error("Import exceeds 2 MB.")
+                  if (file.size > 32 * 1024 * 1024) throw Error("Import exceeds 32 MiB.")
                   setPreview(
-                    parseImport(
+                    parseBackup(
                       await file.text(),
                       new Set(catalog.cards.map((c) => c.id)),
                       new Set(catalog.decks.map((d) => d.slug)),
@@ -314,19 +348,45 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
             />
           </label>
         </div>
+        <p className="fine-print">
+          Export save includes character progress and JLPT lessons, review, and session snapshots.
+          Version 1 saves can still be imported.
+        </p>
+        <button
+          className="quiet-link"
+          disabled={busy}
+          onClick={() => void run(() => download(true))}
+        >
+          Export legacy v1 (characters only)
+        </button>
+        {jlpt.status === "memory" && (
+          <p role="status" className="storage-warning">
+            {jlpt.message}
+          </p>
+        )}
         {preview && (
           <div className="import-preview">
             <h3>Import as a new slot?</h3>
             <p>
-              {preview.name} · {Object.keys(preview.cards).length} cards seen ·{" "}
-              {preview.history.length} saved runs. Your current slot will be kept.
+              {preview.slot.name} · {Object.keys(preview.slot.cards).length} cards seen ·{" "}
+              {preview.slot.history.length} saved runs · {preview.jlpt.history.length} JLPT runs.
+              Your current slot will be kept.
             </p>
             <button
               className="primary-button"
-              onClick={() => {
-                add({ ...preview, id: crypto.randomUUID() })
-                setPreview(null)
-              }}
+              disabled={busy}
+              onClick={() =>
+                void run(async () => {
+                  if (data.slots.length >= 8)
+                    throw Error(
+                      "You can keep up to eight save slots. Export and remove a slot first.",
+                    )
+                  const next = { ...preview.slot, id: crypto.randomUUID() }
+                  await stageBackup(preview, next.id)
+                  add(next)
+                  setPreview(null)
+                })
+              }
             >
               Confirm import
             </button>
@@ -342,18 +402,20 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
         )}
         <div className="danger-controls">
           <button
+            disabled={busy}
             onClick={() => {
               if (
                 window.confirm(
                   `Reset all progress in ${slot.name}? This cannot be undone. Export a backup first.`,
                 )
               )
-                updateSlot((s) => ({ ...emptySlot(s.name), id: s.id, createdAt: s.createdAt }))
+                void run(() => clearSlot(slot.id, "reset"))
             }}
           >
             Reset progress
           </button>
           <button
+            disabled={busy}
             onClick={() => {
               if (
                 !window.confirm(
@@ -361,11 +423,7 @@ export function Dashboard({ catalog }: { catalog: Catalog }) {
                 )
               )
                 return
-              updateSave((s) => {
-                const slots = s.slots.filter((p) => p.id !== slot.id)
-                if (!slots.length) slots.push(emptySlot())
-                return { ...s, slots, activeSlotId: slots[0].id }
-              })
+              void run(() => clearSlot(slot.id, "delete"))
             }}
           >
             Delete slot

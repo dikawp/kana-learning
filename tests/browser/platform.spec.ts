@@ -1,5 +1,6 @@
 import { expect, test } from "@playwright/test"
 import { createRequire } from "node:module"
+import { isAppExternalRequest } from "./network"
 const require = createRequire(import.meta.url)
 
 test("catalog → practice → resume → quiz → review → dashboard → backup", async ({
@@ -8,7 +9,7 @@ test("catalog → practice → resume → quiz → review → dashboard → back
   const external: string[] = [],
     errors: string[] = []
   page.on("request", (req) => {
-    if (!new URL(req.url()).hostname.match(/^(127\.0\.0\.1|localhost)$/)) external.push(req.url())
+    if (isAppExternalRequest(req.url())) external.push(req.url())
   })
   page.on("pageerror", (error) => errors.push(error.message))
   await page.goto("/")
@@ -105,9 +106,11 @@ test("catalog → practice → resume → quiz → review → dashboard → back
   )
 })
 
-test("JLPT overview, level search, new card mapping and practice", async ({ page }, testInfo) => {
+test("JLPT overview, level search, new card mapping and practice", async ({ page }) => {
   await page.goto("/jlpt")
-  await expect(page.getByRole("heading", { name: "Your JLPT study map." })).toBeVisible()
+  await expect(
+    page.getByRole("heading", { name: "Build your Japanese, one unit at a time." }),
+  ).toBeVisible()
   await page.addScriptTag({ path: require.resolve("axe-core/axe.min.js") })
   expect(
     await page.evaluate(async () => {
@@ -119,8 +122,7 @@ test("JLPT overview, level search, new card mapping and practice", async ({ page
       ).violations.map((v) => v.id)
     }),
   ).toEqual([])
-  await page.screenshot({ path: testInfo.outputPath("jlpt-map.png"), fullPage: true })
-  await page.locator('.set-grid a[href="/set/jlpt-n1"]').click()
+  await page.locator('a[href="/set/jlpt-n1"]').click()
   await expect(page.getByRole("heading", { name: "JLPT N1", exact: true })).toBeVisible()
   await page.goto("/search")
   await page.getByLabel("JLPT level").selectOption("1")

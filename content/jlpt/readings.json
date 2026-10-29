@@ -1,0 +1,1143 @@
+{
+  "materials": [
+    {
+      "id": "jlpt-n5-library-note",
+      "version": 2,
+      "level": "n5",
+      "skill": "dokkai",
+      "kind": "reading",
+      "title": "Library notice",
+      "meaning": "Read information and relationships between ideas.",
+      "objective": "Read a library timetable, borrowing limits, requests and permission.",
+      "tags": [
+        "original-reading",
+        "short-notice"
+      ],
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "editorialStatus": "unreviewed",
+      "origin": "ai-assisted",
+      "levelBasis": "Editorial N5 reading exercise. Not an official JLPT specification; not independently language-reviewed.",
+      "explanation": "Try reading before opening the translation. Support each answer with an exact passage quote rather than assumptions.",
+      "examples": [],
+      "blocks": [
+        {
+          "id": "p1",
+          "text": "図書館は火曜日から日曜日まで、午前九時から午後五時までです。月曜日は休みです。",
+          "reading": "としょかんはかようびからにちようびまで、ごぜんくじからごごごじまでです。げつようびはやすみです。"
+        },
+        {
+          "id": "p2",
+          "text": "本は三冊まで借りてもいいです。二週間で返してください。",
+          "reading": "ほんはさんさつまでかりてもいいです。にしゅうかんでかえしてください。"
+        }
+      ],
+      "translation": "The library is open Tuesday through Sunday from 9 a.m. to 5 p.m. It is closed on Mondays. You may borrow up to three books. Please return them within two weeks.",
+      "textType": "Short notice",
+      "kanjiIds": [
+        "kanji-4e09",
+        "kanji-4e5d",
+        "kanji-4e8c",
+        "kanji-4e94",
+        "kanji-4f11",
+        "kanji-501f",
+        "kanji-518a",
+        "kanji-524d",
+        "kanji-5348",
+        "kanji-56f3",
+        "kanji-5f8c",
+        "kanji-65e5",
+        "kanji-6642",
+        "kanji-66dc",
+        "kanji-66f8",
+        "kanji-6708",
+        "kanji-672c",
+        "kanji-706b",
+        "kanji-8fd4",
+        "kanji-9031",
+        "kanji-9593",
+        "kanji-9928"
+      ],
+      "relatedIds": [
+        "jlpt-n5-hon",
+        "jlpt-n5-yasumi",
+        "jlpt-n5-kaesu",
+        "jlpt-n5-kariru",
+        "jlpt-n5-te-kudasai",
+        "jlpt-n5-temo-ii"
+      ]
+    },
+    {
+      "id": "jlpt-n4-cooking-class",
+      "version": 2,
+      "level": "n4",
+      "skill": "dokkai",
+      "kind": "reading",
+      "title": "Sunday cooking class",
+      "meaning": "Read information and relationships between ideas.",
+      "objective": "Find registration requirements, deadlines and preparation details in an event notice.",
+      "tags": [
+        "original-reading",
+        "event-information"
+      ],
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "editorialStatus": "unreviewed",
+      "origin": "ai-assisted",
+      "levelBasis": "Editorial N4 reading exercise. Not an official JLPT specification; not independently language-reviewed.",
+      "explanation": "Try reading before opening the translation. Support each answer with an exact passage quote rather than assumptions.",
+      "examples": [],
+      "blocks": [
+        {
+          "id": "p1",
+          "text": "日曜日の料理教室は午前十時から十二時までです。経験がない人も参加できます。材料は会場で用意します。",
+          "reading": "にちようびのりょうりきょうしつはごぜんじゅうじからじゅうにじまでです。けいけんがないひともさんかできます。ざいりょうはかいじょうでよういします。"
+        },
+        {
+          "id": "p2",
+          "text": "参加する人は、金曜日までに電話で申し込まなければなりません。エプロンは自分で持ってきてください。",
+          "reading": "さんかするひとは、きんようびまでにでんわでもうしこまなければなりません。エプロンはじぶんでもってきてください。"
+        }
+      ],
+      "translation": "Sunday's cooking class runs from 10 a.m. until noon. People with no experience may also join. Ingredients will be provided at the venue. Participants must register by telephone by Friday. Please bring your own apron.",
+      "textType": "Event information",
+      "kanjiIds": [
+        "kanji-4e8c",
+        "kanji-4eba",
+        "kanji-4f1a",
+        "kanji-5206",
+        "kanji-524d",
+        "kanji-52a0",
+        "kanji-5341",
+        "kanji-5348",
+        "kanji-53c2",
+        "kanji-5834",
+        "kanji-5ba4",
+        "kanji-610f",
+        "kanji-6301",
+        "kanji-6559",
+        "kanji-6599",
+        "kanji-65e5",
+        "kanji-6642",
+        "kanji-66dc",
+        "kanji-6750",
+        "kanji-7406",
+        "kanji-7528",
+        "kanji-7533",
+        "kanji-7d4c",
+        "kanji-81ea",
+        "kanji-8a71",
+        "kanji-8fbc",
+        "kanji-91d1",
+        "kanji-96fb",
+        "kanji-9a13"
+      ],
+      "relatedIds": [
+        "jlpt-n4-moushikomu",
+        "jlpt-n4-youi",
+        "jlpt-n4-keiken",
+        "jlpt-n4-hitsuyou",
+        "jlpt-n4-ta-koto-ga-aru",
+        "jlpt-n4-nakereba-naranai"
+      ]
+    },
+    {
+      "id": "jlpt-n3-meeting-room",
+      "version": 2,
+      "level": "n3",
+      "skill": "dokkai",
+      "kind": "reading",
+      "title": "Changes to meeting-room bookings",
+      "meaning": "Read information and relationships between ideas.",
+      "objective": "Distinguish previous and future procedures, and identify conditions on shared facilities.",
+      "tags": [
+        "original-reading",
+        "facilities-email"
+      ],
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "editorialStatus": "unreviewed",
+      "origin": "ai-assisted",
+      "levelBasis": "Editorial N3 reading exercise. Not an official JLPT specification; not independently language-reviewed.",
+      "explanation": "Try reading before opening the translation. Support each answer with an exact passage quote rather than assumptions.",
+      "examples": [],
+      "blocks": [
+        {
+          "id": "p1",
+          "text": "来月から会議室の予約方法を変更します。これまでは受付で申し込んでいましたが、今後はウェブサイトから予約することになりました。予約できるのは利用日の一週間前からです。",
+          "reading": "らいげつからかいぎしつのよやくほうほうをへんこうします。これまではうけつけでもうしこんでいましたが、こんごはうぇぶさいとからよやくすることになりました。よやくできるのはりようびのいっしゅうかんまえからです。"
+        },
+        {
+          "id": "p2",
+          "text": "予約のない時間は自由に使えます。ただし、予約した人が来たら、席を空けてください。使った後は、机の上を確認し、忘れ物をしないようにしてください。",
+          "reading": "よやくのないじかんはじゆうにつかえます。ただし、よやくしたひとがきたら、せきをあけてください。つかったあとは、つくえのうえをかくにんし、わすれものをしないようにしてください。"
+        }
+      ],
+      "translation": "Starting next month, meeting-room bookings will move from reception to the website. Reservations open one week before the day of use. The room may be used freely when it is not reserved. However, please vacate your seat when someone with a reservation arrives. After using the room, check the desk so that you do not leave belongings behind.",
+      "textType": "Facilities email",
+      "kanjiIds": [
+        "kanji-4e00",
+        "kanji-4e0a",
+        "kanji-4e88",
+        "kanji-4eba",
+        "kanji-4eca",
+        "kanji-4ed8",
+        "kanji-4f1a",
+        "kanji-4f7f",
+        "kanji-5229",
+        "kanji-524d",
+        "kanji-53d7",
+        "kanji-5909",
+        "kanji-5ba4",
+        "kanji-5e2d",
+        "kanji-5f8c",
+        "kanji-5fd8",
+        "kanji-65b9",
+        "kanji-65e5",
+        "kanji-6642",
+        "kanji-66f4",
+        "kanji-6708",
+        "kanji-673a",
+        "kanji-6765",
+        "kanji-6cd5",
+        "kanji-7269",
+        "kanji-7528",
+        "kanji-7531",
+        "kanji-7533",
+        "kanji-78ba",
+        "kanji-7a7a",
+        "kanji-7d04",
+        "kanji-81ea",
+        "kanji-8a8d",
+        "kanji-8b70",
+        "kanji-8fbc",
+        "kanji-9031",
+        "kanji-9593"
+      ],
+      "relatedIds": [
+        "jlpt-n3-kyoutsuu",
+        "jlpt-n3-henkou",
+        "jlpt-n3-kakunin",
+        "jlpt-n3-kouritsu",
+        "jlpt-n3-you-ni-suru",
+        "jlpt-n3-koto-ni-natte-iru"
+      ]
+    },
+    {
+      "id": "jlpt-n2-digital-counter",
+      "version": 2,
+      "level": "n2",
+      "skill": "dokkai",
+      "kind": "reading",
+      "title": "A report on digital public services",
+      "meaning": "Read information and relationships between ideas.",
+      "objective": "Read an unexpected policy outcome, its explanation and the proposed first response.",
+      "tags": [
+        "original-reading",
+        "policy-report"
+      ],
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "editorialStatus": "unreviewed",
+      "origin": "ai-assisted",
+      "levelBasis": "Editorial N2 reading exercise. Not an official JLPT specification; not independently language-reviewed.",
+      "explanation": "Try reading before opening the translation. Support each answer with an exact passage quote rather than assumptions.",
+      "examples": [],
+      "blocks": [
+        {
+          "id": "p1",
+          "text": "市は、窓口の混雑を減らすため、申請手続きの電子化を推進してきた。オンライン申請の件数は増加したにもかかわらず、窓口での待ち時間はほとんど変わっていない。",
+          "reading": "しは、まどぐちのこんざつをへらすため、しんせいてつづきのでんしかをすいしんしてきた。おんらいんしんせいのけんすうはぞうかしたにもかかわらず、まどぐちでのまちじかんはほとんどかわっていない。"
+        },
+        {
+          "id": "p2",
+          "text": "利用者への調査では、入力内容が正しいか不安で、申請後に窓口を訪れる人が多いことが分かった。電子化に伴う案内の改善が十分でなかったのである。市は紙の申請書を直ちに廃止するのではなく、まず入力例と確認画面を見直す方針だ。",
+          "reading": "りようしゃへのちょうさでは、にゅうりょくないようがただしいかふあんで、しんせいごにまどぐちをおとずれるひとがおおいことがわかった。でんしかにともなうあんないのかいぜんがじゅうぶんでなかったのである。しはかみのしんせいしょをただちにはいしするのではなく、まずにゅうりょくれいとかくにんがめんをみなおすほうしんだ。"
+        }
+      ],
+      "translation": "The city has promoted digital applications to reduce congestion at its service counters. Although online applications increased, waiting times barely changed. A survey found that many users visited a counter after applying online because they were unsure whether they had entered the information correctly. Guidance had not been improved sufficiently alongside digitisation. Rather than immediately abolishing paper forms, the city plans first to revise its input examples and confirmation screen.",
+      "textType": "Policy report",
+      "kanjiIds": [
+        "kanji-4e0d",
+        "kanji-4eba",
+        "kanji-4ef6",
+        "kanji-4f34",
+        "kanji-4f8b",
+        "kanji-5165",
+        "kanji-5185",
+        "kanji-5206",
+        "kanji-5229",
+        "kanji-529b",
+        "kanji-52a0",
+        "kanji-5316",
+        "kanji-5341",
+        "kanji-53e3",
+        "kanji-5584",
+        "kanji-5897",
+        "kanji-5909",
+        "kanji-591a",
+        "kanji-5b50",
+        "kanji-5b89",
+        "kanji-5bb9",
+        "kanji-5e02",
+        "kanji-5ec3",
+        "kanji-5f85",
+        "kanji-5f8c",
+        "kanji-624b",
+        "kanji-63a8",
+        "kanji-6539",
+        "kanji-6570",
+        "kanji-65b9",
+        "kanji-6642",
+        "kanji-66f8",
+        "kanji-67fb",
+        "kanji-6848",
+        "kanji-6b62",
+        "kanji-6b63",
+        "kanji-6df7",
+        "kanji-6e1b",
+        "kanji-7528",
+        "kanji-7533",
+        "kanji-753b",
+        "kanji-76f4",
+        "kanji-78ba",
+        "kanji-7a93",
+        "kanji-7d19",
+        "kanji-7d9a",
+        "kanji-8005",
+        "kanji-898b",
+        "kanji-8a2a",
+        "kanji-8a8d",
+        "kanji-8abf",
+        "kanji-8acb",
+        "kanji-9032",
+        "kanji-91dd",
+        "kanji-9593",
+        "kanji-96d1",
+        "kanji-96fb",
+        "kanji-9762"
+      ],
+      "relatedIds": [
+        "jlpt-n2-suishin",
+        "jlpt-n2-futan",
+        "jlpt-n2-jittai",
+        "jlpt-n2-haishi",
+        "jlpt-n2-nimo-kakawarazu",
+        "jlpt-n2-ni-tomonatte"
+      ]
+    },
+    {
+      "id": "jlpt-n1-public-facility",
+      "version": 2,
+      "level": "n1",
+      "skill": "dokkai",
+      "kind": "reading",
+      "title": "What counts as a successful public decision?",
+      "meaning": "Read information and relationships between ideas.",
+      "objective": "Distinguish agreement from policy validity, and evaluate evidence hidden by aggregate statistics.",
+      "tags": [
+        "original-reading",
+        "short-argumentative-essay"
+      ],
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "editorialStatus": "unreviewed",
+      "origin": "ai-assisted",
+      "levelBasis": "Editorial N1 reading exercise. Not an official JLPT specification; not independently language-reviewed.",
+      "explanation": "Try reading before opening the translation. Support each answer with an exact passage quote rather than assumptions.",
+      "examples": [],
+      "blocks": [
+        {
+          "id": "p1",
+          "text": "公共施設の統合案をめぐり、委員会は予算の制約から当初の計画の修正を余儀なくされた。賛否双方の要望を取り入れた折衷案がまとまり、議論は収束したかに見える。しかし、合意の成立をもって施策の妥当性が証明されたとするのは拙速であろう。",
+          "reading": "こうきょうしせつのとうごうあんをめぐり、いいんかいはよさんのせいやくからとうしょのけいかくのしゅうせいをよぎなくされた。さんぴそうほうのようぼうをとりいれたせっちゅうあんがまとまり、ぎろんはしゅうそくしたかにみえる。しかし、ごういのせいりつをもってしさくのだとうせいがしょうめいされたとするのはせっそくであろう。"
+        },
+        {
+          "id": "p2",
+          "text": "利用者の総数が維持されたとしても、遠方の高齢者が利用を断念していれば、その不利益を看過してよいことにはならない。効率化の必要性は言うまでもないが、集計値だけでは捉えられない負担を検証し、必要に応じて是正する仕組みがなければ、統合の成否を判断することはできない。",
+          "reading": "りようしゃのそうすうがいじされたとしても、えんぽうのこうれいしゃがりようをだんねんしていれば、そのふりえきをかんかしてよいことにはならない。こうりつかのひつようせいはいうまでもないが、しゅうけいちだけではとらえられないふたんをけんしょうし、ひつようにおうじてぜせいするしくみがなければ、とうごうのせいひをはんだんすることはできない。"
+        }
+      ],
+      "translation": "Budget constraints forced the committee to revise its original plan to consolidate public facilities. A compromise incorporating requests from both sides appears to have settled the debate. Yet it would be hasty to treat agreement itself as proof that the policy is sound. Even if the total number of users stays the same, the disadvantages suffered by older people living far away who give up using the facilities must not be overlooked. The need for efficiency is obvious, but the consolidation cannot be judged without a system for examining burdens that aggregate figures fail to capture and correcting them where necessary.",
+      "textType": "Short argumentative essay",
+      "kanjiIds": [
+        "kanji-4e0d",
+        "kanji-4e88",
+        "kanji-4ed5",
+        "kanji-4f1a",
+        "kanji-4f59",
+        "kanji-4fee",
+        "kanji-5024",
+        "kanji-5100",
+        "kanji-5165",
+        "kanji-516c",
+        "kanji-5171",
+        "kanji-521d",
+        "kanji-5224",
+        "kanji-5229",
+        "kanji-5236",
+        "kanji-52b9",
+        "kanji-5316",
+        "kanji-53cc",
+        "kanji-53ce",
+        "kanji-53d6",
+        "kanji-5408",
+        "kanji-5426",
+        "kanji-54e1",
+        "kanji-59a5",
+        "kanji-59d4",
+        "kanji-5f53",
+        "kanji-5fc5",
+        "kanji-5fdc",
+        "kanji-5ff5",
+        "kanji-6027",
+        "kanji-610f",
+        "kanji-6210",
+        "kanji-6298",
+        "kanji-62c5",
+        "kanji-62d9",
+        "kanji-6301",
+        "kanji-6349",
+        "kanji-6570",
+        "kanji-65ad",
+        "kanji-65b9",
+        "kanji-65bd",
+        "kanji-660e",
+        "kanji-662f",
+        "kanji-671b",
+        "kanji-675f",
+        "kanji-6848",
+        "kanji-691c",
+        "kanji-6b63",
+        "kanji-7387",
+        "kanji-7528",
+        "kanji-753b",
+        "kanji-76ca",
+        "kanji-770b",
+        "kanji-7acb",
+        "kanji-7b56",
+        "kanji-7b97",
+        "kanji-7d04",
+        "kanji-7d44",
+        "kanji-7d71",
+        "kanji-7dad",
+        "kanji-7dcf",
+        "kanji-8005",
+        "kanji-8877",
+        "kanji-8981",
+        "kanji-898b",
+        "kanji-8a00",
+        "kanji-8a08",
+        "kanji-8a2d",
+        "kanji-8a3c",
+        "kanji-8ad6",
+        "kanji-8b70",
+        "kanji-8ca0",
+        "kanji-8cdb",
+        "kanji-901f",
+        "kanji-904e",
+        "kanji-9060",
+        "kanji-96c6",
+        "kanji-9ad8",
+        "kanji-9f62"
+      ],
+      "relatedIds": [
+        "jlpt-n1-secchuu",
+        "jlpt-n1-sessoku",
+        "jlpt-n1-kanka",
+        "jlpt-n1-zesei",
+        "jlpt-n1-wo-yoginaku-sareru",
+        "jlpt-n1-made-mo-nai"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "jlpt-n5-library-note-q1",
+      "version": 2,
+      "level": "n5",
+      "skill": "dokkai",
+      "type": "short-reading",
+      "materialId": "jlpt-n5-library-note",
+      "conceptId": "jlpt-n5-library-note-sense-1",
+      "variantGroup": "jlpt-n5-library-note-sense-1",
+      "prompt": "図書館はいつ休みですか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "火曜日"
+        },
+        {
+          "id": "b",
+          "label": "土曜日"
+        },
+        {
+          "id": "c",
+          "label": "日曜日"
+        },
+        {
+          "id": "d",
+          "label": "月曜日"
+        }
+      ],
+      "answerId": "d",
+      "explanation": "The notice explicitly says the library is closed on Mondays.",
+      "distractors": {
+        "a": "Tuesday is the first opening day, not the closing day.",
+        "b": "Saturday is within the Tuesday–Sunday opening period.",
+        "c": "Sunday is the last opening day, not the closing day."
+      },
+      "evidence": {
+        "blockId": "p1",
+        "quote": "月曜日は休みです。"
+      },
+      "context": {
+        "title": "Library notice",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "図書館は火曜日から日曜日まで、午前九時から午後五時までです。月曜日は休みです。",
+            "reading": "としょかんはかようびからにちようびまで、ごぜんくじからごごごじまでです。げつようびはやすみです。"
+          },
+          {
+            "id": "p2",
+            "text": "本は三冊まで借りてもいいです。二週間で返してください。",
+            "reading": "ほんはさんさつまでかりてもいいです。にしゅうかんでかえしてください。"
+          }
+        ],
+        "translation": "The library is open Tuesday through Sunday from 9 a.m. to 5 p.m. It is closed on Mondays. You may borrow up to three books. Please return them within two weeks."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n5-library-note-q2",
+      "version": 2,
+      "level": "n5",
+      "skill": "dokkai",
+      "type": "information-retrieval",
+      "materialId": "jlpt-n5-library-note",
+      "conceptId": "jlpt-n5-library-note-sense-1",
+      "variantGroup": "jlpt-n5-library-note-sense-1",
+      "prompt": "本は何冊まで借りてもいいですか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "二冊"
+        },
+        {
+          "id": "b",
+          "label": "四冊"
+        },
+        {
+          "id": "c",
+          "label": "三冊"
+        },
+        {
+          "id": "d",
+          "label": "一冊"
+        }
+      ],
+      "answerId": "c",
+      "explanation": "三冊まで sets the maximum at three books, not the number that must be borrowed.",
+      "distractors": {
+        "a": "Two books are permitted, but the question asks for the maximum.",
+        "b": "Four books exceed the stated maximum of three.",
+        "d": "One book is permitted, but is not the maximum."
+      },
+      "evidence": {
+        "blockId": "p2",
+        "quote": "本は三冊まで借りてもいいです。"
+      },
+      "context": {
+        "title": "Library notice",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "図書館は火曜日から日曜日まで、午前九時から午後五時までです。月曜日は休みです。",
+            "reading": "としょかんはかようびからにちようびまで、ごぜんくじからごごごじまでです。げつようびはやすみです。"
+          },
+          {
+            "id": "p2",
+            "text": "本は三冊まで借りてもいいです。二週間で返してください。",
+            "reading": "ほんはさんさつまでかりてもいいです。にしゅうかんでかえしてください。"
+          }
+        ],
+        "translation": "The library is open Tuesday through Sunday from 9 a.m. to 5 p.m. It is closed on Mondays. You may borrow up to three books. Please return them within two weeks."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n4-cooking-class-q1",
+      "version": 2,
+      "level": "n4",
+      "skill": "dokkai",
+      "type": "short-reading",
+      "materialId": "jlpt-n4-cooking-class",
+      "conceptId": "jlpt-n4-cooking-class-sense-1",
+      "variantGroup": "jlpt-n4-cooking-class-sense-1",
+      "prompt": "参加したい人は、いつまでに申し込みますか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "日曜日の朝まで"
+        },
+        {
+          "id": "b",
+          "label": "土曜日まで"
+        },
+        {
+          "id": "c",
+          "label": "教室が終わるまで"
+        },
+        {
+          "id": "d",
+          "label": "金曜日まで"
+        }
+      ],
+      "answerId": "d",
+      "explanation": "Registration closes on Friday; Sunday is the day of the class, not the deadline.",
+      "distractors": {
+        "a": "Sunday morning is after the Friday registration deadline.",
+        "b": "Saturday is one day later than the deadline.",
+        "c": "Registration must take place before the event, not after it."
+      },
+      "evidence": {
+        "blockId": "p2",
+        "quote": "金曜日までに電話で申し込まなければなりません。"
+      },
+      "context": {
+        "title": "Sunday cooking class",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "日曜日の料理教室は午前十時から十二時までです。経験がない人も参加できます。材料は会場で用意します。",
+            "reading": "にちようびのりょうりきょうしつはごぜんじゅうじからじゅうにじまでです。けいけんがないひともさんかできます。ざいりょうはかいじょうでよういします。"
+          },
+          {
+            "id": "p2",
+            "text": "参加する人は、金曜日までに電話で申し込まなければなりません。エプロンは自分で持ってきてください。",
+            "reading": "さんかするひとは、きんようびまでにでんわでもうしこまなければなりません。エプロンはじぶんでもってきてください。"
+          }
+        ],
+        "translation": "Sunday's cooking class runs from 10 a.m. until noon. People with no experience may also join. Ingredients will be provided at the venue. Participants must register by telephone by Friday. Please bring your own apron."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n4-cooking-class-q2",
+      "version": 2,
+      "level": "n4",
+      "skill": "dokkai",
+      "type": "information-retrieval",
+      "materialId": "jlpt-n4-cooking-class",
+      "conceptId": "jlpt-n4-cooking-class-sense-1",
+      "variantGroup": "jlpt-n4-cooking-class-sense-1",
+      "prompt": "自分で用意する必要があるものは何ですか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "机"
+        },
+        {
+          "id": "b",
+          "label": "電話"
+        },
+        {
+          "id": "c",
+          "label": "エプロン"
+        },
+        {
+          "id": "d",
+          "label": "材料"
+        }
+      ],
+      "answerId": "c",
+      "explanation": "Participants must bring an apron. The ingredients are provided at the venue.",
+      "distractors": {
+        "a": "The notice does not ask participants to bring a desk.",
+        "b": "A telephone is used to register; it is not a required item to bring.",
+        "d": "The venue provides the ingredients."
+      },
+      "evidence": {
+        "blockId": "p2",
+        "quote": "エプロンは自分で持ってきてください。"
+      },
+      "context": {
+        "title": "Sunday cooking class",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "日曜日の料理教室は午前十時から十二時までです。経験がない人も参加できます。材料は会場で用意します。",
+            "reading": "にちようびのりょうりきょうしつはごぜんじゅうじからじゅうにじまでです。けいけんがないひともさんかできます。ざいりょうはかいじょうでよういします。"
+          },
+          {
+            "id": "p2",
+            "text": "参加する人は、金曜日までに電話で申し込まなければなりません。エプロンは自分で持ってきてください。",
+            "reading": "さんかするひとは、きんようびまでにでんわでもうしこまなければなりません。エプロンはじぶんでもってきてください。"
+          }
+        ],
+        "translation": "Sunday's cooking class runs from 10 a.m. until noon. People with no experience may also join. Ingredients will be provided at the venue. Participants must register by telephone by Friday. Please bring your own apron."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n3-meeting-room-q1",
+      "version": 2,
+      "level": "n3",
+      "skill": "dokkai",
+      "type": "short-reading",
+      "materialId": "jlpt-n3-meeting-room",
+      "conceptId": "jlpt-n3-meeting-room-sense-1",
+      "variantGroup": "jlpt-n3-meeting-room-sense-1",
+      "prompt": "来月から予約するとき、何を使いますか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "受付の申込用紙"
+        },
+        {
+          "id": "b",
+          "label": "電話"
+        },
+        {
+          "id": "c",
+          "label": "会議室の黒板"
+        },
+        {
+          "id": "d",
+          "label": "ウェブサイト"
+        }
+      ],
+      "answerId": "d",
+      "explanation": "今後 introduces the new booking procedure: use the website. これまで describes the old reception-based procedure.",
+      "distractors": {
+        "a": "Reception forms belong to the previous procedure.",
+        "b": "The new procedure uses the website, not the telephone.",
+        "c": "The notice does not mention booking through a blackboard."
+      },
+      "evidence": {
+        "blockId": "p1",
+        "quote": "今後はウェブサイトから予約することになりました。"
+      },
+      "context": {
+        "title": "Changes to meeting-room bookings",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "来月から会議室の予約方法を変更します。これまでは受付で申し込んでいましたが、今後はウェブサイトから予約することになりました。予約できるのは利用日の一週間前からです。",
+            "reading": "らいげつからかいぎしつのよやくほうほうをへんこうします。これまではうけつけでもうしこんでいましたが、こんごはうぇぶさいとからよやくすることになりました。よやくできるのはりようびのいっしゅうかんまえからです。"
+          },
+          {
+            "id": "p2",
+            "text": "予約のない時間は自由に使えます。ただし、予約した人が来たら、席を空けてください。使った後は、机の上を確認し、忘れ物をしないようにしてください。",
+            "reading": "よやくのないじかんはじゆうにつかえます。ただし、よやくしたひとがきたら、せきをあけてください。つかったあとは、つくえのうえをかくにんし、わすれものをしないようにしてください。"
+          }
+        ],
+        "translation": "Starting next month, meeting-room bookings will move from reception to the website. Reservations open one week before the day of use. The room may be used freely when it is not reserved. However, please vacate your seat when someone with a reservation arrives. After using the room, check the desk so that you do not leave belongings behind."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n3-meeting-room-q2",
+      "version": 2,
+      "level": "n3",
+      "skill": "dokkai",
+      "type": "information-retrieval",
+      "materialId": "jlpt-n3-meeting-room",
+      "conceptId": "jlpt-n3-meeting-room-sense-1",
+      "variantGroup": "jlpt-n3-meeting-room-sense-1",
+      "prompt": "予約せずに利用していて、予約した人が来たらどうしますか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "受付に電話する"
+        },
+        {
+          "id": "b",
+          "label": "そのまま使い続ける"
+        },
+        {
+          "id": "c",
+          "label": "席を空ける"
+        },
+        {
+          "id": "d",
+          "label": "一緒に使うよう交渉する"
+        }
+      ],
+      "answerId": "c",
+      "explanation": "Unreserved use is permitted only until a person with a reservation arrives; the notice then requires you to vacate the seat.",
+      "distractors": {
+        "a": "There is no instruction to telephone reception.",
+        "b": "Continuing to occupy the room contradicts the instruction to vacate it.",
+        "d": "The notice requires vacating, rather than negotiating shared use."
+      },
+      "evidence": {
+        "blockId": "p2",
+        "quote": "予約した人が来たら、席を空けてください。"
+      },
+      "context": {
+        "title": "Changes to meeting-room bookings",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "来月から会議室の予約方法を変更します。これまでは受付で申し込んでいましたが、今後はウェブサイトから予約することになりました。予約できるのは利用日の一週間前からです。",
+            "reading": "らいげつからかいぎしつのよやくほうほうをへんこうします。これまではうけつけでもうしこんでいましたが、こんごはうぇぶさいとからよやくすることになりました。よやくできるのはりようびのいっしゅうかんまえからです。"
+          },
+          {
+            "id": "p2",
+            "text": "予約のない時間は自由に使えます。ただし、予約した人が来たら、席を空けてください。使った後は、机の上を確認し、忘れ物をしないようにしてください。",
+            "reading": "よやくのないじかんはじゆうにつかえます。ただし、よやくしたひとがきたら、せきをあけてください。つかったあとは、つくえのうえをかくにんし、わすれものをしないようにしてください。"
+          }
+        ],
+        "translation": "Starting next month, meeting-room bookings will move from reception to the website. Reservations open one week before the day of use. The room may be used freely when it is not reserved. However, please vacate your seat when someone with a reservation arrives. After using the room, check the desk so that you do not leave belongings behind."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n2-digital-counter-q1",
+      "version": 2,
+      "level": "n2",
+      "skill": "dokkai",
+      "type": "short-reading",
+      "materialId": "jlpt-n2-digital-counter",
+      "conceptId": "jlpt-n2-digital-counter-sense-1",
+      "variantGroup": "jlpt-n2-digital-counter-sense-1",
+      "prompt": "待ち時間が減らなかった背景として、本文が指摘するのはどれか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "オンライン申請の件数が減ったこと"
+        },
+        {
+          "id": "b",
+          "label": "窓口の職員が全員減らされたこと"
+        },
+        {
+          "id": "c",
+          "label": "紙の申請が既に禁止されたこと"
+        },
+        {
+          "id": "d",
+          "label": "申請後も入力に不安を感じて窓口に来る人が多いこと"
+        }
+      ],
+      "answerId": "d",
+      "explanation": "The survey links extra counter visits to applicants' uncertainty about the information they entered online.",
+      "distractors": {
+        "a": "Online applications increased; the passage does not say they decreased.",
+        "b": "The passage does not report a reduction of all counter staff.",
+        "c": "Paper applications have not already been prohibited."
+      },
+      "evidence": {
+        "blockId": "p2",
+        "quote": "入力内容が正しいか不安で、申請後に窓口を訪れる人が多い"
+      },
+      "context": {
+        "title": "A report on digital public services",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "市は、窓口の混雑を減らすため、申請手続きの電子化を推進してきた。オンライン申請の件数は増加したにもかかわらず、窓口での待ち時間はほとんど変わっていない。",
+            "reading": "しは、まどぐちのこんざつをへらすため、しんせいてつづきのでんしかをすいしんしてきた。おんらいんしんせいのけんすうはぞうかしたにもかかわらず、まどぐちでのまちじかんはほとんどかわっていない。"
+          },
+          {
+            "id": "p2",
+            "text": "利用者への調査では、入力内容が正しいか不安で、申請後に窓口を訪れる人が多いことが分かった。電子化に伴う案内の改善が十分でなかったのである。市は紙の申請書を直ちに廃止するのではなく、まず入力例と確認画面を見直す方針だ。",
+            "reading": "りようしゃへのちょうさでは、にゅうりょくないようがただしいかふあんで、しんせいごにまどぐちをおとずれるひとがおおいことがわかった。でんしかにともなうあんないのかいぜんがじゅうぶんでなかったのである。しはかみのしんせいしょをただちにはいしするのではなく、まずにゅうりょくれいとかくにんがめんをみなおすほうしんだ。"
+          }
+        ],
+        "translation": "The city has promoted digital applications to reduce congestion at its service counters. Although online applications increased, waiting times barely changed. A survey found that many users visited a counter after applying online because they were unsure whether they had entered the information correctly. Guidance had not been improved sufficiently alongside digitisation. Rather than immediately abolishing paper forms, the city plans first to revise its input examples and confirmation screen."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n2-digital-counter-q2",
+      "version": 2,
+      "level": "n2",
+      "skill": "dokkai",
+      "type": "information-retrieval",
+      "materialId": "jlpt-n2-digital-counter",
+      "conceptId": "jlpt-n2-digital-counter-sense-1",
+      "variantGroup": "jlpt-n2-digital-counter-sense-1",
+      "prompt": "市がまず取り組むことは何か。",
+      "options": [
+        {
+          "id": "a",
+          "label": "窓口の全面閉鎖"
+        },
+        {
+          "id": "b",
+          "label": "オンライン申請の中止"
+        },
+        {
+          "id": "c",
+          "label": "入力例と確認画面の改善"
+        },
+        {
+          "id": "d",
+          "label": "紙の申請書の即時廃止"
+        }
+      ],
+      "answerId": "c",
+      "explanation": "まず identifies the first action: revising input examples and the confirmation screen. The text explicitly contrasts this with immediately abolishing paper forms.",
+      "distractors": {
+        "a": "Closing all counters is not the proposed first action.",
+        "b": "The city is improving online applications, not cancelling them.",
+        "d": "Immediate abolition of paper forms is explicitly rejected as the first step."
+      },
+      "evidence": {
+        "blockId": "p2",
+        "quote": "まず入力例と確認画面を見直す方針だ。"
+      },
+      "context": {
+        "title": "A report on digital public services",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "市は、窓口の混雑を減らすため、申請手続きの電子化を推進してきた。オンライン申請の件数は増加したにもかかわらず、窓口での待ち時間はほとんど変わっていない。",
+            "reading": "しは、まどぐちのこんざつをへらすため、しんせいてつづきのでんしかをすいしんしてきた。おんらいんしんせいのけんすうはぞうかしたにもかかわらず、まどぐちでのまちじかんはほとんどかわっていない。"
+          },
+          {
+            "id": "p2",
+            "text": "利用者への調査では、入力内容が正しいか不安で、申請後に窓口を訪れる人が多いことが分かった。電子化に伴う案内の改善が十分でなかったのである。市は紙の申請書を直ちに廃止するのではなく、まず入力例と確認画面を見直す方針だ。",
+            "reading": "りようしゃへのちょうさでは、にゅうりょくないようがただしいかふあんで、しんせいごにまどぐちをおとずれるひとがおおいことがわかった。でんしかにともなうあんないのかいぜんがじゅうぶんでなかったのである。しはかみのしんせいしょをただちにはいしするのではなく、まずにゅうりょくれいとかくにんがめんをみなおすほうしんだ。"
+          }
+        ],
+        "translation": "The city has promoted digital applications to reduce congestion at its service counters. Although online applications increased, waiting times barely changed. A survey found that many users visited a counter after applying online because they were unsure whether they had entered the information correctly. Guidance had not been improved sufficiently alongside digitisation. Rather than immediately abolishing paper forms, the city plans first to revise its input examples and confirmation screen."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n1-public-facility-q1",
+      "version": 2,
+      "level": "n1",
+      "skill": "dokkai",
+      "type": "short-reading",
+      "materialId": "jlpt-n1-public-facility",
+      "conceptId": "jlpt-n1-public-facility-sense-1",
+      "variantGroup": "jlpt-n1-public-facility-sense-1",
+      "prompt": "筆者が拙速だと考える判断はどれか。",
+      "options": [
+        {
+          "id": "a",
+          "label": "予算制約によって計画を修正すること"
+        },
+        {
+          "id": "b",
+          "label": "利用者の負担を個別に調べること"
+        },
+        {
+          "id": "c",
+          "label": "必要に応じて不利益を是正すること"
+        },
+        {
+          "id": "d",
+          "label": "合意が成立したので施策も妥当だと判断すること"
+        }
+      ],
+      "answerId": "d",
+      "explanation": "The author distinguishes reaching agreement from demonstrating that a policy is justified. Treating the former as proof of the latter is the hasty judgement.",
+      "distractors": {
+        "a": "The author describes the budget-driven revision without identifying the revision itself as the hasty inference.",
+        "b": "Examining individuals' burdens is part of the author's recommended evaluation.",
+        "c": "Correcting disadvantages is recommended, rather than criticised as hasty."
+      },
+      "evidence": {
+        "blockId": "p1",
+        "quote": "合意の成立をもって施策の妥当性が証明されたとするのは拙速"
+      },
+      "context": {
+        "title": "What counts as a successful public decision?",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "公共施設の統合案をめぐり、委員会は予算の制約から当初の計画の修正を余儀なくされた。賛否双方の要望を取り入れた折衷案がまとまり、議論は収束したかに見える。しかし、合意の成立をもって施策の妥当性が証明されたとするのは拙速であろう。",
+            "reading": "こうきょうしせつのとうごうあんをめぐり、いいんかいはよさんのせいやくからとうしょのけいかくのしゅうせいをよぎなくされた。さんぴそうほうのようぼうをとりいれたせっちゅうあんがまとまり、ぎろんはしゅうそくしたかにみえる。しかし、ごういのせいりつをもってしさくのだとうせいがしょうめいされたとするのはせっそくであろう。"
+          },
+          {
+            "id": "p2",
+            "text": "利用者の総数が維持されたとしても、遠方の高齢者が利用を断念していれば、その不利益を看過してよいことにはならない。効率化の必要性は言うまでもないが、集計値だけでは捉えられない負担を検証し、必要に応じて是正する仕組みがなければ、統合の成否を判断することはできない。",
+            "reading": "りようしゃのそうすうがいじされたとしても、えんぽうのこうれいしゃがりようをだんねんしていれば、そのふりえきをかんかしてよいことにはならない。こうりつかのひつようせいはいうまでもないが、しゅうけいちだけではとらえられないふたんをけんしょうし、ひつようにおうじてぜせいするしくみがなければ、とうごうのせいひをはんだんすることはできない。"
+          }
+        ],
+        "translation": "Budget constraints forced the committee to revise its original plan to consolidate public facilities. A compromise incorporating requests from both sides appears to have settled the debate. Yet it would be hasty to treat agreement itself as proof that the policy is sound. Even if the total number of users stays the same, the disadvantages suffered by older people living far away who give up using the facilities must not be overlooked. The need for efficiency is obvious, but the consolidation cannot be judged without a system for examining burdens that aggregate figures fail to capture and correcting them where necessary."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    },
+    {
+      "id": "jlpt-n1-public-facility-q2",
+      "version": 2,
+      "level": "n1",
+      "skill": "dokkai",
+      "type": "information-retrieval",
+      "materialId": "jlpt-n1-public-facility",
+      "conceptId": "jlpt-n1-public-facility-sense-1",
+      "variantGroup": "jlpt-n1-public-facility-sense-1",
+      "prompt": "統合の成否を判断するうえで、筆者が求めるのは何か。",
+      "options": [
+        {
+          "id": "a",
+          "label": "反対意見をすべて退けること"
+        },
+        {
+          "id": "b",
+          "label": "効率化そのものを断念すること"
+        },
+        {
+          "id": "c",
+          "label": "総数に表れない負担を検証し是正する仕組み"
+        },
+        {
+          "id": "d",
+          "label": "利用者の総数だけを比較すること"
+        }
+      ],
+      "answerId": "c",
+      "explanation": "The author requires a system for investigating burdens hidden by aggregate statistics and correcting disadvantages as needed.",
+      "distractors": {
+        "a": "The author does not recommend dismissing all opposition.",
+        "b": "The passage acknowledges the need for efficiency instead of abandoning it.",
+        "d": "Comparing totals alone is precisely the inadequate method being criticised."
+      },
+      "evidence": {
+        "blockId": "p2",
+        "quote": "集計値だけでは捉えられない負担を検証し、必要に応じて是正する仕組み"
+      },
+      "context": {
+        "title": "What counts as a successful public decision?",
+        "blocks": [
+          {
+            "id": "p1",
+            "text": "公共施設の統合案をめぐり、委員会は予算の制約から当初の計画の修正を余儀なくされた。賛否双方の要望を取り入れた折衷案がまとまり、議論は収束したかに見える。しかし、合意の成立をもって施策の妥当性が証明されたとするのは拙速であろう。",
+            "reading": "こうきょうしせつのとうごうあんをめぐり、いいんかいはよさんのせいやくからとうしょのけいかくのしゅうせいをよぎなくされた。さんぴそうほうのようぼうをとりいれたせっちゅうあんがまとまり、ぎろんはしゅうそくしたかにみえる。しかし、ごういのせいりつをもってしさくのだとうせいがしょうめいされたとするのはせっそくであろう。"
+          },
+          {
+            "id": "p2",
+            "text": "利用者の総数が維持されたとしても、遠方の高齢者が利用を断念していれば、その不利益を看過してよいことにはならない。効率化の必要性は言うまでもないが、集計値だけでは捉えられない負担を検証し、必要に応じて是正する仕組みがなければ、統合の成否を判断することはできない。",
+            "reading": "りようしゃのそうすうがいじされたとしても、えんぽうのこうれいしゃがりようをだんねんしていれば、そのふりえきをかんかしてよいことにはならない。こうりつかのひつようせいはいうまでもないが、しゅうけいちだけではとらえられないふたんをけんしょうし、ひつようにおうじてぜせいするしくみがなければ、とうごうのせいひをはんだんすることはできない。"
+          }
+        ],
+        "translation": "Budget constraints forced the committee to revise its original plan to consolidate public facilities. A compromise incorporating requests from both sides appears to have settled the debate. Yet it would be hasty to treat agreement itself as proof that the policy is sound. Even if the total number of users stays the same, the disadvantages suffered by older people living far away who give up using the facilities must not be overlooked. The need for efficiency is obvious, but the consolidation cannot be judged without a system for examining burdens that aggregate figures fail to capture and correcting them where necessary."
+      },
+      "sourceIds": [
+        "jlpt-original-en-v2"
+      ],
+      "method": "ai-assisted"
+    }
+  ],
+  "units": [
+    {
+      "id": "jlpt-n5-unit-tosyokan",
+      "level": "n5",
+      "title": "At the library",
+      "objective": "Read a library timetable, borrowing limits, requests and permission.",
+      "materialIds": [
+        "jlpt-n5-hon",
+        "jlpt-n5-yasumi",
+        "jlpt-n5-kaesu",
+        "jlpt-n5-kariru",
+        "jlpt-n5-te-kudasai",
+        "jlpt-n5-temo-ii",
+        "jlpt-n5-library-note"
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "jlpt-n4-unit-chiiki-event",
+      "level": "n4",
+      "title": "Joining a community event",
+      "objective": "Find registration requirements, deadlines and preparation details in an event notice.",
+      "materialIds": [
+        "jlpt-n4-moushikomu",
+        "jlpt-n4-youi",
+        "jlpt-n4-keiken",
+        "jlpt-n4-hitsuyou",
+        "jlpt-n4-ta-koto-ga-aru",
+        "jlpt-n4-nakereba-naranai",
+        "jlpt-n4-cooking-class"
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "jlpt-n3-unit-shared-office",
+      "level": "n3",
+      "title": "Shared-office routines",
+      "objective": "Distinguish previous and future procedures, and identify conditions on shared facilities.",
+      "materialIds": [
+        "jlpt-n3-kyoutsuu",
+        "jlpt-n3-henkou",
+        "jlpt-n3-kakunin",
+        "jlpt-n3-kouritsu",
+        "jlpt-n3-you-ni-suru",
+        "jlpt-n3-koto-ni-natte-iru",
+        "jlpt-n3-meeting-room"
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "jlpt-n2-unit-policy-review",
+      "level": "n2",
+      "title": "Evaluating a service change",
+      "objective": "Read an unexpected policy outcome, its explanation and the proposed first response.",
+      "materialIds": [
+        "jlpt-n2-suishin",
+        "jlpt-n2-futan",
+        "jlpt-n2-jittai",
+        "jlpt-n2-haishi",
+        "jlpt-n2-nimo-kakawarazu",
+        "jlpt-n2-ni-tomonatte",
+        "jlpt-n2-digital-counter"
+      ],
+      "prerequisites": []
+    },
+    {
+      "id": "jlpt-n1-unit-deliberation",
+      "level": "n1",
+      "title": "Assessing public decisions",
+      "objective": "Distinguish agreement from policy validity, and evaluate evidence hidden by aggregate statistics.",
+      "materialIds": [
+        "jlpt-n1-secchuu",
+        "jlpt-n1-sessoku",
+        "jlpt-n1-kanka",
+        "jlpt-n1-zesei",
+        "jlpt-n1-wo-yoginaku-sareru",
+        "jlpt-n1-made-mo-nai",
+        "jlpt-n1-public-facility"
+      ],
+      "prerequisites": []
+    }
+  ]
+}

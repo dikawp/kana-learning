@@ -1,0 +1,212 @@
+[
+  {
+    "id": "jlpt-n5-hon",
+    "level": "n5",
+    "kind": "vocabulary",
+    "title": "本",
+    "reading": "ほん"
+  },
+  {
+    "id": "jlpt-n5-yasumi",
+    "level": "n5",
+    "kind": "vocabulary",
+    "title": "休み",
+    "reading": "やすみ"
+  },
+  {
+    "id": "jlpt-n5-kaesu",
+    "level": "n5",
+    "kind": "vocabulary",
+    "title": "返す",
+    "reading": "かえす"
+  },
+  {
+    "id": "jlpt-n5-kariru",
+    "level": "n5",
+    "kind": "vocabulary",
+    "title": "借りる",
+    "reading": "かりる"
+  },
+  {
+    "id": "jlpt-n5-te-kudasai",
+    "level": "n5",
+    "kind": "grammar",
+    "title": "〜てください",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n5-temo-ii",
+    "level": "n5",
+    "kind": "grammar",
+    "title": "〜てもいいです",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n4-moushikomu",
+    "level": "n4",
+    "kind": "vocabulary",
+    "title": "申し込む",
+    "reading": "もうしこむ"
+  },
+  {
+    "id": "jlpt-n4-youi",
+    "level": "n4",
+    "kind": "vocabulary",
+    "title": "用意",
+    "reading": "ようい"
+  },
+  {
+    "id": "jlpt-n4-keiken",
+    "level": "n4",
+    "kind": "vocabulary",
+    "title": "経験",
+    "reading": "けいけん"
+  },
+  {
+    "id": "jlpt-n4-hitsuyou",
+    "level": "n4",
+    "kind": "vocabulary",
+    "title": "必要",
+    "reading": "ひつよう"
+  },
+  {
+    "id": "jlpt-n4-ta-koto-ga-aru",
+    "level": "n4",
+    "kind": "grammar",
+    "title": "〜たことがある",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n4-nakereba-naranai",
+    "level": "n4",
+    "kind": "grammar",
+    "title": "〜なければならない",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n3-kyoutsuu",
+    "level": "n3",
+    "kind": "vocabulary",
+    "title": "共通",
+    "reading": "きょうつう"
+  },
+  {
+    "id": "jlpt-n3-henkou",
+    "level": "n3",
+    "kind": "vocabulary",
+    "title": "変更",
+    "reading": "へんこう"
+  },
+  {
+    "id": "jlpt-n3-kakunin",
+    "level": "n3",
+    "kind": "vocabulary",
+    "title": "確認",
+    "reading": "かくにん"
+  },
+  {
+    "id": "jlpt-n3-kouritsu",
+    "level": "n3",
+    "kind": "vocabulary",
+    "title": "効率",
+    "reading": "こうりつ"
+  },
+  {
+    "id": "jlpt-n3-you-ni-suru",
+    "level": "n3",
+    "kind": "grammar",
+    "title": "〜ようにする",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n3-koto-ni-natte-iru",
+    "level": "n3",
+    "kind": "grammar",
+    "title": "〜ことになっている",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n2-suishin",
+    "level": "n2",
+    "kind": "vocabulary",
+    "title": "推進",
+    "reading": "すいしん"
+  },
+  {
+    "id": "jlpt-n2-futan",
+    "level": "n2",
+    "kind": "vocabulary",
+    "title": "負担",
+    "reading": "ふたん"
+  },
+  {
+    "id": "jlpt-n2-jittai",
+    "level": "n2",
+    "kind": "vocabulary",
+    "title": "実態",
+    "reading": "じったい"
+  },
+  {
+    "id": "jlpt-n2-haishi",
+    "level": "n2",
+    "kind": "vocabulary",
+    "title": "廃止",
+    "reading": "はいし"
+  },
+  {
+    "id": "jlpt-n2-nimo-kakawarazu",
+    "level": "n2",
+    "kind": "grammar",
+    "title": "〜にもかかわらず",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n2-ni-tomonatte",
+    "level": "n2",
+    "kind": "grammar",
+    "title": "〜に伴って",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n1-secchuu",
+    "level": "n1",
+    "kind": "vocabulary",
+    "title": "折衷",
+    "reading": "せっちゅう"
+  },
+  {
+    "id": "jlpt-n1-sessoku",
+    "level": "n1",
+    "kind": "vocabulary",
+    "title": "拙速",
+    "reading": "せっそく"
+  },
+  {
+    "id": "jlpt-n1-kanka",
+    "level": "n1",
+    "kind": "vocabulary",
+    "title": "看過",
+    "reading": "かんか"
+  },
+  {
+    "id": "jlpt-n1-zesei",
+    "level": "n1",
+    "kind": "vocabulary",
+    "title": "是正",
+    "reading": "ぜせい"
+  },
+  {
+    "id": "jlpt-n1-wo-yoginaku-sareru",
+    "level": "n1",
+    "kind": "grammar",
+    "title": "〜を余儀なくされる",
+    "reading": ""
+  },
+  {
+    "id": "jlpt-n1-made-mo-nai",
+    "level": "n1",
+    "kind": "grammar",
+    "title": "〜までもない",
+    "reading": ""
+  }
+]

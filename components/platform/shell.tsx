@@ -28,11 +28,12 @@ import type { StudySet } from "@/lib/platform/types"
 function Navigation({ sets, mobile = false }: { sets: StudySet[]; mobile?: boolean }) {
   const pathname = usePathname()
   const link = (href: string, label: string, icon?: React.ReactNode) => {
+    const current = pathname === href || (href === "/jlpt" && pathname.startsWith("/jlpt/"))
     const node = (
       <Link
-        className={`rail-link ${pathname === href ? "is-current" : ""}`}
+        className={`rail-link ${current ? "is-current" : ""}`}
         href={href}
-        aria-current={pathname === href ? "page" : undefined}
+        aria-current={current ? "page" : undefined}
       >
         {icon}
         {label}
@@ -50,6 +51,7 @@ function Navigation({ sets, mobile = false }: { sets: StudySet[]; mobile?: boole
     <nav aria-label="Learning catalog" className="rail-nav">
       {link("/", "Your starting point", <House size={17} />)}
       {link("/archive", "The collection", <Library size={17} />)}
+      {link("/jlpt", "JLPT study notebook", <Library size={17} />)}
       {link("/search", "Find a character", <Search size={17} />)}
       {link("/dashboard", "Your progress", <ChartNoAxesCombined size={17} />)}
       <p className="rail-label">01 — The syllabaries</p>

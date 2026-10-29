@@ -38,6 +38,15 @@ try {
     "/",
     "/archive",
     "/jlpt",
+    "/jlpt/n5",
+    "/jlpt/n1/bunpou",
+    "/jlpt/n5/dokkai",
+    "/jlpt/n5/choukai",
+    "/jlpt/n5/practice",
+    "/jlpt/n5/review",
+    "/jlpt/n5/mock",
+    "/jlpt/n5/units",
+    "/jlpt/n5/moji-goi/jlpt-n5-v-ada066edfd",
     "/set/jlpt-n1",
     "/card/kanji-51ea",
     "/set/hiragana",
@@ -64,6 +73,9 @@ try {
   assert.equal(d.cards.length, 46)
   const k = await (await fetch(origin + "/api/cards/kanji-65e5")).json()
   assert.equal(k.card.glyph, "日")
+  const questions = await fetch(origin + "/api/jlpt/questions?level=n5&ids=jlpt-n5-v-ada066edfd")
+  assert.equal(questions.status, 200)
+  assert.equal((await questions.json()).questions.length, 2)
   for (const route of [
     "/card/not-real",
     "/deck/not-real",

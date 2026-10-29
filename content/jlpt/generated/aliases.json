@@ -1,0 +1,242 @@
+[
+  {
+    "id": "jlpt-n5-hon",
+    "level": "n5",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n5-v-0e8f798dbf",
+    "targetLevel": "n5",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n5-yasumi",
+    "level": "n5",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n5-v-d4a1d27d3b",
+    "targetLevel": "n5",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n5-kaesu",
+    "level": "n5",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n5-v-8ea4b03d7f",
+    "targetLevel": "n5",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n5-kariru",
+    "level": "n5",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n5-v-8cd440a181",
+    "targetLevel": "n5",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n5-te-kudasai",
+    "level": "n5",
+    "skill": "bunpou",
+    "targetId": "jlpt-n5-g-te-kudasai",
+    "targetLevel": "n5",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n5-temo-ii",
+    "level": "n5",
+    "skill": "bunpou",
+    "targetId": "jlpt-n5-g-te-mo-ii",
+    "targetLevel": "n5",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n4-moushikomu",
+    "level": "n4",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n3-v-7b4c98a742",
+    "targetLevel": "n3",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n4-youi",
+    "level": "n4",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n4-v-cbb67e1b4d",
+    "targetLevel": "n4",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n4-keiken",
+    "level": "n4",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n4-v-9746b57413",
+    "targetLevel": "n4",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n4-hitsuyou",
+    "level": "n4",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n4-v-6907fc706d",
+    "targetLevel": "n4",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n4-ta-koto-ga-aru",
+    "level": "n4",
+    "skill": "bunpou",
+    "targetId": "jlpt-n5-g-ta-koto-ga-aru",
+    "targetLevel": "n5",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n4-nakereba-naranai",
+    "level": "n4",
+    "skill": "bunpou",
+    "targetId": "jlpt-n5-g-nakereba-naranai-nakute-wa-ikenai",
+    "targetLevel": "n5",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n3-kyoutsuu",
+    "level": "n3",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n3-v-d207be5049",
+    "targetLevel": "n3",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n3-henkou",
+    "level": "n3",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n3-v-136adbc360",
+    "targetLevel": "n3",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n3-kakunin",
+    "level": "n3",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n3-v-999fa2ee16",
+    "targetLevel": "n3",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n3-kouritsu",
+    "level": "n3",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n1-v-86c6a0755f",
+    "targetLevel": "n1",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n3-you-ni-suru",
+    "level": "n3",
+    "skill": "bunpou",
+    "targetId": "jlpt-n4-g-you-ni-suru",
+    "targetLevel": "n4",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n3-koto-ni-natte-iru",
+    "level": "n3",
+    "skill": "bunpou",
+    "targetId": "jlpt-n3-g-koto-ni-natte-iru",
+    "targetLevel": "n3",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n2-suishin",
+    "level": "n2",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n1-v-de03c669b2",
+    "targetLevel": "n1",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n2-futan",
+    "level": "n2",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n1-v-ea12ba0789",
+    "targetLevel": "n1",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n2-jittai",
+    "level": "n2",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n1-v-49b24ec6dc",
+    "targetLevel": "n1",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n2-haishi",
+    "level": "n2",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n1-v-58b8070ec3",
+    "targetLevel": "n1",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n2-nimo-kakawarazu",
+    "level": "n2",
+    "skill": "bunpou",
+    "targetId": "jlpt-n2-g-ni-mo-kakawarazu",
+    "targetLevel": "n2",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n2-ni-tomonatte",
+    "level": "n2",
+    "skill": "bunpou",
+    "targetId": "jlpt-n2-g-ni-tomonatte",
+    "targetLevel": "n2",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n1-secchuu",
+    "level": "n1",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n1-v-fddf3c6da3",
+    "targetLevel": "n1",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n1-sessoku",
+    "level": "n1",
+    "skill": "moji-goi",
+    "targetId": null,
+    "targetLevel": null,
+    "targetSkill": null
+  },
+  {
+    "id": "jlpt-n1-kanka",
+    "level": "n1",
+    "skill": "moji-goi",
+    "targetId": null,
+    "targetLevel": null,
+    "targetSkill": null
+  },
+  {
+    "id": "jlpt-n1-zesei",
+    "level": "n1",
+    "skill": "moji-goi",
+    "targetId": "jlpt-n1-v-39fb8eb64c",
+    "targetLevel": "n1",
+    "targetSkill": "moji-goi"
+  },
+  {
+    "id": "jlpt-n1-wo-yoginaku-sareru",
+    "level": "n1",
+    "skill": "bunpou",
+    "targetId": "jlpt-n1-g-o-yogi-naku-sareru",
+    "targetLevel": "n1",
+    "targetSkill": "bunpou"
+  },
+  {
+    "id": "jlpt-n1-made-mo-nai",
+    "level": "n1",
+    "skill": "bunpou",
+    "targetId": "jlpt-n1-g-made-mo-nai",
+    "targetLevel": "n1",
+    "targetSkill": "bunpou"
+  }
+]

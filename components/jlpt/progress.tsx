@@ -35,12 +35,12 @@ export function LevelProgress({
       <div className={styles.summary}>
         <p>
           <strong>
-            {studied}/{materials.length}
+            {summary.studied}/{materials.length}
           </strong>
           materials marked studied
         </p>
         <p>
-          <strong>{due}</strong>concepts due for review
+          <strong>{summary.due}</strong>concepts due for review
         </p>
         <p>
           <strong>{summary.accuracy === null ? "—" : `${summary.accuracy}%`}</strong>

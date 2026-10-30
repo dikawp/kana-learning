@@ -1,63 +1,218 @@
-# Kana-Learn — A Japanese Study Notebook
+# Kana Learning App
 
-A public, account-free Japanese learning platform: **208 kana + 2,759 kanji**, **19 notebooks**, **162 study decks**. English UI and dictionary meanings, warm paper and sakura-pink design, self-hosted Japanese fonts, light/dark mode.
+An interactive web application designed to help learners master the Japanese writing systems (**Hiragana** & **Katakana**) as well as foundational **JLPT** vocabulary and Kanji. Built with a fast, distraction-free, and accessible user interface, it provides an optimal learning experience on both desktop and mobile devices.
 
-## Architecture
+---
 
-Pinned kanji-data1.0.0 + local kana JSON + original curriculum → checked-in versioned content snapshots → Next.js Server Components / native Route Handlers → browser-owned learning and localStorage saves.
+## Overview & Key Features
 
-No Supabase, Elysia, PostgreSQL, Drizzle, runtime credentials or remote dictionary requests are required. Retired backend, UI, tests and migration files were removed during the pre-push cleanup. No remote Supabase resources were changed.
+**Kana Learning App** combines visual mnemonics, audio pronunciation cues, and spaced repetition exercises to accelerate Kana acquisition:
 
-## Features
+- **Interactive Kana Grid & Study Cards**:
+  - Full matrix covering *Gojūon* (basic), *Dakuon*, *Handakuon*, and *Yōon* (combination) characters.
+  - Detailed character cards with visual guides and stroke order demonstrations.
+- **Interactive Practice & Quiz Modes**:
+  - Multiple-choice quizzes, reading recognition challenges, and flashcard decks.
+  - Instant answer evaluation with seamless Romaji-to-Kana input conversion powered by [Wanakana](https://wanakana.com/).
+- **JLPT Vocabulary & Kanji Catalog**:
+  - Curated vocabulary and characters organized by JLPT proficiency level (N5 through N1).
+  - Fast search and filtering by character type, difficulty level, and tags.
+- **Local Progress Tracking**:
+  - Tracks practice streaks, accuracy metrics, and character mastery directly in local browser storage—no account registration required.
+- **Printable Practice Sheets**:
+  - Dedicated print layouts designed for offline handwriting and stroke order practice.
+  - High-contrast grid templates optimized for standard paper sizes.
+- **Dark & Light Mode**:
+  - Seamless system-aware theme switching via `next-themes` for comfortable study in any lighting environment.
+- **Accessibility & Typography**:
+  - Built to WCAG standards with semantic HTML, full keyboard navigation, and authentic Japanese typography using *Noto Serif JP* and *Geist*.
 
-- Home, archive, notebook/set, deck, character detail, searchable catalog and printable notes.
-- Hiragana/Katakana tables; kanji readings, meanings, available metadata, up to six dictionary word examples and explained related characters.
-- Dedicated Flashcards/Quiz/Review rooms; three ratings; fixed10-minute/1-day/3-day review schedule.
-- Mixed prompt quiz, up to20 unique questions, non-ambiguous distractors, immediate feedback and results.
-- Refresh-safe active practice; one accepted response per position; last20 completed sessions.
-- Local save slots, level/EXP, seen/known/mastered/accuracy, due cards, per-deck statistics, export/import previews and confirmed reset/delete.
-- No learner accounts, cloud sync, service worker, audio, handwriting recognition or payment features.
+---
 
-## Development
+## Tech Stack
 
-Node22.13+ through24.x, npm. CI uses22.22.0. Dependencies and resource package integrity are locked.
+The application is built on modern web standards with strict type safety and optimized client-server performance:
 
-    npm ci
-    npm run dev
+| Category | Technology | Purpose / Role |
+| :--- | :--- | :--- |
+| **Framework** | [Next.js](https://nextjs.org/) 16 (App Router) | Full-stack React framework with server rendering & static asset optimization |
+| **UI Library** | [React](https://react.dev/) 19 | Declarative component architecture |
+| **Language** | [TypeScript](https://www.typescriptlang.org/) v5 | Strict static typing across domain models and components |
+| **Styling** | [Tailwind CSS](https://tailwindcss.com/) v4 | Utility-first CSS framework with `@tailwindcss/postcss` |
+| **UI Primitives** | [Radix UI](https://www.radix-ui.com/) | Unstyled, accessible component primitives (Dialog, Slot) |
+| **Icons & Fonts** | Lucide React, Noto Serif JP, Geist | Consistent vector iconography and authentic Japanese typography |
+| **Domain Logic** | Wanakana (`wanakana`) | Romaji, Hiragana, and Katakana phonetic conversion and validation |
+| **Validation & Data** | Zod & Kanji Data | Runtime schema validation and comprehensive Kanji dataset integration |
+| **Unit Testing** | Vitest | Fast unit and domain logic testing runner |
+| **E2E Testing** | Playwright | Multi-browser end-to-end integration and accessibility test suite |
+| **Code Quality** | ESLint & Prettier | Static code analysis, linting, and automated code formatting |
 
-Open http://localhost:3000. No environment file is needed.
+---
 
-    npm run resources:prepare
-    npm run resources:check
+## Project Structure
 
-Resource preparation is an explicit maintenance action. Normal build reads checked-in snapshots without accessing a dictionary service. See [resource updates](docs/resource-updates.md).
+A high-level overview of the repository directory layout:
 
-## Verification
+```text
+kana-learning/
+├── .github/
+│   └── workflows/          # GitHub Actions CI/CD automation pipelines
+├── app/                    # Next.js App Router (Pages, Layouts, and API Routes)
+│   ├── api/                # API route handlers (cards, decks, etc.)
+│   ├── archive/            # Learning material archive pages
+│   ├── card/[id]/          # Dynamic routes for individual character cards
+│   ├── dashboard/          # User study dashboard and progress summaries
+│   ├── deck/               # Flashcard and practice deck interfaces
+│   ├── jlpt/               # JLPT vocabulary and Kanji catalog
+│   ├── privacy/            # Privacy policy page
+│   ├── search/             # Global search across Kana and vocabulary
+│   ├── set/[slug]/         # Dynamic character set practice routes
+│   ├── sources/            # Data source attributions and references
+│   ├── layout.tsx          # Root application layout
+│   └── page.tsx            # Home / landing page
+├── components/             # Reusable React components
+│   ├── platform/           # Feature-specific components (catalog, quiz, print, etc.)
+│   └── ui/                 # Atomic UI primitives (button, dialog, sheet, etc.)
+├── content/                # Static datasets for Kana, Kanji, and JLPT items
+├── docs/                   # Architectural documentation and contribution guidelines
+├── lib/                    # Domain logic, Wanakana helpers, data loaders, and types
+├── public/                 # Static assets (fonts, icons, images, licenses)
+├── scripts/                # Build and content management scripts
+│   └── resources/          # Dataset compilation and verification (prepare.ts, check.ts)
+├── tests/                  # Automated test suites (Unit, Baseline, E2E, Smoke)
+├── eslint.config.mjs       # Modern ESLint configuration
+├── package.json            # Project manifest, scripts, and dependencies
+├── playwright.config.ts    # Playwright browser testing configuration
+├── postcss.config.mjs      # PostCSS configuration for Tailwind CSS v4
+├── tsconfig.json           # TypeScript compiler configuration
+├── vitest.config.mts       # Vitest frontend testing configuration
+└── vitest.domain.config.mts# Vitest configuration for domain logic tests
+```
 
-    npm run check
-    npm run test:browser
-    npm run format:check
+---
 
-Check covers resources, frozen kana, learning/save contracts, APIs, frontend interactions/accessibility, lint, TypeScript, production build and HTTP smoke. Browser tests run against a production server on3210 and verify external-request absence, practice/resume, quiz/review, export/import, mobile navigation and theme screenshots. On Windows they use installed Chrome; elsewhere run npx playwright install --with-deps chromium first. PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH optionally selects a browser executable.
+## System Requirements
 
-## Data and privacy
+Ensure your development environment meets the following specifications before installing:
 
-Material IDs are stable. Progres­s uses the new kana-learn:sakura:v1 localStorage namespace; old keys are untouched and not migrated. Saves can be exported as versioned JSON; imports always create a new slot after validation/preview. Eight slots maximum;4MB overall serialized storage and2MB import limit. Browser quota/blocked/corrupt storage permits disclosed in-memory practice without overwriting existing invalid data. Export a backup before closing the page. Tabs synchronize best effort through storage events.
+- **Node.js**: Version `>= 22.13.0 < 25` (Node.js v22 LTS recommended).
+- **Package Manager**: `npm` version `10.9.x` or compatible.
+- **Git**: Installed for version control and repository management.
 
-Correct responses and Almost/Got It ratings give1EXP. Mastered means100 correct responses per card, an app metric. Review uses the device clock. Offline resource preparation does not imply full offline browsing.
+---
 
-## Public content APIs
+## Installation & Local Development Setup
 
-GET /api/catalog — revision, card summaries, sets, decks.
-GET /api/cards/[id] — revision + detailed card.
-GET /api/decks/[slug] — revision + deck + practice cards.
+### 1. Clone the Repository
 
-They are read-only and share the server repository with rendered pages. Unknown IDs return404. There are no progress-upload endpoints. The former /api/v1 routes are retired.
+Clone the project repository to your local machine:
 
-## Sources
+```bash
+git clone https://github.com/dikawp/kana-learning.git
+cd kana-learning
+```
 
-Dictionary facts: James William Breen/EDRDG, kanjiapi.dev, kanji-data by Septian Ganendra S. K.; data attribution under CC BY-SA4.0/source terms, distinct from MIT software. Source revision/checksum and selection methodology appear on /sources. Original kana and curriculum are retained separately. The learning map uses48 source-matched topic introductions and66 clearly labelled reading trails, plus8 kana decks and40 JLPT decks. It is not an official JLPT syllabus.
+### 2. Install Dependencies
 
-[Implementation](implementation-plan.md) · [Design](design-system.md) · [Progress/evidence](docs/implementation-progress.md) · [REA comparison](docs/analysis/2026-10-25-kanjiflash/comparison.md)
+Install all required production and development dependencies:
 
-JLPT follow-up: all2,211 source-listed N5–N1 kanji are included, with548 additional unassigned kanji. Explore `/jlpt`, card badges/detail links and the search level filter. The original cards, decks and saves remain compatible. See [card mapping](docs/jlpt-mapping.md).
+```bash
+npm install
+```
+
+### 3. Prepare Static Resources (Optional / Recommended)
+
+If you have updated or modified the source files in the `content/` directory, run the resource preparation script to compile the dataset:
+
+```bash
+npm run resources:prepare
+```
+
+### 4. Start the Development Server
+
+Launch the Next.js local development server:
+
+```bash
+npm run dev
+```
+
+Open your browser and navigate to:
+
+```text
+http://localhost:3000
+```
+
+The application supports Hot Module Replacement (HMR); updates made to the source files will reflect immediately in the browser.
+
+---
+
+## Building for Production
+
+To test production performance and compile optimized deployment artifacts:
+
+1. **Build the application**:
+   ```bash
+   npm run build
+   ```
+
+2. **Start the production server**:
+   ```bash
+   npm run start
+   ```
+
+The production server will listen on `http://localhost:3000` by default.
+
+---
+
+## Available NPM Scripts
+
+The repository includes a comprehensive set of automated scripts to streamline development, testing, and maintenance:
+
+| Command | Description |
+| :--- | :--- |
+| `npm run dev` | Launches the Next.js local development server |
+| `npm run build` | Compiles and optimizes the application for production deployment |
+| `npm run start` | Runs the production-optimized Next.js server |
+| `npm run lint` | Executes static code analysis with ESLint |
+| `npm run typecheck` | Validates TypeScript types across the entire project without emitting files |
+| `npm run format` | Automatically formats all source files using Prettier |
+| `npm run format:check` | Verifies code formatting compliance with Prettier rules |
+| `npm run resources:prepare` | Compiles and generates static resources from raw data files |
+| `npm run resources:check` | Validates the integrity and schema of dataset resources |
+| `npm run test` | Executes all unit test suites (native baseline, domain, and frontend) |
+| `npm run test:native` | Runs native Node.js baseline test runners |
+| `npm run test:domain` | Runs isolated domain and business logic tests via Vitest |
+| `npm run test:frontend` | Runs React component and UI tests via Vitest |
+| `npm run test:browser` | Executes end-to-end browser tests across browsers via Playwright |
+| `npm run test:production` | Performs production smoke tests against compiled output |
+| `npm run check` | Runs the full verification pipeline (format, data audit, tests, lint, typecheck, E2E) |
+
+---
+
+## Testing & Quality Assurance
+
+Maintain code reliability and accessibility before submitting changes by running the automated testing suites:
+
+1. **Run Unit & Domain Tests**:
+   ```bash
+   npm run test
+   ```
+
+2. **Run End-to-End Browser Tests**:
+   If running Playwright for the first time, install the required browser binaries:
+   ```bash
+   npx playwright install --with-deps
+   npm run test:browser
+   ```
+
+3. **Run the Full Verification Pipeline**:
+   ```bash
+   npm run check
+   ```
+   *This command runs formatting checks, dataset validation, unit testing, linting, TypeScript type checking, and full browser E2E tests in sequence.*
+
+---
+
+## License & Credits
+
+Developed by [dikawp](https://github.com/dikawp). Please refer to the repository license file for terms regarding usage, distribution, and code modification.

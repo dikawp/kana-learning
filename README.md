@@ -9,7 +9,7 @@ An interactive web application designed to help learners master the Japanese wri
 **Kana Learning App** combines visual mnemonics, audio pronunciation cues, and spaced repetition exercises to accelerate Kana acquisition:
 
 - **Interactive Kana Grid & Study Cards**:
-  - Full matrix covering *Gojūon* (basic), *Dakuon*, *Handakuon*, and *Yōon* (combination) characters.
+  - Full matrix covering _Gojūon_ (basic), _Dakuon_, _Handakuon_, and _Yōon_ (combination) characters.
   - Detailed character cards with visual guides and stroke order demonstrations.
 - **Interactive Practice & Quiz Modes**:
   - Multiple-choice quizzes, reading recognition challenges, and flashcard decks.
@@ -25,7 +25,7 @@ An interactive web application designed to help learners master the Japanese wri
 - **Dark & Light Mode**:
   - Seamless system-aware theme switching via `next-themes` for comfortable study in any lighting environment.
 - **Accessibility & Typography**:
-  - Built to WCAG standards with semantic HTML, full keyboard navigation, and authentic Japanese typography using *Noto Serif JP* and *Geist*.
+  - Built to WCAG standards with semantic HTML, full keyboard navigation, and authentic Japanese typography using _Noto Serif JP_ and _Geist_.
 
 ---
 
@@ -33,19 +33,19 @@ An interactive web application designed to help learners master the Japanese wri
 
 The application is built on modern web standards with strict type safety and optimized client-server performance:
 
-| Category | Technology | Purpose / Role |
-| :--- | :--- | :--- |
-| **Framework** | [Next.js](https://nextjs.org/) 16 (App Router) | Full-stack React framework with server rendering & static asset optimization |
-| **UI Library** | [React](https://react.dev/) 19 | Declarative component architecture |
-| **Language** | [TypeScript](https://www.typescriptlang.org/) v5 | Strict static typing across domain models and components |
-| **Styling** | [Tailwind CSS](https://tailwindcss.com/) v4 | Utility-first CSS framework with `@tailwindcss/postcss` |
-| **UI Primitives** | [Radix UI](https://www.radix-ui.com/) | Unstyled, accessible component primitives (Dialog, Slot) |
-| **Icons & Fonts** | Lucide React, Noto Serif JP, Geist | Consistent vector iconography and authentic Japanese typography |
-| **Domain Logic** | Wanakana (`wanakana`) | Romaji, Hiragana, and Katakana phonetic conversion and validation |
-| **Validation & Data** | Zod & Kanji Data | Runtime schema validation and comprehensive Kanji dataset integration |
-| **Unit Testing** | Vitest | Fast unit and domain logic testing runner |
-| **E2E Testing** | Playwright | Multi-browser end-to-end integration and accessibility test suite |
-| **Code Quality** | ESLint & Prettier | Static code analysis, linting, and automated code formatting |
+| Category              | Technology                                       | Purpose / Role                                                               |
+| :-------------------- | :----------------------------------------------- | :--------------------------------------------------------------------------- |
+| **Framework**         | [Next.js](https://nextjs.org/) 16 (App Router)   | Full-stack React framework with server rendering & static asset optimization |
+| **UI Library**        | [React](https://react.dev/) 19                   | Declarative component architecture                                           |
+| **Language**          | [TypeScript](https://www.typescriptlang.org/) v5 | Strict static typing across domain models and components                     |
+| **Styling**           | [Tailwind CSS](https://tailwindcss.com/) v4      | Utility-first CSS framework with `@tailwindcss/postcss`                      |
+| **UI Primitives**     | [Radix UI](https://www.radix-ui.com/)            | Unstyled, accessible component primitives (Dialog, Slot)                     |
+| **Icons & Fonts**     | Lucide React, Noto Serif JP, Geist               | Consistent vector iconography and authentic Japanese typography              |
+| **Domain Logic**      | Wanakana (`wanakana`)                            | Romaji, Hiragana, and Katakana phonetic conversion and validation            |
+| **Validation & Data** | Zod & Kanji Data                                 | Runtime schema validation and comprehensive Kanji dataset integration        |
+| **Unit Testing**      | Vitest                                           | Fast unit and domain logic testing runner                                    |
+| **E2E Testing**       | Playwright                                       | Multi-browser end-to-end integration and accessibility test suite            |
+| **Code Quality**      | ESLint & Prettier                                | Static code analysis, linting, and automated code formatting                 |
 
 ---
 
@@ -151,6 +151,7 @@ The application supports Hot Module Replacement (HMR); updates made to the sourc
 To test production performance and compile optimized deployment artifacts:
 
 1. **Build the application**:
+
    ```bash
    npm run build
    ```
@@ -168,24 +169,24 @@ The production server will listen on `http://localhost:3000` by default.
 
 The repository includes a comprehensive set of automated scripts to streamline development, testing, and maintenance:
 
-| Command | Description |
-| :--- | :--- |
-| `npm run dev` | Launches the Next.js local development server |
-| `npm run build` | Compiles and optimizes the application for production deployment |
-| `npm run start` | Runs the production-optimized Next.js server |
-| `npm run lint` | Executes static code analysis with ESLint |
-| `npm run typecheck` | Validates TypeScript types across the entire project without emitting files |
-| `npm run format` | Automatically formats all source files using Prettier |
-| `npm run format:check` | Verifies code formatting compliance with Prettier rules |
-| `npm run resources:prepare` | Compiles and generates static resources from raw data files |
-| `npm run resources:check` | Validates the integrity and schema of dataset resources |
-| `npm run test` | Executes all unit test suites (native baseline, domain, and frontend) |
-| `npm run test:native` | Runs native Node.js baseline test runners |
-| `npm run test:domain` | Runs isolated domain and business logic tests via Vitest |
-| `npm run test:frontend` | Runs React component and UI tests via Vitest |
-| `npm run test:browser` | Executes end-to-end browser tests across browsers via Playwright |
-| `npm run test:production` | Performs production smoke tests against compiled output |
-| `npm run check` | Runs the full verification pipeline (format, data audit, tests, lint, typecheck, E2E) |
+| Command                     | Description                                                                           |
+| :-------------------------- | :------------------------------------------------------------------------------------ |
+| `npm run dev`               | Launches the Next.js local development server                                         |
+| `npm run build`             | Compiles and optimizes the application for production deployment                      |
+| `npm run start`             | Runs the production-optimized Next.js server                                          |
+| `npm run lint`              | Executes static code analysis with ESLint                                             |
+| `npm run typecheck`         | Validates TypeScript types across the entire project without emitting files           |
+| `npm run format`            | Automatically formats all source files using Prettier                                 |
+| `npm run format:check`      | Verifies code formatting compliance with Prettier rules                               |
+| `npm run resources:prepare` | Compiles and generates static resources from raw data files                           |
+| `npm run resources:check`   | Validates the integrity and schema of dataset resources                               |
+| `npm run test`              | Executes all unit test suites (native baseline, domain, and frontend)                 |
+| `npm run test:native`       | Runs native Node.js baseline test runners                                             |
+| `npm run test:domain`       | Runs isolated domain and business logic tests via Vitest                              |
+| `npm run test:frontend`     | Runs React component and UI tests via Vitest                                          |
+| `npm run test:browser`      | Executes end-to-end browser tests across browsers via Playwright                      |
+| `npm run test:production`   | Performs production smoke tests against compiled output                               |
+| `npm run check`             | Runs the full verification pipeline (format, data audit, tests, lint, typecheck, E2E) |
 
 ---
 
@@ -194,12 +195,14 @@ The repository includes a comprehensive set of automated scripts to streamline d
 Maintain code reliability and accessibility before submitting changes by running the automated testing suites:
 
 1. **Run Unit & Domain Tests**:
+
    ```bash
    npm run test
    ```
 
 2. **Run End-to-End Browser Tests**:
    If running Playwright for the first time, install the required browser binaries:
+
    ```bash
    npx playwright install --with-deps
    npm run test:browser
@@ -209,7 +212,7 @@ Maintain code reliability and accessibility before submitting changes by running
    ```bash
    npm run check
    ```
-   *This command runs formatting checks, dataset validation, unit testing, linting, TypeScript type checking, and full browser E2E tests in sequence.*
+   _This command runs formatting checks, dataset validation, unit testing, linting, TypeScript type checking, and full browser E2E tests in sequence._
 
 ---
 
